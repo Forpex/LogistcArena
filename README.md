@@ -9,4 +9,5 @@ We just started, i dont know yet. Maybe there is an issue that suits you and is 
 # How to build and run
 
 javac main.java
+
 java main
