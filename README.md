@@ -8,6 +8,6 @@ We just started, i dont know yet. Maybe there is an issue that suits you and is 
 
 # How to build and run
 
-javac main.java
+javac LogisticArena.java
 
-java main
+java LogisticArena SinglePlayer
