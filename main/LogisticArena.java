@@ -1,7 +1,7 @@
 /**
  * 
  */
-package java.main;
+package main;
 
 
 

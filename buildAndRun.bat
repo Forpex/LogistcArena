@@ -61,7 +61,7 @@ if ERRORLEVEL 1 (
     exit /b
 )
 
-java java/main/LogisticArena
+java main/LogisticArena
 
 echo.
 pause
