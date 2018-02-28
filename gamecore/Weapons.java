@@ -8,9 +8,10 @@ package gamecore;
  *
  */
 public enum Weapons {
-	rocket,	
-	lightning,	
-	rail;
+	machineGun,
+	railGun,	
+	lightningGun,
+	rocketLauncher;
 	
 	static final int size = Weapons.values().length;
 }

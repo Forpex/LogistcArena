@@ -4,6 +4,7 @@
 package gamecore;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import controls.Client;
 import controls.Session;
@@ -28,17 +29,23 @@ public class Game {
 	
 	Settings settings;
 	
-	public Game(Session s) {
-		clients = s.getClients();
+	public Game(Session s, Graph g) {
+
+		this.graph = g;
 		
+		this.clients = s.getClients();
+		
+		for (Iterator iterator = clients.iterator(); iterator.hasNext();) {
+			Client client = (Client) iterator.next();
+			this.avatars.add(new Avatar(client,g.getRandomSpawnPoint()));
+		}
+		
+		//TODO
 	}
 
-	static Game createSimpleTestGame() {
-		Session s = new Session(2);
-		Game r = new Game(s);
-		
-		return r;
-	}
+	
+
+	
 		
 	
 	

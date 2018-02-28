@@ -3,7 +3,9 @@
  */
 package main;
 
-
+import controls.Session;
+import gamecore.Game;
+import gamecore.graph.Graph;
 
 /**
  * @author Andreas Stock
@@ -16,9 +18,17 @@ public class LogisticArena {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("hallo welt!");
+		System.out.println("-------------------\nWelcome to LogisticArena\n-------------------");
 		//stub
-
+		createSimpleTestGame();
+	}
+	
+	static Game createSimpleTestGame() {
+		Session s = new Session(2);
+		Graph g = new Graph();
+		Game r = new Game(s, g);
+		
+		return r;
 	}
 
 }

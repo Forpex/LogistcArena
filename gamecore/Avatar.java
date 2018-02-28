@@ -3,6 +3,8 @@
  */
 package gamecore;
 
+import java.util.ArrayList;
+
 import controls.Client;
 import gamecore.graph.Position;
 import gfx.Displayable;
@@ -15,6 +17,7 @@ public class Avatar implements Displayable{
 	private static final int STAYING = 0;
 	
 	Position position;
+
 	public Boolean isStaying() {
 		return chosenPath<=0;
 	}
@@ -32,9 +35,21 @@ public class Avatar implements Displayable{
 	//properties
 	int health = 125;
 	int armor = 0;
-	int[] ammo = new int[Weapons.size];
+	ArrayList<Weapon> weapons = giveAllWeaponsWithoutAmmo();
 	
 	Client client;
 	
+	public Avatar(Client client, Position startingPointOnGraph) {
+		this.client = client;
+		this.position = startingPointOnGraph;
+		
+	}
+	
+	public static ArrayList<Weapon> giveAllWeaponsWithoutAmmo() {
+		// TODO Auto-generated method stub
+		//call constructors of all weapons and then add them. 
+		
+		return null;
+	}
 	
 }

@@ -16,4 +16,8 @@ public class Graph {
 	//TODO constructor that builds a default test graph
 	//TODO constructor that reads from *.lag
 	
+	
+	public Position getRandomSpawnPoint() {
+		return allNodes.get((int)Math.random()*allNodes.size());
+	}
 }
