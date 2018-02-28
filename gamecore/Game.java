@@ -35,9 +35,8 @@ public class Game {
 		
 		this.clients = s.getClients();
 		
-		for (Iterator iterator = clients.iterator(); iterator.hasNext();) {
-			Client client = (Client) iterator.next();
-			this.avatars.add(new Avatar(client,g.getRandomSpawnPoint()));
+		for (Client client : clients) {
+			this.avatars.add(new Avatar(this, client,g.getRandomSpawnPoint()));
 		}
 		
 		//TODO

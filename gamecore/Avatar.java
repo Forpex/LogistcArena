@@ -14,12 +14,12 @@ import gfx.Displayable;
  *
  */
 public class Avatar implements Displayable{
-	private static final int STAYING = 0;
+	private static final int STAYING = -1;
 	
 	Position position;
 
 	public Boolean isStaying() {
-		return chosenPath<=0;
+		return chosenPath<=STAYING;
 	}
 	
 	/**
@@ -38,12 +38,19 @@ public class Avatar implements Displayable{
 	ArrayList<Weapon> weapons = Weapon.allWeapons();
 	
 	Client client;
+
+	private Game game;
 	
-	public Avatar(Client client, Position startingPointOnGraph) {
+	public Avatar(Game game, Client client, Position startingPointOnGraph) {
 		this.client = client;
 		this.position = startingPointOnGraph;
+		this.game = game;
 	}
 
+	/**
+	 * @param damageAmount
+	 * @param sourceID id of client controling the avatar. if id == -1 its the world killing it!
+	 */
 	public void getDamaged(int damageAmount, int sourceID) {
 		//int damageToBeDone = damageAmount;
 		int armorDamage = damageAmount / 3 * 2;

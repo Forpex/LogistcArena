@@ -15,7 +15,7 @@ public class Intel {
 	
 	Avatar self;
 	
-	ArrayList<Avatar> enemyAvatars;
+	ArrayList<Avatar> visibleEnemyAvatars;
 	
 	Graph graph;
 	
@@ -32,7 +32,7 @@ public class Intel {
 			Time currentTime, Settings settings) {
 		super();
 		this.self = self;
-		this.enemyAvatars = enemyAvatars;
+		this.visibleEnemyAvatars = enemyAvatars;
 		this.graph = graph;
 		this.visibleItems = visibleItems;
 		this.currentScore = currentScore;
