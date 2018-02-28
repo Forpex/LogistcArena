@@ -6,6 +6,7 @@ package gamecore;
 import java.util.ArrayList;
 
 import controls.Client;
+import controls.Session;
 import gamecore.graph.Graph;
 
 /**
@@ -25,9 +26,19 @@ public class Game {
 	
 	Time currentTime;
 	
-	
-	
 	Settings settings;
+	
+	public Game(Session s) {
+		clients = s.getClients();
+		
+	}
+
+	static Game createSimpleTestGame() {
+		Session s = new Session(2);
+		Game r = new Game(s);
+		
+		return r;
+	}
 		
 	
 	

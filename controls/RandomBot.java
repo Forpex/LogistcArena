@@ -10,5 +10,9 @@ package controls;
  *
  */
 public class RandomBot extends Client {
+
+	public RandomBot(int id) {
+		super("RandomBot",id);
+	}
 	
 }

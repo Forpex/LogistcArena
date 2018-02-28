@@ -19,7 +19,5 @@ public class ItemMegaHealth extends Item {
 	public void applyBonusTo(Avatar a) {
 		a.health = Math.min(a.health+100,Settings.MAXHEALTH);		
 	}
-
-	
 	
 }
