@@ -33,23 +33,44 @@ public class Avatar implements Displayable{
 	
 	
 	//properties
-	int health = 125;
-	int armor = 0;
-	ArrayList<Weapon> weapons = giveAllWeaponsWithoutAmmo();
+	int health = Settings.START_HEALTH;
+	int armor = Settings.START_ARMOR;
+	ArrayList<Weapon> weapons = Weapon.allWeapons();
 	
 	Client client;
 	
 	public Avatar(Client client, Position startingPointOnGraph) {
 		this.client = client;
 		this.position = startingPointOnGraph;
+	}
+
+	public void getDamaged(int damageAmount, int sourceID) {
+		//int damageToBeDone = damageAmount;
+		int armorDamage = damageAmount / 3 * 2;
+		armor -= armorDamage; //apply 2/3 of damage to armor
+		health -= damageAmount - armorDamage; //apply 1/3 to health
+		if (armor < 0) {
+			health += armor; //carry over damage from armor to heath if armor is not sufficient.
+		}
 		
+		
+		if (health<=0) {
+			die(sourceID);
+		}
+	}
+
+	private void die(int sourceID) {
+		if (Settings.isDebugOutputEnabled) {
+			System.out.print("Avatar of Client #" + client.getID());
+			if (sourceID >= 0) {
+				System.out.println(" gotKilled by Avatar of Client #" + sourceID);
+			} else {
+				System.out.println(" died!");
+			}
+			
+		}
 	}
 	
-	public static ArrayList<Weapon> giveAllWeaponsWithoutAmmo() {
-		// TODO Auto-generated method stub
-		//call constructors of all weapons and then add them. 
-		
-		return null;
-	}
+	
 	
 }

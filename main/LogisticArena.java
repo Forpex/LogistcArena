@@ -5,6 +5,7 @@ package main;
 
 import controls.Session;
 import gamecore.Game;
+import gamecore.Settings;
 import gamecore.graph.Graph;
 
 /**
@@ -20,6 +21,7 @@ public class LogisticArena {
 	public static void main(String[] args) {
 		System.out.println("-------------------\nWelcome to LogisticArena\n-------------------");
 		//stub
+		Settings.isDebugOutputEnabled = true;
 		createSimpleTestGame();
 	}
 	

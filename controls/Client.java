@@ -35,4 +35,8 @@ public abstract class Client {
 	}
 	
 	public abstract void post(Intel intel);
+
+	public int getID() {
+		return id;
+	}
 }
