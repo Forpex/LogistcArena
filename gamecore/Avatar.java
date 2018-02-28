@@ -70,6 +70,11 @@ public class Avatar implements Displayable{
 			
 		}
 	}
+
+	public int distanceTo(Avatar receiver) {
+		
+		return this.position.distance(receiver.position, false);
+	}
 	
 	
 	

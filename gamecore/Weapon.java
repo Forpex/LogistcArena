@@ -21,11 +21,11 @@ public enum Weapon {
 	}
 	
 	
-	void damageAvatar(Avatar receiver, Avatar by) {
-		//if (canShoot(by.distanceTo(receiver))) {
+	void damageAvatar(Avatar receiver, Avatar dealer) {
+		if (canShoot(dealer.distanceTo(receiver))) {
 			ammo = (ammo > 0) ? (ammo--) : (null);
-			receiver.getDamaged(dps, by.client.getID());
-		//}
+			receiver.getDamaged(dps, dealer.client.getID());
+		}
 	}
 	
 	Boolean canShoot(int distance) {
