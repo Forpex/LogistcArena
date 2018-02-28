@@ -3,7 +3,6 @@
  */
 package gamecore;
 
-import java.awt.geom.Point2D;
 
 import gui.Displayable;
 
@@ -13,10 +12,6 @@ import gui.Displayable;
  */
 public class Time implements Displayable{
 
-	@Override
-	public void draw(Point2D center, double scale) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }

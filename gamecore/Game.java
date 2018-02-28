@@ -24,8 +24,11 @@ public class Game {
 	Score currentScore = new Score(avatars.size());
 	
 	Time currentTime;
-	Time endTime;
 	
+	
+	
+	Settings settings;
+		
 	
 	
 }

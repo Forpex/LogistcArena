@@ -3,12 +3,13 @@
  */
 package gamecore;
 
+import gui.Displayable;
 
 /**
  * @author Andreas Stock
  *
  */
-public class Score{
+public class Score implements Displayable{
 
 	int[]  values;
 	int size = 0;
