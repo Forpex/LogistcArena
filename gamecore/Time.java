@@ -4,7 +4,7 @@
 package gamecore;
 
 
-import gui.Displayable;
+import gfx.Displayable;
 
 /**
  * @author Andreas Stock

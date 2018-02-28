@@ -1,7 +1,7 @@
 /**
  * 
  */
-package graph;
+package gamecore.graph;
 
 import java.util.ArrayList;
 

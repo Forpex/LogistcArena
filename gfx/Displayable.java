@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gui;
+package gfx;
 
 //import java.awt.geom.Point2D;
 
@@ -13,5 +13,6 @@ package gui;
 public interface Displayable {
 
 	//void draw(Point2D center, double scale);
+	
 	//more?
 }

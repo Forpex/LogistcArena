@@ -1,7 +1,11 @@
 /**
  * 
  */
-package graph;
+package gamecore.graph;
+
+import java.util.ArrayList;
+
+import gamecore.Avatar;
 
 /**
  * @author Andreas Stock
@@ -9,6 +13,7 @@ package graph;
  */
 public interface Position {
 
+	ArrayList<Avatar> avatars = null;
 	public int distance(Position p, Boolean justIntel);
 	public Position next();
 	public Position next(Edge n);

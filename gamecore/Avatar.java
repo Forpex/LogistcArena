@@ -3,15 +3,15 @@
  */
 package gamecore;
 
-import graph.Position;
-
 import controls.Client;
+import gamecore.graph.Position;
+import gfx.Displayable;
 
 /**
  * @author Andreas Stock
  *
  */
-public class Avatar {
+public class Avatar implements Displayable{
 	private static final int STAYING = -1;
 	
 	Position position;

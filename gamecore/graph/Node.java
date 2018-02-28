@@ -1,16 +1,18 @@
 /**
  * 
  */
-package graph;
+package gamecore.graph;
 
 import java.util.ArrayList;
+
+import gfx.Displayable;
 
 
 /**
  * @author Andreas Stock
  *
  */
-public class Node implements Position {
+public class Node implements Position ,Displayable {
 
 	ArrayList<Edge> edges;
 	
@@ -29,7 +31,6 @@ public class Node implements Position {
 	 */
 	@Override
 	public Position next() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 
@@ -62,7 +63,6 @@ public class Node implements Position {
 	 */
 	@Override
 	public Position moveback() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 

@@ -1,10 +1,12 @@
-package graph;
+package gamecore.graph;
 
 import java.util.ArrayList;
 
+import gfx.Displayable;
 
 
-public class Edge{
+
+public class Edge implements Displayable{
 	
 	//basic Graph architecture
 	ArrayList<Step> steps = new ArrayList<>(0);

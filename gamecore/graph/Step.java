@@ -1,14 +1,15 @@
 /**
  * 
  */
-package graph;
+package gamecore.graph;
 
+import gfx.Displayable;
 
 /**
  * @author Andreas Stock
  *
  */
-public class Step implements Position {
+public class Step implements Position, Displayable {
 	
 	Edge mother;
 	Position next;
