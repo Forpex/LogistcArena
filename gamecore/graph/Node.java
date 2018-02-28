@@ -37,7 +37,6 @@ public class Node implements Position ,Displayable {
 	/* (non-Javadoc)
 	 * @see graph.Position#next(graph.Edge)
 	 */
-	@Override
 	public Position next(Edge e) {
 		if (edges.contains(e)
 				&& edges.size() != 0) {
@@ -58,12 +57,13 @@ public class Node implements Position ,Displayable {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see graph.Position#moveback()
-	 */
 	@Override
-	public Position moveback() {
-		return this;
+	public Position next(int chosenPathID) {
+		if (chosenPathID < 0) {
+			return next();
+		}
+		return next(edges.get(chosenPathID % edges.size()));	
+		
 	}
 
 	@Override

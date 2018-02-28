@@ -12,7 +12,7 @@ import gfx.Displayable;
  *
  */
 public class Avatar implements Displayable{
-	private static final int STAYING = -1;
+	private static final int STAYING = 0;
 	
 	Position position;
 	public Boolean isStaying() {

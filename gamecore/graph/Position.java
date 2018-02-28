@@ -16,8 +16,7 @@ public interface Position {
 	ArrayList<Avatar> avatars = null;
 	public int distance(Position p, Boolean justIntel);
 	public Position next();
-	public Position next(Edge n);
-	public Position moveback();
+	public Position next(int chosenPathID);
 	public int getNumPathChoices();
 	
 }

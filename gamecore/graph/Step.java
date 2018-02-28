@@ -14,6 +14,7 @@ public class Step implements Position, Displayable {
 	Edge mother;
 	Position next;
 	Position previous = next;
+	Boolean forward = true;
 	
 
 	/* (non-Javadoc)
@@ -30,23 +31,28 @@ public class Step implements Position, Displayable {
 	 */
 	@Override
 	public Position next() {
-		return next;
+		if (forward) {
+			return next;
+		} else {
+			return previous;
+		}
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see graph.Position#next(graph.Edge)
 	 */
 	@Override
-	public Position next(Edge n) {
-		return next;
-	}
-
-	/* (non-Javadoc)
-	 * @see graph.Position#moveback()
-	 */
-	@Override
-	public Position moveback() {
-		return previous;
+	public Position next(int chosenPathID) {
+		if (chosenPathID > 0) {
+			if (mother.bidirectional
+					&& chosenPathID == 2) {
+				forward = !forward;
+			} 
+			return next();
+		} else {
+			return this;
+		}
 	}
 
 	/* (non-Javadoc)
