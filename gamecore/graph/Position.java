@@ -18,5 +18,6 @@ public interface Position {
 	public Position next();
 	public Position next(Edge n);
 	public Position moveback();
+	public int getNumPathChoices();
 	
 }

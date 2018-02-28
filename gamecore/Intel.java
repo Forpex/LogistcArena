@@ -13,15 +13,37 @@ import gamecore.graph.Graph;
  */
 public class Intel {
 	
-	ArrayList<Avatar> avatars;
+	Avatar self;
+	
+	ArrayList<Avatar> enemyAvatars;
 	
 	Graph graph;
 	
-	ArrayList<Item> items;
+	ArrayList<Item> visibleItems;
 	
-	Score currentScore = new Score(avatars.size());
+	Score currentScore;
 	
 	Time currentTime;
-	Time endTime;
+	Settings settings;
+	
+	
+	
+	Intel(Avatar self, ArrayList<Avatar> enemyAvatars, Graph graph, ArrayList<Item> visibleItems, Score currentScore,
+			Time currentTime, Settings settings) {
+		super();
+		this.self = self;
+		this.enemyAvatars = enemyAvatars;
+		this.graph = graph;
+		this.visibleItems = visibleItems;
+		this.currentScore = currentScore;
+		this.currentTime = currentTime;
+		this.settings = settings;
+	}
+
+
+
+	public int getNumPathChoices() {
+		return self.position.getNumPathChoices();
+	}
 	
 }

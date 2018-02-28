@@ -49,4 +49,16 @@ public class Step implements Position, Displayable {
 		return previous;
 	}
 
+	/* (non-Javadoc)
+	 * @see gamecore.graph.Position#getNumPathChoices()
+	 */
+	@Override
+	public int getNumPathChoices() {
+		if (mother.bidirectional) {
+			return 2;
+		} else {
+			return 1;
+		}
+	}
+
 }

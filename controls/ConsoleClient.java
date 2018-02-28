@@ -11,4 +11,8 @@ package controls;
  */
 public class ConsoleClient extends Client {
 
+	public ConsoleClient(String name, int id) {
+		super(name, id);
+	}
+
 }
