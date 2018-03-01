@@ -20,6 +20,10 @@ public abstract class Client {
 	 * On Edge, if Path==number, go the way of that index.
 	 */
 	int chosenPath;
+	private static final int STAYING = -1;
+	public Boolean isStaying() {
+		return chosenPath<=STAYING;
+	}
 	
 	/**
 	 * @return the chosenPath

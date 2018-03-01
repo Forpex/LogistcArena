@@ -10,28 +10,50 @@ public class Edge implements Displayable{
 	
 	
 	//basic Graph architecture
-	ArrayList<Step> steps = new ArrayList<Step>(0);
 	Node start;
 	Node end;
+	
+	Step firststep = null; /* if length = 1, rooms must be traversed immediately. */
+	Step laststep = null;
 	
 	//Propperties
 	Boolean stepable = true;
 	Boolean intelTranfer = true;
-	Boolean bidirectional = true;
+	//Boolean bidirectional = true;
 	int cost = 0;
-	int length = steps.size();
+	/**
+	 * Number of space between all steps. Therefore length=steps+1
+	 */
+	int length = 1;
 	
 	public Edge(Node start, Node end, int length) {
 		this.start = start;
 		this.end = end;
-		this.steps = generateSteps(length);
+		generateSteps(length);
 	}
 	
-	private ArrayList<Step> generateSteps(int size){
-		ArrayList<Step> r = new ArrayList<Step>(0);
-		for (int i = 0; i < size; i++) {
-			r.add(new Step());
+	private void generateSteps(int size){
+		for (; length < size; length++) {
+			Step s = new Step(this, end, laststep);
+			if (length == 2) {
+				firststep = s;
+			} else {
+				laststep.setNext(s);
+			}			
+			laststep = s;
 		}
-		return r;
+	}
+	
+	Position first() {
+		if (firststep==null)
+			return end;
+		else
+			return firststep;
+	}
+	Position last() {
+		if (laststep==null)
+			return start;
+		else
+			return laststep;
 	}
 }

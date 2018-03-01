@@ -1,10 +1,7 @@
-/**
- * 
- */
-package main;
 
 import controls.Session;
 import gamecore.Game;
+import gamecore.Item;
 import gamecore.Settings;
 import gamecore.graph.Graph;
 
@@ -22,12 +19,13 @@ public class LogisticArena {
 		System.out.println("-------------------\nWelcome to LogisticArena\n-------------------");
 		//stub
 		Settings.isDebugOutputEnabled = true;
-		createSimpleTestGame();
+		Game game = createSimpleTestGame();
+		//game.start(); TODO
 	}
 	
 	static Game createSimpleTestGame() {
 		Session s = new Session(2);
-		Graph g = new Graph();
+		Graph g = new Graph(Item.length+1, 0.75);
 		Game r = new Game(s, g);
 		
 		return r;

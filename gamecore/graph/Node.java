@@ -41,17 +41,18 @@ public class Node implements Position ,Displayable {
 	public Position next(Edge e) {
 		if (edges.contains(e)
 				&& edges.size() != 0) {
-			if (this == e.start) {
-				return e.steps.get(0);
-			} else {
+			if (this == e.start
+					|| this == e.end) {
+				return e.first();
+			} /*else {
 				if (this == e.end
 						&& e.bidirectional) {
-					return e.steps.get(e.steps.size()-1);
-				} else {
-					System.err.println("ERROR: this edge does not start nor end here: " + e);
+					return e.laststep;
+				}*/ else {
+					System.err.println("ERROR: this edge does not start here: " + e);
 					return this;
 				}
-			}
+			//}
 		} else {
 			System.err.println("ERROR: this edge is not connected: " + e);
 			return this;

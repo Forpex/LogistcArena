@@ -14,15 +14,34 @@ public class Step implements Position, Displayable {
 	Edge mother;
 	Position next;
 	Position previous;
-	Boolean isBidirectional = false;
-	//Boolean forward = true;
+	public final Boolean isBidirectional = false;
 	
-
 	Step(Edge mother, Position next, Position previous) {
 		super();
 		this.mother = mother;
 		this.next = next;
 		this.previous = previous;
+	}
+
+	/**
+	 * @return the previous
+	 */
+	Position previous() {
+		return previous;
+	}
+
+	/**
+	 * @param previous the previous to set
+	 */
+	void setPrevious(Position previous) {
+		this.previous = previous;
+	}
+
+	/**
+	 * @param next the next to set
+	 */
+	void setNext(Position next) {
+		this.next = next;
 	}
 
 	/* (non-Javadoc)
@@ -40,11 +59,6 @@ public class Step implements Position, Displayable {
 	@Override
 	public Position next() {
 		return next;
-		/*if (forward) {
-			return next;
-		} else {
-			return previous;
-		}*/
 		
 	}
 
@@ -54,15 +68,6 @@ public class Step implements Position, Displayable {
 	@Override
 	public Position next(int chosenPathID) {
 		return next;
-		/*if (chosenPathID > 0) {
-			if (mother.bidirectional
-					&& chosenPathID == 2) {
-				forward = !forward;
-			} 
-			return next();
-		} else {
-			return this;
-		}*/
 	}
 
 	/* (non-Javadoc)
@@ -70,11 +75,7 @@ public class Step implements Position, Displayable {
 	 */
 	@Override
 	public int getNumPathChoices() {
-		if (mother.bidirectional) {
-			return 2;
-		} else {
-			return 1;
-		}
+		return 0;
 	}
 
 }

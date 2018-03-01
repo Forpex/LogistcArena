@@ -23,23 +23,36 @@ public class Graph {
 	/**
 	 * Generates one Node per Item plus one empty Node somewhere
 	 * Then connects them randomly, but all will be connected. No double Connections.
+	 * @param V number of nodes
+	 * @param p possibility of each connection.
 	 */
-	Graph() {
-		for (int i = 0; i < Item.length+1; i++) {
-			this.nodes.add(new Node());
-		}
+	public Graph(int V, double p) {
+		this.nodes = generateNodes(V);
+		this.edges = generateEdgesSimple(nodes,p);		
+		this.items.add(new ItemMegaHealth(reserveRandomItemSpawnPoint()));
+	}
+
+	private ArrayList<Edge> generateEdgesSimple(ArrayList<Node> nodes, double p) {
+		ArrayList<Edge> r = new ArrayList<Edge>(0);
 		for (Node node : nodes) {
 			for (Node node2 : nodes) {
 				if (node != node2
-						&& Math.random() <= 0.8  //randomly leave connections out.... could be problematic TODO
+						&& Math.random() <= p  //randomly leave connections out.... could be problematic TODO
 						) {
-					int length = (int) (Math.random() * 8)+1;
-					this.edges.add(new Edge(node, node2, length));
+					int randomLength = (int) (Math.random() * 8)+1;
+					this.edges.add(new Edge(node, node2, randomLength));
 				}
 			}
 		}
-		
-		this.items.add(new ItemMegaHealth(reserveRandomItemSpawnPoint()));
+		return r;
+	}
+
+	private ArrayList<Node> generateNodes(int V) {
+		ArrayList<Node> r = new ArrayList<Node>(V);
+		for (int i = 0; i < V; i++) {
+			r.add(new Node());
+		}
+		return r;
 	}
 
 	public Position getRandomPlayerSpawnPoint() {
