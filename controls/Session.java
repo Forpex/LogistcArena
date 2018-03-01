@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  */
 public class Session {
-	ArrayList<Client> clients;
+	ArrayList<Client> clients = new ArrayList<Client>(0);
 
 	/**
 	 * @return the clients

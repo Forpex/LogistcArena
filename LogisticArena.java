@@ -25,7 +25,7 @@ public class LogisticArena {
 	
 	static Game createSimpleTestGame() {
 		Session s = new Session(2);
-		Graph g = new Graph(Item.length+1, 0.75);
+		Graph g = new Graph(Item.length+2, 0.75);
 		Game r = new Game(s, g);
 		
 		return r;

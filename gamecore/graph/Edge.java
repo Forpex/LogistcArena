@@ -1,7 +1,6 @@
 package gamecore.graph;
 
-import java.util.ArrayList;
-
+import gamecore.Settings;
 import gfx.Displayable;
 
 
@@ -30,17 +29,29 @@ public class Edge implements Displayable{
 		this.start = start;
 		this.end = end;
 		generateSteps(length);
+		if (Settings.isDebugOutputEnabled) {
+			System.err.println(toStringWithPointers());
+		}
+		
 	}
 	
+	private String toStringWithPointers() {
+		return "Edge="+this+" start="+this.start+" end="+this.end+" l="+this.length;
+	}
+
 	private void generateSteps(int size){
 		for (; length < size; length++) {
 			Step s = new Step(this, end, laststep);
-			if (length == 2) {
+			if (length == 1) {
 				firststep = s;
+				s.setPrevious(start);
 			} else {
 				laststep.setNext(s);
 			}			
 			laststep = s;
+			/*if (Settings.isDebugOutputEnabled) {
+				System.err.println(s.toStringWithPointers());
+			}*/
 		}
 	}
 	

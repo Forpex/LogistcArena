@@ -15,7 +15,7 @@ import gfx.Displayable;
 public class Node implements Position ,Displayable {
 
 	ArrayList<Edge> edges;
-	Boolean hasItem;
+	Boolean hasItem = false;
 	
 	
 	/* (non-Javadoc)

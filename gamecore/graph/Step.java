@@ -21,7 +21,13 @@ public class Step implements Position, Displayable {
 		this.mother = mother;
 		this.next = next;
 		this.previous = previous;
+		
 	}
+
+	public String toStringWithPointers() {
+		return "Step="+this+" at Edge="+this.mother+" l="+this.mother.length+" n="+this.next+" p="+this.previous;
+	}
+	
 
 	/**
 	 * @return the previous

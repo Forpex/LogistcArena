@@ -29,7 +29,13 @@ public class Graph {
 	public Graph(int V, double p) {
 		this.nodes = generateNodes(V);
 		this.edges = generateEdgesSimple(nodes,p);		
-		this.items.add(new ItemMegaHealth(reserveRandomItemSpawnPoint()));
+		this.items = generateRandomItems();
+	}
+
+	private ArrayList<Item> generateRandomItems() {
+		ArrayList<Item> r = new ArrayList<Item>(0);
+		r.add(new ItemMegaHealth(reserveRandomItemSpawnPoint()));
+		return r;
 	}
 
 	private ArrayList<Edge> generateEdgesSimple(ArrayList<Node> nodes, double p) {
@@ -40,7 +46,7 @@ public class Graph {
 						&& Math.random() <= p  //randomly leave connections out.... could be problematic TODO
 						) {
 					int randomLength = (int) (Math.random() * 8)+1;
-					this.edges.add(new Edge(node, node2, randomLength));
+					r.add(new Edge(node, node2, randomLength));
 				}
 			}
 		}
