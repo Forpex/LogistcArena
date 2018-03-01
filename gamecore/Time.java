@@ -3,12 +3,13 @@
  */
 package gamecore;
 
+import gfx.Displayable;
 
 /**
  * @author Andreas Stock
  *
  */
-public class Time {
+public class Time implements Displayable{
 
 	long seconds;
 	
@@ -16,8 +17,8 @@ public class Time {
 		this.seconds = seconds;
 	}
 	
-	public void decrement() {
-		seconds -= 1;
+	public void increment() {
+		seconds += 1;
 	}
 
 	public boolean equals(Time t) {

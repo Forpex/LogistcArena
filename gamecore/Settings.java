@@ -22,7 +22,7 @@ public class Settings {
 	
 	
 	double timescale = 1;
-	public final Boolean isTimeDecrementing = true;
+	public final Boolean IS_TIME_DECREMENTING = false;
 	Time gamelength = new Time(60*5);
 	
 	

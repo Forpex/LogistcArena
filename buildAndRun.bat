@@ -1,8 +1,7 @@
 @ECHO OFF
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-echo Buildsystem for LogisticArena - Windows
-echo @author Garbiel Denner
+echo binsystem for LogisticArena - Windows
 echo.
 
 if exist .\bin (

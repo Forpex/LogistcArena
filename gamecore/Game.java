@@ -16,14 +16,15 @@ import gamecore.graph.Graph;
  */
 public class Game {
 
-	ArrayList<Avatar> avatars;
 	ArrayList<Client> clients;
+	
+	ArrayList<Avatar> avatars;
 	
 	Graph graph;
 	
 	ArrayList<Item> items;
 	
-	Score currentScore = new Score(avatars.size());
+	Score currentScore;
 	
 	Time currentTime;
 	
@@ -40,8 +41,9 @@ public class Game {
 			this.avatars.add(new Avatar(this, client,g.getRandomPlayerSpawnPoint()));
 		}
 		
-		
-		//TODO
+		this.currentScore = new Score(avatars.size());
+		this.currentTime = new Time(0);
+		this.settings = new Settings();
 	}
 
 	
