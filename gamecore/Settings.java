@@ -1,6 +1,5 @@
 package gamecore;
 
-import java.util.ArrayList;
 
 public class Settings {
 	
@@ -12,7 +11,6 @@ public class Settings {
 	public static final int START_ARMOR = 0;
 
 
-
 	public static final int MASCHINEGUN_DPS = 20;
 	public static final int MASCHINEGUN_RANGE = Integer.MAX_VALUE;
 	public static final int RAILGUN_DPS = 24;
@@ -22,13 +20,10 @@ public class Settings {
 	public static final int SHOTGUN_DPS = 80;
 	public static final int SHOTGUN_RANGE = 2;
 	
-		
 	
 	double timescale = 1;
 	public final Boolean isTimeDecrementing = true;
-	Time startTime = new Time(60*5);
-	
-	
+	Time gamelength = new Time(60*5);
 	
 	
 }

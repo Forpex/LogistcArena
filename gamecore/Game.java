@@ -32,12 +32,14 @@ public class Game {
 	public Game(Session s, Graph g) {
 
 		this.graph = g;
+		this.items = g.allItems();
 		
 		this.clients = s.getClients();
 		
 		for (Client client : clients) {
-			this.avatars.add(new Avatar(this, client,g.getRandomSpawnPoint()));
+			this.avatars.add(new Avatar(this, client,g.getRandomPlayerSpawnPoint()));
 		}
+		
 		
 		//TODO
 	}

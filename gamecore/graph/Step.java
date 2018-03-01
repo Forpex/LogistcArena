@@ -13,9 +13,17 @@ public class Step implements Position, Displayable {
 	
 	Edge mother;
 	Position next;
-	Position previous = next;
-	Boolean forward = true;
+	Position previous;
+	Boolean isBidirectional = false;
+	//Boolean forward = true;
 	
+
+	Step(Edge mother, Position next, Position previous) {
+		super();
+		this.mother = mother;
+		this.next = next;
+		this.previous = previous;
+	}
 
 	/* (non-Javadoc)
 	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)
@@ -31,11 +39,12 @@ public class Step implements Position, Displayable {
 	 */
 	@Override
 	public Position next() {
-		if (forward) {
+		return next;
+		/*if (forward) {
 			return next;
 		} else {
 			return previous;
-		}
+		}*/
 		
 	}
 
@@ -44,7 +53,8 @@ public class Step implements Position, Displayable {
 	 */
 	@Override
 	public Position next(int chosenPathID) {
-		if (chosenPathID > 0) {
+		return next;
+		/*if (chosenPathID > 0) {
 			if (mother.bidirectional
 					&& chosenPathID == 2) {
 				forward = !forward;
@@ -52,7 +62,7 @@ public class Step implements Position, Displayable {
 			return next();
 		} else {
 			return this;
-		}
+		}*/
 	}
 
 	/* (non-Javadoc)

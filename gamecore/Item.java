@@ -18,6 +18,8 @@ public abstract class Item implements Displayable {
 	
 	Position location; //==some node.
 	
+	public static int length = 1;//Item.values().length;
+	
 	public Item(Position p, int timeRespawnCycle) {
 		this.location = p;
 		this. timeRespawnCycle = timeRespawnCycle;
@@ -28,6 +30,7 @@ public abstract class Item implements Displayable {
 		r = (timeLeftToRespawn <= 0);
 		return r;
 	}
+	
 	
 	/**
 	 * detects players on the same location
