@@ -51,15 +51,15 @@ public class Node implements Position ,Displayable {
 	 * @see graph.Position#next(graph.Edge)
 	 */
 	public Position next(Edge e) {
-		if (edges.contains(e)
-				&& edges.size() != 0) {
+		if (edgesOutgoing.contains(e)
+				&& edgesOutgoing.size() != 0) {
 			if (this == e.start
 					|| this == e.end) {
-				return e.first();
+				return e.getFirstStepEnteringFrom(this);
 			} /*else {
 				if (this == e.end
-						&& e.bidirectional) {
-					return e.laststep;
+						&& e.isBidirectional) {
+					return e.firstStepFromEnd;
 				}*/ else {
 					System.err.println("ERROR: this edge does not start here: " + e);
 					return this;
@@ -83,7 +83,12 @@ public class Node implements Position ,Displayable {
 	@Override
 	public int getNumPathChoices() {
 		
-		return edges.size();
+		return edgesOutgoing.size();
+	}
+
+	@Override
+	public Position turn() {
+		return this;
 	}
 
 

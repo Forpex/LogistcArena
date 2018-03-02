@@ -12,16 +12,45 @@ import gfx.Displayable;
 public class Step implements Position, Displayable {
 	
 	Edge mother;
-	Position next;
-	Position previous;
-	public final Boolean isBidirectional = false;
+	private Position next;
+	private Position previous;
+	/**
+	 * its the step with distance zero thats next is in the other direction.
+	 * This is a crude but working method to let avatars move in two directions.
+	 */
+	private Position bidirectionalPartner = null;
+	
+	/**
+	 * @return the bidirectionalPartner
+	 */
+	public Position getBidirectionPartner() {
+		return bidirectionalPartner;
+	}
+
+	/**
+	 * @param bidirectionalPartner the bidirectionalPartner to set
+	 */
+	public void setBidirectionalPartner(Position newBidirectionalPartner) {
+		this.bidirectionalPartner = newBidirectionalPartner;
+	}
+
+	public Boolean isBidirectional() {
+		return bidirectionalPartner != null;
+	}
 	
 	Step(Edge mother, Position next, Position previous) {
 		super();
 		this.mother = mother;
 		this.next = next;
 		this.previous = previous;
-		
+	}
+	
+	Step(Edge mother, Position next, Position previous, Position bidirectionalPartner) {
+		super();
+		this.mother = mother;
+		this.next = next;
+		this.previous = previous;
+		this.bidirectionalPartner = bidirectionalPartner;
 	}
 
 	public String toStringWithPointers() {
@@ -82,6 +111,16 @@ public class Step implements Position, Displayable {
 	@Override
 	public int getNumPathChoices() {
 		return 0;
+	}
+
+	@Override
+	public Position turn() {
+		if (bidirectionalPartner != null) {
+			return bidirectionalPartner;
+		} else {
+			System.err.println("Step:"+ this +" cannot Turn around here!");
+			return this;
+		}
 	}
 
 }
