@@ -12,7 +12,13 @@ package gfx;
  */
 public interface Displayable {
 
-	//void draw(Point2D center, double scale);
+	//int posY
+	//int posX  or Point2D
+	//void setCenter();
+	//void setRadius();
+	//void draw("output?");
 	
 	//more?
+	
+	
 }
