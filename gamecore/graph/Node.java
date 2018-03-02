@@ -14,9 +14,21 @@ import gfx.Displayable;
  */
 public class Node implements Position ,Displayable {
 
-	ArrayList<Edge> edges;
+	ArrayList<Edge> edges = new ArrayList<Edge>(0);
+	ArrayList<Edge> edgesIncoming = new ArrayList<Edge>(0);
+	ArrayList<Edge> edgesOutgoing = new ArrayList<Edge>(0);
 	Boolean hasItem = false;
 	
+	
+	void addEdge(Edge e, Boolean outgoing, Boolean incoming){
+		edges.add(e);
+		if (incoming) {
+			edgesIncoming.add(e);
+		}
+		if (outgoing) {
+			edgesOutgoing.add(e);
+		}
+	}
 	
 	/* (non-Javadoc)
 	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)

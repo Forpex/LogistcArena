@@ -27,7 +27,9 @@ public class Edge implements Displayable{
 	
 	public Edge(Node start, Node end, int length) {
 		this.start = start;
+		start.addEdge(this, true, false);
 		this.end = end;
+		start.addEdge(this, false, true);
 		generateSteps(length);
 		if (Settings.isDebugOutputEnabled) {
 			System.err.println(toStringWithPointers());
