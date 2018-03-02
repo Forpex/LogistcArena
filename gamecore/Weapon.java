@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public enum Weapon {
 
-	MASCHINEGUN (Settings.MASCHINEGUN_DPS , Settings.MASCHINEGUN_RANGE, Integer.MAX_VALUE ),
+	MASCHINEGUN (Settings.MACHINEGUN_DPS , Settings.MACHINEGUN_RANGE, Integer.MAX_VALUE ),
 	RAILGUN (Settings.RAILGUN_DPS , Settings.RAILGUN_RANGE, 0),
 	LIGHTNINGGUN (Settings.LIGHTNINGGUN_DPS , Settings.LIGHTNINGGUN_RANGE, 0),
 	SHOTGUN (Settings.SHOTGUN_DPS , Settings.SHOTGUN_RANGE, 0);

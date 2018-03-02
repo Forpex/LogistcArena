@@ -50,6 +50,7 @@ public class Avatar implements Displayable{
 		health -= damageAmount - armorDamage; //apply 1/3 to health
 		if (armor < 0) {
 			health += armor; //carry over damage from armor to heath if armor is not sufficient.
+			armor = 0;
 		}
 		
 		

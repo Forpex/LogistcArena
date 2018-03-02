@@ -11,8 +11,8 @@ public class Settings {
 	public static final int START_ARMOR = 0;
 
 
-	public static final int MASCHINEGUN_DPS = 20;
-	public static final int MASCHINEGUN_RANGE = Integer.MAX_VALUE;
+	public static final int MACHINEGUN_DPS = 20;
+	public static final int MACHINEGUN_RANGE = Integer.MAX_VALUE;
 	public static final int RAILGUN_DPS = 24;
 	public static final int RAILGUN_RANGE = Integer.MAX_VALUE;
 	public static final int LIGHTNINGGUN_DPS = 42;

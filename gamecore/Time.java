@@ -18,7 +18,7 @@ public class Time implements Displayable{
 	}
 	
 	public void increment() {
-		seconds += 1;
+		seconds++;
 	}
 
 	public boolean equals(Time t) {
