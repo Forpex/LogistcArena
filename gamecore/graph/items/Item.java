@@ -1,4 +1,4 @@
-package gamecore.graph;
+package gamecore.graph.items;
 
 
 
@@ -8,6 +8,7 @@ import gamecore.Avatar;
 import gamecore.Game;
 import gamecore.Settings;
 import gamecore.Time;
+import gamecore.graph.Position;
 import gfx.Displayable;
 
 

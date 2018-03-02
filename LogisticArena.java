@@ -3,7 +3,7 @@ import controls.Session;
 import gamecore.Game;
 import gamecore.Settings;
 import gamecore.graph.Graph;
-import gamecore.graph.Item;
+import gamecore.graph.items.Item;
 
 /**
  * @author Andreas Stock

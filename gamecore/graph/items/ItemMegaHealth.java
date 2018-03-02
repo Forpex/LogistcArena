@@ -1,11 +1,12 @@
 /**
  * 
  */
-package gamecore.graph;
+package gamecore.graph.items;
 
 import gamecore.Avatar;
 import gamecore.Game;
 import gamecore.Settings;
+import gamecore.graph.Position;
 
 /**
  * @author Andreas Stock

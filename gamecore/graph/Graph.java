@@ -5,6 +5,9 @@ package gamecore.graph;
 
 import java.util.ArrayList;
 
+import gamecore.graph.items.Item;
+import gamecore.graph.items.ItemMegaHealth;
+
 /**
  * @author Andreas Stock
  *

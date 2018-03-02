@@ -9,8 +9,8 @@ import java.util.Iterator;
 import controls.Client;
 import controls.Session;
 import gamecore.graph.Graph;
-import gamecore.graph.Item;
 import gamecore.graph.Position;
+import gamecore.graph.items.Item;
 
 /**
  * @author Andreas Stock
