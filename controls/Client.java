@@ -3,7 +3,7 @@
  */
 package controls;
 
-import gamecore.intel.Intel;
+import gamecore.Intel;
 
 /**
  * @author Andreas Stock

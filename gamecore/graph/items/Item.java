@@ -8,6 +8,7 @@ import gamecore.Game;
 import gamecore.Settings;
 import gamecore.Time;
 import gamecore.avatars.Avatar;
+import gamecore.graph.Node;
 import gamecore.graph.Position;
 import gfx.Displayable;
 
@@ -69,5 +70,9 @@ public abstract class Item implements Displayable {
 	}
 	
 	public abstract void applyBonusTo(Avatar a);
+
+	public Position getPosition() {
+		return position;
+	}
 
 }

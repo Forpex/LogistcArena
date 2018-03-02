@@ -19,6 +19,8 @@ public class Settings {
 	public static final int LIGHTNINGGUN_RANGE = 6;
 	public static final int SHOTGUN_DPS = 80;
 	public static final int SHOTGUN_RANGE = 2;
+
+	public static final int INTEL_DISTANCE = 10;
 	
 	
 	double timescale = 1;

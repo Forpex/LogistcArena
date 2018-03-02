@@ -24,8 +24,6 @@ public class Game {
 	
 	Graph graph;
 	
-	ArrayList<Item> items;
-	
 	Score currentScore;
 	
 	Time currentTime;
@@ -37,7 +35,6 @@ public class Game {
 	public Game(Session s, Graph g) {
 
 		this.graph = g;
-		this.items = g.getItems();
 		
 		this.clients = s.getClients();
 		

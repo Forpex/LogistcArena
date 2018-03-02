@@ -3,7 +3,7 @@
  */
 package controls;
 
-import gamecore.intel.Intel;
+import gamecore.Intel;
 
 /**
  * This is just simply to Test. Inputs will be done with console and debugging outputs.

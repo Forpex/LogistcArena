@@ -3,7 +3,7 @@
  */
 package controls;
 
-import gamecore.intel.Intel;
+import gamecore.Intel;
 
 /**
  * This is an Automated Opponent.

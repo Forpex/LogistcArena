@@ -5,6 +5,7 @@ package gamecore.graph;
 
 import java.util.ArrayList;
 
+import gamecore.Settings;
 import gamecore.graph.items.Item;
 import gamecore.graph.items.ItemMegaHealth;
 
@@ -15,7 +16,7 @@ import gamecore.graph.items.ItemMegaHealth;
 public class Graph {
 	ArrayList<Node> nodes;
 	ArrayList<Edge> edges;
-	ArrayList<Item> items;
+	private ArrayList<Item> items;
 	
 	//TODO constructor that builds a default test graph
 	//TODO constructor that reads from *.lag
@@ -82,8 +83,18 @@ public class Graph {
 		return r;
 	}
 
-	public ArrayList<Item> getItems() {
+	protected ArrayList<Item> getItems() {
 		return items;
+	}
+
+	public ArrayList<Item> getItemsInSight(Position p) {
+		ArrayList<Item> r = new ArrayList<Item>(0);
+		for (Item i : items) {
+			if(i.getPosition().distance(p, true) <= Settings.INTEL_DISTANCE) {
+				r.add(i);
+			}
+		}
+		return r;
 	}
 
 }

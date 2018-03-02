@@ -22,8 +22,11 @@ public class Avatar implements Displayable{
 	private int health = Settings.START_HEALTH;
 	int armor = Settings.START_ARMOR;
 	ArrayList<Weapon> weapons = Weapon.allWeapons();
+	private Client client;
 	
-	Client client;
+	public Boolean isAlive() {
+		return health >= 0;
+	}
 
 	/**
 	 * @return the client

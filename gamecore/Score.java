@@ -12,22 +12,21 @@ import gfx.Displayable;
 public class Score implements Displayable{
 
 	int[]  values;
-	int size = 0;
 	
 	Score(int size) {
 
-		this.size = size;
 		values = new int[size];
 	}
 	
 	void increment(int playerID) {
-		if (playerID < size
+		if (playerID < values.length
 			&& playerID>=0) {
 			values[playerID]++;
 		} else {
 			System.err.println("ERROR: not a known Player!");
 		}
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -43,6 +42,20 @@ public class Score implements Displayable{
 		}
 		return r;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
+	@Override
+	protected Score clone() {
+		Score r = new Score(values.length);
+		for (int i = 0; i < values.length; i++) {
+			r.values[i] = values[i];
+		}
+		return r;
+	}
+	
+	
 	
 	
 
