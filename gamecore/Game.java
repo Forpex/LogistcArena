@@ -4,10 +4,10 @@
 package gamecore;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import controls.Client;
 import controls.Session;
+import gamecore.avatars.Avatar;
 import gamecore.graph.Graph;
 import gamecore.graph.Position;
 import gamecore.graph.items.Item;
@@ -51,7 +51,7 @@ public class Game {
 	private ArrayList<Avatar> generateAvatars(ArrayList<Client> clients, Graph g) {
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
 		for (Client client : clients) {
-			r.add(new Avatar(this, client, g.getRandomPlayerSpawnPoint()));
+			r.add(new Avatar(client, g.getRandomPlayerSpawnPoint()));
 		}
 		return r;
 	}

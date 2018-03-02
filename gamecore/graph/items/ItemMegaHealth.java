@@ -3,9 +3,9 @@
  */
 package gamecore.graph.items;
 
-import gamecore.Avatar;
 import gamecore.Game;
 import gamecore.Settings;
+import gamecore.avatars.Avatar;
 import gamecore.graph.Position;
 
 /**

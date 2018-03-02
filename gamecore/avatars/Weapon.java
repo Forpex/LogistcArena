@@ -1,6 +1,8 @@
-package gamecore;
+package gamecore.avatars;
 
 import java.util.ArrayList;
+
+import gamecore.Settings;
 
 public enum Weapon {
 
@@ -24,7 +26,7 @@ public enum Weapon {
 	void damageAvatar(Avatar receiver, Avatar dealer) {
 		if (canShoot(dealer.distanceTo(receiver))) {
 			ammo = (ammo > 0) ? (ammo--) : (null);
-			receiver.getDamaged(dps, dealer.client.getID());
+			receiver.getDamaged(dps, dealer.getClient().getID());
 		}
 	}
 	

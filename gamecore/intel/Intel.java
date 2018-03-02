@@ -1,10 +1,14 @@
 /**
  * 
  */
-package gamecore;
+package gamecore.intel;
 
 import java.util.ArrayList;
 
+import gamecore.Score;
+import gamecore.Settings;
+import gamecore.Time;
+import gamecore.avatars.Avatar;
 import gamecore.graph.Graph;
 import gamecore.graph.items.Item;
 
@@ -44,7 +48,7 @@ public class Intel {
 
 
 	public int getNumPathChoices() {
-		return self.position.getNumPathChoices();
+		return self.getPosition().getNumPathChoices();
 	}
 	
 }

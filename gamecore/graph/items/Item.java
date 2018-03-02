@@ -4,10 +4,10 @@ package gamecore.graph.items;
 
 import java.util.ArrayList;
 
-import gamecore.Avatar;
 import gamecore.Game;
 import gamecore.Settings;
 import gamecore.Time;
+import gamecore.avatars.Avatar;
 import gamecore.graph.Position;
 import gfx.Displayable;
 

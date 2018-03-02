@@ -1,11 +1,12 @@
 /**
  * 
  */
-package gamecore;
+package gamecore.avatars;
 
 import java.util.ArrayList;
 
 import controls.Client;
+import gamecore.Settings;
 import gamecore.graph.Position;
 import gfx.Displayable;
 
@@ -31,12 +32,10 @@ public class Avatar implements Displayable{
 		return client;
 	}
 
-	private Game game;
 	
-	public Avatar(Game game, Client client, Position startingPointOnGraph) {
+	public Avatar(Client client, Position startingPointOnGraph) {
 		this.client = client;
 		this.position = startingPointOnGraph;
-		this.game = game;
 	}
 
 	/**
