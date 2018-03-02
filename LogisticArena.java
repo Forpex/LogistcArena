@@ -20,7 +20,7 @@ public class LogisticArena {
 		//stub
 		Settings.isDebugOutputEnabled = true;
 		Game game = createSimpleTestGame();
-		//game.start(); TODO
+		game.start();
 	}
 	
 	static Game createSimpleTestGame() {

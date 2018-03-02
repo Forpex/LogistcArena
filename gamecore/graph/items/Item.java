@@ -30,10 +30,10 @@ public abstract class Item implements Displayable {
 	public Item( Position p, int secondsForRespawnCycle) {
 		this.position = p;
 		this.timeRespawnCycle = new Time(secondsForRespawnCycle);
-		this.timeLeftToRespawn = this.timeRespawnCycle.clone();
+		this.timeLeftToRespawn = new Time(0);
 	}
 	
-	void update(Game game) {
+	public void iterate(Game game) {
 		timeLeftToRespawn.decrement();
 
 		ArrayList<Avatar> avatarsAtItem = game.getAvatarsInPosition(this.position);
@@ -59,7 +59,7 @@ public abstract class Item implements Displayable {
 	public void pickup(ArrayList<Avatar> avatarsAtItem) {
 		Avatar a = avatarsAtItem.get((int)(Math.random()*avatarsAtItem.size()));
 		if (Settings.isDebugOutputEnabled) {
-			System.out.println("Item:" + this + " will be picked up by Avatar:" + a);
+			System.out.println("Pickup: " + this + " by Avatar " + a.toString().substring(0, 8));
 		}
 		applyBonusTo(a);
 		restartRespawnCycle();
@@ -74,5 +74,7 @@ public abstract class Item implements Displayable {
 	public Position getPosition() {
 		return position;
 	}
-
+	
+	
+	
 }

@@ -83,7 +83,9 @@ public class Edge implements Displayable{
 						((Step)((Step)iterationStep.previous()).getBidirectionPartner()).setPrevious(newPartner); /* shift prious partners pointer */
 						newPartner.setNext(((Step)iterationStep.previous()).getBidirectionPartner()); 			/* shift this ones pointers */
 					}
-					iterationStep = (Step) iterationStep.next(); 			/* go to next step */
+					if (iterationStep.next() != end) {
+						iterationStep = (Step) iterationStep.next(); 		/* go to next step but not if its the last*/
+					}
 				} while(iterationStep.next() != end); 						/* end if there are no more steps that need a partner */
 			} else {
 				; //no steps present.

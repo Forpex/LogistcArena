@@ -62,7 +62,7 @@ public class Graph {
 		return r;
 	}
 
-	public Position getRandomPlayerSpawnPoint() {
+	public Position getPlayerSpawnPoint() {
 		return getRandomNode();
 	}
 
@@ -83,7 +83,7 @@ public class Graph {
 		return r;
 	}
 
-	protected ArrayList<Item> getItems() {
+	public ArrayList<Item> getItems() {
 		return items;
 	}
 

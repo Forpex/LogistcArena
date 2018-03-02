@@ -22,5 +22,15 @@ public class ItemMegaHealth extends Item {
 	public void applyBonusTo(Avatar a) {
 		a.setHealth(Math.min(a.getHealth()+100,Settings.MAX_HEALTH));		
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "MegaHealth";
+	}
+	
+	
 	
 }

@@ -6,6 +6,7 @@ package gamecore.avatars;
 import java.util.ArrayList;
 
 import controls.Client;
+import gamecore.Game;
 import gamecore.Settings;
 import gamecore.graph.Position;
 import gfx.Displayable;
@@ -21,8 +22,10 @@ public class Avatar implements Displayable{
 	//properties
 	private int health = Settings.START_HEALTH;
 	int armor = Settings.START_ARMOR;
-	ArrayList<Weapon> weapons = Weapon.allWeapons();
+	ArrayList<Weapon> weapons;;
 	private Client client;
+
+	private int possibleKiller;
 	
 	public Boolean isAlive() {
 		return health >= 0;
@@ -39,11 +42,12 @@ public class Avatar implements Displayable{
 	public Avatar(Client client, Position startingPointOnGraph) {
 		this.client = client;
 		this.position = startingPointOnGraph;
+		this.weapons = Weapon.generateNewWeapons();
 	}
 
 	/**
 	 * @param damageAmount
-	 * @param sourceID id of client controling the avatar. if id == -1 its the world killing it!
+	 * @param sourceID id of client controling the avatar. if id == -1 its the world, killing it!
 	 */
 	public void getDamaged(int damageAmount, int sourceID) {
 		//int damageToBeDone = damageAmount;
@@ -57,18 +61,15 @@ public class Avatar implements Displayable{
 		
 		
 		if (getHealth()<=0) {
-			die(sourceID);
-		}
-	}
-
-	private void die(int sourceID) {
-		if (Settings.isDebugOutputEnabled) {
-			System.out.print("Avatar of Client #" + client.getID());
-			if (sourceID >= 0) {
-				System.out.println(" gotKilled by Avatar of Client #" + sourceID);
-			} else {
-				System.out.println(" died!");
-			}
+			possibleKiller = sourceID;
+			if( Settings.isDebugOutputEnabled) {
+				System.out.print("Avatar of Client #" + client.getID());
+				if (sourceID >= 0) {
+					System.out.println(" gotKilled by Avatar of Client #" + sourceID);
+				} else {
+					System.out.println(" just died!");
+				}
+			}	
 			
 		}
 	}
@@ -99,7 +100,69 @@ public class Avatar implements Displayable{
 	public void setHealth(int health) {
 		this.health = health;
 	}
+
+	public void iterate(Game game) {
+		if (isAlive()) {
+			iteratePosition();
+			iterateBleed();
+			iterateShots(game);
+		}
+	}
+
+	private void iterateShots(Game game) {
+		ArrayList<Avatar> targets = game.getVisibleAvatars(this);
+		for (Avatar a : targets) {
+			int distance = this.position.distance(a.getPosition(), false);
+			int i = 0;
+			while (i < weapons.size() && !weapons.get(i).canShoot(distance)){
+				i++;
+			}
+			weapons.get(i).damageAvatar(a, this);
+		}
+	}
+
+	private void iterateBleed() {
+		if (armor > Settings.ARMOR_BLEED_ABOVE) {
+			armor --;
+		}
+		if (health > Settings.HEALTH_BLEED_ABOVE) {
+			health --;
+		}
+	}
+
+	private void iteratePosition() {
+		if (!getClient().isStaying()) {
+			if (getClient().wantsToTurn()) {
+				setPosition(getPosition().turn());
+			}
+			setPosition(getPosition().next());
+		}
+	}
+
+	public int getPossibleKiller() {
+		return possibleKiller;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String r = "Avatar#"+this.getClient().getID()+"" +" --> Life="+this.health+" Armor="+this.armor;
+		for (Weapon weapon : weapons) {
+			r += " "+weapon;
+		}
+		return r;
+	}
 	
-	
+	public Weapon getWeaponByName(String name) {
+		Weapon r = null;
+		for (Weapon weapon : weapons) {
+			if (weapon.getName() == name.toUpperCase()) {
+				return weapon;
+			}
+		}
+		return r;
+	}
 	
 }

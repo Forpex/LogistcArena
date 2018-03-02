@@ -28,6 +28,32 @@ public class RandomBot extends Client {
 	private void decide() {
 		super.chosenPath = (int) Math.round((Math.random() * super.lastIntelGotten.getNumPathChoices()));
 	}
+
+
+	/* (non-Javadoc)
+	 * @see controls.Client#run()
+	 */
+	@Override
+	public void run() {
+		super.run();
+		while (lastIntelGotten == null) {
+			System.out.println("Bot: "+this+" waiting for Intel!");
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		while (!lastIntelGotten.isGameOver) {
+			decide();
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 	
 }

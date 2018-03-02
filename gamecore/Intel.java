@@ -22,21 +22,17 @@ public class Intel {
 	Score currentScore;
 	Time currentTime;
 	Settings settings;
+	public boolean isGameOver;
 	
 	Intel(Game g, Avatar self){
 		this.self = self;
-		for (Avatar a : g.avatars) {
-			if (a != self 
-					&& a.isAlive()
-					&& a.getPosition().distance(self.getPosition(), true)<=Settings.INTEL_DISTANCE) {
-				visibleEnemyAvatars.add(a);
-			}
-		}
+		visibleEnemyAvatars = g.getVisibleAvatars(self);
 		this.graph = g.graph;
 		this.visibleItems = g.graph.getItemsInSight(self.getPosition());
 		this.currentScore = g.currentScore.clone();
 		this.currentTime = g.currentTime.clone();
 		this.settings = g.settings;
+		this.isGameOver = g.isGameOver;
 	}
 
 	public int getNumPathChoices() {

@@ -10,7 +10,7 @@ import gamecore.Intel;
  *
  * Controls: Keyboard, RandomBot, etc.
  */
-public abstract class Client {
+public abstract class Client extends Thread{
 
 	int id;
 	String name;
@@ -20,9 +20,15 @@ public abstract class Client {
 	 * On Edge, if Path==number, go the way of that index.
 	 */
 	int chosenPath;
+	
 	private static final int STAYING = -1;
+	private static final int TURNAROUND = -2;
+	
 	public Boolean isStaying() {
-		return chosenPath<=STAYING;
+		return chosenPath==STAYING;
+	}
+	public Boolean wantsToTurn() {
+		return chosenPath==TURNAROUND;
 	}
 	
 	/**
@@ -43,4 +49,15 @@ public abstract class Client {
 	public int getID() {
 		return id;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
+	@Override
+	public void run() {
+		System.out.println("Client:"+getID()+" started!");
+	}
+	
+	
+
 }
