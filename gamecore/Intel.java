@@ -6,6 +6,7 @@ package gamecore;
 import java.util.ArrayList;
 
 import gamecore.graph.Graph;
+import gamecore.graph.Item;
 
 /**
  * @author Andreas Stock

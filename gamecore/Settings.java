@@ -22,8 +22,8 @@ public class Settings {
 	
 	
 	double timescale = 1;
-	public final Boolean IS_TIME_DECREMENTING = false;
-	Time gamelength = new Time(60*5);
+	public Boolean IS_DISPLAYED_TIME_DECREMENTING = false;
+	public final Time gamelength = new Time(60*5);
 	
 	
 }

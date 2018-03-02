@@ -9,6 +9,8 @@ import java.util.Iterator;
 import controls.Client;
 import controls.Session;
 import gamecore.graph.Graph;
+import gamecore.graph.Item;
+import gamecore.graph.Position;
 
 /**
  * @author Andreas Stock
@@ -35,7 +37,7 @@ public class Game {
 	public Game(Session s, Graph g) {
 
 		this.graph = g;
-		this.items = g.allItems();
+		this.items = g.getItems();
 		
 		this.clients = s.getClients();
 		
@@ -55,9 +57,15 @@ public class Game {
 	}
 
 	
-
-	
-		
-	
+	public ArrayList<Avatar> getAvatarsInPosition(Position p){
+		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
+		for (Avatar avatar : avatars) {
+			if (p == avatar.getPosition()
+					|| p == avatar.getPosition().turn()) {
+				r.add(avatar);
+			}
+		}
+		return r;
+	}
 	
 }

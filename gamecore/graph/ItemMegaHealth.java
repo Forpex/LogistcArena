@@ -1,9 +1,11 @@
 /**
  * 
  */
-package gamecore;
+package gamecore.graph;
 
-import gamecore.graph.Position;
+import gamecore.Avatar;
+import gamecore.Game;
+import gamecore.Settings;
 
 /**
  * @author Andreas Stock
@@ -17,7 +19,7 @@ public class ItemMegaHealth extends Item {
 
 	@Override
 	public void applyBonusTo(Avatar a) {
-		a.health = Math.min(a.health+100,Settings.MAX_HEALTH);		
+		a.setHealth(Math.min(a.getHealth()+100,Settings.MAX_HEALTH));		
 	}
 	
 }

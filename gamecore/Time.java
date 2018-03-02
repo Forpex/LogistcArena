@@ -11,18 +11,18 @@ import gfx.Displayable;
  */
 public class Time implements Displayable{
 
-	long seconds;
+	private long seconds;
 	
 	public Time(long seconds) {
-		this.seconds = seconds;
+		this.setSeconds(seconds);
 	}
 	
-	public void increment() {
-		seconds++;
+	public void decrement() {
+		setSeconds(getSeconds() - 1);
 	}
 
 	public boolean equals(Time t) {
-		return (seconds == t.seconds);
+		return (getSeconds() == t.getSeconds());
 	}
 
 	/* (non-Javadoc)
@@ -30,15 +30,23 @@ public class Time implements Displayable{
 	 */
 	@Override
 	public String toString() {
-		return (seconds / 60) + ":" + (seconds % 60);
+		return (getSeconds() / 60) + ":" + (getSeconds() % 60);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
 	@Override
-	protected Time clone() { //throws CloneNotSupportedException {
-		return new Time(seconds);
+	public Time clone() { //throws CloneNotSupportedException {
+		return new Time(getSeconds());
+	}
+
+	public long getSeconds() {
+		return seconds;
+	}
+
+	public void setSeconds(long seconds) {
+		this.seconds = seconds;
 	}
 	
 	

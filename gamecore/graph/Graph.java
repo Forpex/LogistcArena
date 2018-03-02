@@ -5,9 +5,6 @@ package gamecore.graph;
 
 import java.util.ArrayList;
 
-import gamecore.Item;
-import gamecore.ItemMegaHealth;
-
 /**
  * @author Andreas Stock
  *
@@ -82,7 +79,7 @@ public class Graph {
 		return r;
 	}
 
-	public ArrayList<Item> allItems() {
+	public ArrayList<Item> getItems() {
 		return items;
 	}
 

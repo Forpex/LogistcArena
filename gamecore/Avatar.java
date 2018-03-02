@@ -18,7 +18,7 @@ public class Avatar implements Displayable{
 	Position position;
 
 	//properties
-	int health = Settings.START_HEALTH;
+	private int health = Settings.START_HEALTH;
 	int armor = Settings.START_ARMOR;
 	ArrayList<Weapon> weapons = Weapon.allWeapons();
 	
@@ -47,14 +47,14 @@ public class Avatar implements Displayable{
 		//int damageToBeDone = damageAmount;
 		int armorDamage = damageAmount / 3 * 2;
 		armor -= armorDamage; //apply 2/3 of damage to armor
-		health -= damageAmount - armorDamage; //apply 1/3 to health
+		setHealth(getHealth() - (damageAmount - armorDamage)); //apply 1/3 to health
 		if (armor < 0) {
-			health += armor; //carry over damage from armor to heath if armor is not sufficient.
+			setHealth(getHealth() + armor); //carry over damage from armor to heath if armor is not sufficient.
 			armor = 0;
 		}
 		
 		
-		if (health<=0) {
+		if (getHealth()<=0) {
 			die(sourceID);
 		}
 	}
@@ -74,6 +74,28 @@ public class Avatar implements Displayable{
 	public int distanceTo(Avatar receiver) {
 		
 		return this.position.distance(receiver.position, false);
+	}
+
+	/**
+	 * @return the position
+	 */
+	public Position getPosition() {
+		return position;
+	}
+
+	/**
+	 * @param position the position to set
+	 */
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
 	}
 	
 	
