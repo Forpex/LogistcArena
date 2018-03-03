@@ -49,8 +49,11 @@ public class Game{
 
 	private static ArrayList<Avatar> generateAvatars(ArrayList<Client> clients, Graph g) {
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
+		ArrayList<Position> alreadySpawnedAtPositions = new ArrayList<Position>(0);
 		for (Client client : clients) {
-			r.add(new Avatar(client, g.getPlayerSpawnPoint()));
+			Position playerSpawnPoint = g.getPlayerSpawnPoint(alreadySpawnedAtPositions);
+			alreadySpawnedAtPositions.add(playerSpawnPoint);
+			r.add(new Avatar(client, playerSpawnPoint));
 		}
 		return r;
 	}
@@ -167,7 +170,13 @@ public class Game{
 	public void respawn(Avatar a) {
 		int index = avatars.indexOf(a);
 		avatars.remove(a);
-		avatars.add(index, new Avatar(a.getClient(), graph.getPlayerSpawnPoint()));
+		
+		ArrayList<Position> avatarPositions = new ArrayList<Position>(0);
+		for (Avatar enemy : avatars) {
+			avatarPositions.add(enemy.getPosition());
+		}
+		Position playerSpawnPoint = this.graph.getPlayerSpawnPoint(avatarPositions);
+		avatars.add(index, new Avatar(a.getClient(), playerSpawnPoint));
 	}
 
 	public ArrayList<Avatar> getVisibleAvatars(Avatar self) {

@@ -43,7 +43,7 @@ public class Node implements Position ,Displayable {
 	@Override
 	public int distance(Position p, Boolean beyondNextNodes) {
 		if (beyondNextNodes) {
-			return distanceMessureRekursion(p, (ArrayList<Position>) graph.nodes.clone());
+			return distanceMessureRekursion(p, (ArrayList<Position>) graph.getNodes().clone());
 		} else {
 			return distanceMessureRekursion(p, new ArrayList<Position>(0));
 		}

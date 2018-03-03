@@ -29,7 +29,7 @@ public class HamsterBot extends Bot {
 	 */
 	@Override
 	void decide() {
-		if (getDestination() == null ) {
+		if (lastIntelGotten != null ) {
 			int min = Integer.MAX_VALUE;
 			if (lastIntelGotten.visibleItems.size() != 0)  {
 				for (Item item : lastIntelGotten.visibleItems) {

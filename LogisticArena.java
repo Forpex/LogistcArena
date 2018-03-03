@@ -13,11 +13,16 @@ public class LogisticArena {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("-------------------\nWelcome to LogisticArena\n-------------------");
-		//stub
-		Settings.isDebugOutputEnabled = true;
+		System.out.println("\n------------------------");
+		System.out.print("Welcome to LogisticArena");
+		for (int i = 0; i < args.length; i++) {
+			System.out.print(" "+args[i]);
+			if(args[i].equals("-debug"))
+				Settings.isDebugOutputEnabled = true ;
+		}
+		System.out.println("\n------------------------");
 		Session s = new Session("botduel");
-		s.runSimpleTestGames(10);
+		s.runSimpleTestGames(1);
 		s.end();
 	}
 }

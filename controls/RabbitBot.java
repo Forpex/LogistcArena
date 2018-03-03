@@ -17,9 +17,12 @@ public class RabbitBot extends Bot {
 	}
 
 	synchronized void decide() {
-		if (getDestination() == null 
-				|| super.lastIntelGotten.self.getPosition() == getDestination()) {
-			setDestination(lastIntelGotten.graph.getAllPositions().get((int) Math.random() * lastIntelGotten.graph.getAllPositions().size()));
+		if (lastIntelGotten != null) {
+			if (this.getDestination() == null 
+					|| lastIntelGotten.self.getPosition() == this.getDestination()) {
+				setDestination(lastIntelGotten.graph.getNodes()
+						.get((int) Math.random() * lastIntelGotten.graph.getAllPositions().size()));
+			}
 		} 
 	}
 }

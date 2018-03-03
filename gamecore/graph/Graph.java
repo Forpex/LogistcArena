@@ -4,6 +4,7 @@
 package gamecore.graph;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import gamecore.Settings;
 import gamecore.graph.items.Item;
@@ -15,7 +16,7 @@ import gamecore.graph.items.ItemRedArmor;
  *
  */
 public class Graph {
-	ArrayList<Node> nodes;
+	private ArrayList<Node> nodes;
 	ArrayList<Edge> edges = new ArrayList<Edge>(0);
 	private ArrayList<Item> items;
 	
@@ -29,8 +30,8 @@ public class Graph {
 	 * @param p possibility of each connection.
 	 */
 	public Graph(int V, double p) {
-		this.nodes = generateNodes(Math.max (V, Settings.TOTAL_NUMBER_OF_ITEM_TYPES));
-		this.edges = generateEdgesSimple(nodes,p);
+		this.setNodes(generateNodes(Math.max (V, Settings.TOTAL_NUMBER_OF_ITEM_TYPES)));
+		this.edges = generateEdgesSimple(getNodes(),p);
 		this.items = generateRandomItems();
 	}
 	
@@ -71,12 +72,29 @@ public class Graph {
 		return r;
 	}
 
-	public Position getPlayerSpawnPoint() {
-		return getRandomNode();
+	public Position getPlayerSpawnPoint(ArrayList<Position> enemies) {
+		ArrayList<Position> positions = new ArrayList<Position>(0);
+		for (Position p : this.getNodes()){
+			if (enemies.size()==0) {
+				positions.add(p);
+			} else 
+				for (Position e : enemies)  {
+					if (p.distance(e, true) >= Settings.MINIMAL_SPAWN_DISTANCE) {
+						positions.add(p);
+					}
+			}
+		}
+		if (Settings.isDebugOutputEnabled) {
+			System.out.println("ValidSpawnPositionSize=" + positions.size());
+		}
+		if(positions.size() == 0)
+			return getRandomNode();
+		else
+			return positions.get((int)(Math.random()*positions.size()));
 	}
 
 	private Node getRandomNode() {
-		return nodes.get((int)(Math.random()*nodes.size()));
+		return getNodes().get((int)(Math.random()*getNodes().size()));
 	}
 
 	/**
@@ -108,18 +126,26 @@ public class Graph {
 	
 	public ArrayList<Position> getAllPositions(){
 		ArrayList<Position> r = new ArrayList<Position>(0);
-		for (Node node : nodes) {
+		for (Node node : getNodes()) {
 			r.add(node);
 		}
 		for (Edge edge : edges) {
 			for (Position p : edge.stepsforward) {
 				r.add(p);
 			}
-			for (Position p : edge.stepsbackward) {
+			/*for (Position p : edge.stepsbackward) {
 				r.add(p);
-			}
+			}*/
 		}
 		return r;
+	}
+
+	public ArrayList<Node> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(ArrayList<Node> nodes) {
+		this.nodes = nodes;
 	}
 
 }

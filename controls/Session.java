@@ -46,9 +46,19 @@ public class Session {
 	 * @param i
 	 */
 	public Session(String s) {
-		if (s == "botduel") {
-			clients.add(new RabbitBot(0));
-			clients.add(new HamsterBot(1));
+		if (s.toLowerCase() == "botduel") {
+			clients.add(new HamsterBot(0));
+			clients.add(new RabbitBot(1));
+		}
+		if (s.toLowerCase() == "botffa") {
+			for (int i = 0; i < 8; i++) {
+				
+				if (Math.random() < 0.5) {
+					clients.add(new HamsterBot(i));
+				} else {
+					clients.add(new RabbitBot(i));
+				}
+			}
 		}
 	}
 
@@ -60,7 +70,7 @@ public class Session {
 	public void runSimpleTestGames(int numgames) {
 		Score totalScore = new Score(this.size());
 		for (int i = 0; i < numgames; i++) {
-			Graph graph = new Graph(Settings.TOTAL_NUMBER_OF_ITEM_TYPES, 1);
+			Graph graph = new Graph(Settings.TOTAL_NUMBER_OF_ITEM_TYPES+3, 0.5);
 			Game g = new Game(this, graph);
 			g.start();
 			g.join();
