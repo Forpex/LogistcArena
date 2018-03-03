@@ -24,11 +24,11 @@ public class Graph {
 	/**
 	 * Generates one Node per Item plus one empty Node somewhere
 	 * Then connects them randomly, but all will be connected. No double Connections.
-	 * @param V number of nodes
+	 * @param V number of nodes (cannot be smaller than number of Items!)
 	 * @param p possibility of each connection.
 	 */
 	public Graph(int V, double p) {
-		this.nodes = generateNodes(V);
+		this.nodes = generateNodes(Math.min (V, Item.TOTAL_NUMBER_OF_ITEM_TYPES));
 		this.edges = generateEdgesSimple(nodes,p);		
 		this.items = generateRandomItems();
 	}

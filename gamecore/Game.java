@@ -33,7 +33,7 @@ public class Game extends Thread{
 		this.clients = s.getClients();
 		this.avatars = generateAvatars(this.clients,g);
 		this.currentScore = new Score(avatars.size());
-		this.currentTime = settings.gamelength.clone();
+		this.currentTime = new Time(0);
 		this.iterator = new GameStateIterator(this);
 	}
 
@@ -48,8 +48,10 @@ public class Game extends Thread{
 	public ArrayList<Avatar> getAvatarsInPosition(Position p){
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
 		for (Avatar avatar : avatars) {
-			if (p == avatar.getPosition()
-					|| p == avatar.getPosition().turn()) {
+			if (avatar.getPosition().distance(p, false) == 0)
+			/*(p == avatar.getPosition()
+					|| p == avatar.getPosition().turn())*/
+			{
 				r.add(avatar);
 			}
 		}
@@ -85,13 +87,13 @@ public class Game extends Thread{
 				i.iterate(this);
 			} 
 			// round finished: move time!
-			currentTime.decrement();
+			currentTime.increment();
 			//post status to console
-			System.out.println(currentTime + " --> " + currentScore);
+			System.out.println(currentTime.toString(this) + " --> " + currentScore);
 		}
 		
 		//set gameover if time out
-		if (currentTime.getSeconds()==0) {
+		if (currentTime.equals(settings.gamelength)) {
 			isGameOver = true;
 			System.out.println("----------------\nGameOver --> " + currentScore);
 		}

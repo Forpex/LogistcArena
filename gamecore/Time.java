@@ -14,11 +14,11 @@ public class Time implements Displayable{
 	private long seconds;
 	
 	public Time(long seconds) {
-		this.setSeconds(seconds);
+		this.seconds = seconds;
 	}
 	
-	public void decrement() {
-		setSeconds(getSeconds() - 1);
+	public void increment() {
+		seconds++;
 	}
 
 	public boolean equals(Time t) {
@@ -30,8 +30,18 @@ public class Time implements Displayable{
 	 */
 	@Override
 	public String toString() {
-		return (getSeconds() / 60) + ":" + (getSeconds() % 60);
+			return (getSeconds() / 60) + ":" + (getSeconds() % 60);
 	}
+	
+	public String toString(Game game) {
+		if (game.settings.IS_DISPLAYED_TIME_INCREMENTING) {
+			return (getSeconds() / 60) + ":" + (getSeconds() % 60);
+		} else {
+			Time derementingTime = new Time(game.settings.gamelength.seconds - this.seconds);
+			return (derementingTime.getSeconds() / 60) + ":" + (derementingTime.getSeconds() % 60);
+		}
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
@@ -45,9 +55,15 @@ public class Time implements Displayable{
 		return seconds;
 	}
 
-	public void setSeconds(long seconds) {
-		this.seconds = seconds;
+	/**
+	 * can become negative
+	 * wiht items the negative number will show how long the item was available.
+	 * This effect could be useful in statistics.
+	 */
+	public void decrement() {
+		seconds--;
 	}
+
 	
 	
 

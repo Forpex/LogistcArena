@@ -22,14 +22,14 @@ public abstract class Item implements Displayable {
 	Time timeRespawnCycle;
 	Time timeLeftToRespawn;
 	
-	Position position; //==some node.
-	
-	public static int length = 1;//Item.values().length;
+	Position position; 									//==some node.
+		
+	public static int TOTAL_NUMBER_OF_ITEM_TYPES = 1;						//Item.values().length;
 	
 	public Item( Position p, int secondsForRespawnCycle) {
 		this.position = p;
 		this.timeRespawnCycle = new Time(secondsForRespawnCycle);
-		this.timeLeftToRespawn = new Time(0);
+		this.timeLeftToRespawn = new Time(0); 			/*item is available from the start */
 	}
 	
 	public void iterate(Game game) {

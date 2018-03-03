@@ -27,9 +27,8 @@ public class Settings {
 	public static final int HEALTH_BLEED_ABOVE = 100;
 	
 	
-	double timescale = 1;
-	public Boolean IS_DISPLAYED_TIME_DECREMENTING = false;
+	double timescale = 1000;
+	public Boolean IS_DISPLAYED_TIME_INCREMENTING = true;
 	public final Time gamelength = new Time(60*5);
-	
 	
 }

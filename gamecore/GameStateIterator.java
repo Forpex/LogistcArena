@@ -15,7 +15,7 @@ public class GameStateIterator extends Thread{
 		while (!game.isGameOver) {
 			game.iterateGamestate();
 			try {
-				sleep((long) (1000*game.settings.timescale));
+				sleep((long) (1000 / game.settings.timescale));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
