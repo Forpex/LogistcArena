@@ -3,6 +3,7 @@
  */
 package gamecore.graph;
 
+import java.util.ArrayList;
 
 /**
  * @author Andreas Stock
@@ -17,4 +18,5 @@ public interface Position {
 	public int getNumOutgoingEdges();
 	public Position turn();
 	
+	int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited);
 }

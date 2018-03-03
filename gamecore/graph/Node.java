@@ -35,8 +35,9 @@ public class Node implements Position ,Displayable {
 	 */
 	@Override
 	public int distance(Position p, Boolean justIntel) {
-		// TODO Auto-generated method stub
-		return 0;
+		ArrayList<Position> alreadyvisited = new ArrayList<Position>(0);
+		alreadyvisited.add(this);
+		return distanceMessureRekursion(p, alreadyvisited);
 	}
 
 	/* (non-Javadoc)
@@ -89,6 +90,28 @@ public class Node implements Position ,Displayable {
 	@Override
 	public Position turn() {
 		return this;
+	}
+
+	@Override
+	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
+		if (this != p) {
+			if (alreadyvisited.contains(p)) {
+				return Integer.MAX_VALUE;
+			} else {
+				alreadyvisited.add(this);
+				int r = Math.min(
+							distanceMessureRekursion(this.next(), alreadyvisited)+1
+							,
+							distanceMessureRekursion(this.turn(), alreadyvisited)+0
+							);
+				for (Edge edge : edges) {
+					r = Math.min(r, distanceMessureRekursion(this.next(edge), alreadyvisited));
+				}
+				return r;
+			}
+		} else {
+			return 0;
+		}
 	}
 
 

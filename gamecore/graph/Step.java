@@ -3,6 +3,8 @@
  */
 package gamecore.graph;
 
+import java.util.ArrayList;
+
 import gfx.Displayable;
 
 /**
@@ -84,8 +86,9 @@ public class Step implements Position, Displayable {
 	 */
 	@Override
 	public int distance(Position p, Boolean justIntel) {
-		// TODO Auto-generated method stub
-		return 0;
+		ArrayList<Position> alreadyvisited = new ArrayList<Position>(0);
+		alreadyvisited.add(this);
+		return distanceMessureRekursion(p, alreadyvisited);
 	}
 
 	/* (non-Javadoc)
@@ -120,6 +123,28 @@ public class Step implements Position, Displayable {
 		} else {
 			System.err.println("Step:"+ this +" cannot Turn around here!");
 			return this;
+		}
+	}
+
+	@Override
+	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
+		if (this != p) {
+			if (alreadyvisited.contains(p)) {
+				return Integer.MAX_VALUE;
+			} else {
+				alreadyvisited.add(this);
+				return Math.min(
+							Math.min(
+									distanceMessureRekursion(this.previous(), alreadyvisited)+1
+									,
+									distanceMessureRekursion(this.next(), alreadyvisited)+1
+									)
+							,
+							distanceMessureRekursion(this.turn(), alreadyvisited)+0
+							);
+			}
+		} else {
+			return 0;
 		}
 	}
 
