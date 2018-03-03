@@ -28,9 +28,13 @@ public class Graph {
 	 * @param p possibility of each connection.
 	 */
 	public Graph(int V, double p) {
-		this.nodes = generateNodes(Math.min (V, Item.TOTAL_NUMBER_OF_ITEM_TYPES));
+		this.nodes = generateNodes(Math.max (V, Item.TOTAL_NUMBER_OF_ITEM_TYPES));
 		this.edges = generateEdgesSimple(nodes,p);		
 		this.items = generateRandomItems();
+	}
+	
+	public void addEdge(Node node1, Node node2, int length) {
+		edges.add(new Edge(node1, node2, length));
 	}
 
 	private ArrayList<Item> generateRandomItems() {
