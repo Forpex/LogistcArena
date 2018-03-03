@@ -1,5 +1,7 @@
 package gamecore.graph;
 
+import java.util.ArrayList;
+
 import gamecore.Settings;
 import gfx.Displayable;
 
@@ -12,8 +14,8 @@ public class Edge implements Displayable{
 	Node start;
 	Node end;
 	
-	Step firstStepFromStart = null; /* if length = 1, edge will be traversed in a single action and no step is needed. */
-	Step firstStepFromEnd = null; //=firstStepFromStart;
+	ArrayList<Step> stepsforward = new ArrayList<Step>(0);
+	ArrayList<Step> stepsbackward = new ArrayList<Step>(0);
 	
 	//Propperties
 	Boolean stepable = true;
@@ -24,7 +26,9 @@ public class Edge implements Displayable{
 	/**
 	 * Number of space between all steps. Therefore length=steps+1
 	 */
-	int length = 1;
+	public int size() {
+		return Math.max(stepsforward.size(), stepsbackward.size())+1;
+	}
 	
 	public Edge(Node start, Node end) {
 		this(start, end, 1);
@@ -37,10 +41,10 @@ public class Edge implements Displayable{
 	}
 	public Edge(Node start, Node end, int length, Boolean isBidirectional, int cost) {
 		this.start = start;
-		start.addEdge(this, true, false);
+		start.addEdge(this, true, isBidirectional);
 		this.end = end;
-		end.addEdge(this, false, true);
-		generateSteps(length, isBidirectional);
+		end.addEdge(this, isBidirectional, true);
+		generateSteps(Math.max(1, length), isBidirectional);
 		this.isBidirectional = isBidirectional;
 		
 		if (Settings.isDebugOutputEnabled) {
@@ -48,66 +52,94 @@ public class Edge implements Displayable{
 		}
 	}
 	
-	private String toStringWithPointers() {
-		return "Edge="+this+" start="+this.start+" end="+this.end+" l="+this.length;
-	}
-
-	/**
-	 * generates a double chained list of steps of size
-	 * @param size
-	 * @param isBidirectional adds bidirectional Partners for each step that just face the other direction and have "no" distance from them.
-	 */
-	private void generateSteps(int size, Boolean isBidirectional){
-		for (; length < size; length++) {
-			Step s = new Step(this, end, firstStepFromEnd);
-			if (length == 1) {
-				firstStepFromStart = s;
-				s.setPrevious(start);
-			} else {
-				firstStepFromEnd.setNext(s);
-			}			
-			firstStepFromEnd = s;
-			/*if (Settings.isDebugOutputEnabled) {
-				System.err.println(s.toStringWithPointers());
-			}*/
-		}
-		if (isBidirectional) {
-			if (firstStepFromStart != null) {
-				
-				Step iterationStep = firstStepFromStart; 					 /* start from start */
-				do {
-					Step newPartner = new Step(this, iterationStep.previous()
-							, iterationStep.next(), iterationStep); 		/* create new bidirection partner with pointers crossed over */
-					iterationStep.setBidirectionalPartner(newPartner); 
-					if (iterationStep.previous() != start) { 				/* if this is not the first node, there are previous partners that need their pointers shifted to bidirectional partners */
-						((Step)((Step)iterationStep.previous()).getBidirectionPartner()).setPrevious(newPartner); /* shift prious partners pointer */
-						newPartner.setNext(((Step)iterationStep.previous()).getBidirectionPartner()); 			/* shift this ones pointers */
-					}
-					if (iterationStep.next() != end) {
-						iterationStep = (Step) iterationStep.next(); 		/* go to next step but not if its the last*/
-					}
-				} while(iterationStep.next() != end); 						/* end if there are no more steps that need a partner */
-			} else {
-				; //no steps present.
+	private void generateSteps(int length, Boolean isBidirectional2) {
+		for (int i = 1; i < length; i++) {
+			stepsforward.add(new Step(this));
+			if (isBidirectional2) {
+				stepsbackward.add(new Step(this));
 			}
-		}
+		}		
+	}
+	private String toStringWithPointers() {
+		return "Edge="+this+" start="+this.start+" end="+this.end+" l="+this.size();
 	}
 	
 	Position getFirstStepEnteringFrom(Node node) {
 		if (node == this.start) {
-			if (firstStepFromStart==null)
+			if (stepsforward.size()==0)
 				return end;
 			else
-				return firstStepFromStart;
+				return stepsforward.get(0);
 		} else
 		if (node == this.end
 				&& isBidirectional) {
-			if (firstStepFromEnd==null)
+			if (stepsbackward.size() == 0)
 				return start;
 			else
-				return firstStepFromEnd;
+				return stepsbackward.get(0);
 		} else
 		System.err.println("Edge:"+this+" cannot enter from here!");
 		return start;
+	}
+	
+	
+	public Position getBidirectionalPartner(Step s) {
+		if(stepsforward.size()!=stepsbackward.size()) {
+			if (Settings.isDebugOutputEnabled) {
+				System.err.println("Edge is not bidirectional" + toStringWithPointers());
+			}
+			return null;
+		}
+		int i = stepsforward.indexOf(s);
+		if(i != -1) {
+			return stepsbackward.get((stepsforward.size()-1)-i);
+		} else {
+			i = stepsbackward.indexOf(s);
+			if(i != -1) {
+				return stepsforward.get((stepsbackward.size()-1)-i);
+			}
+		}
+		return null;
+	}
+	
+	public Position getnext(Step s) {
+		int i = stepsforward.indexOf(s);
+		if(i != -1) {
+			if (i >= stepsforward.size()-1) {
+				return end;
+			} else {
+				return stepsforward.get(i+1);
+			}
+		} else {
+			i = stepsbackward.indexOf(s);
+			if(i != -1) {
+				if (i >= stepsbackward.size()-1) {
+					return start;
+				} else {
+					return stepsbackward.get(i+1);
+				}
+			}
+		}
+		return null;
+	}
+	public Position getprevious(Step s) {
+		int i = stepsforward.indexOf(s);
+		if(i != -1) {
+			if (i == 0) {
+				return start;
+			} else {
+				return stepsforward.get(i-1);
+			}
+		} else {
+			i = stepsbackward.indexOf(s);
+			if(i != -1) {
+				if (i == 0) {
+					return end;
+				} else {
+					return stepsbackward.get(i-1);
+				}
+			}
+		}
+		return null;
 	}
 }

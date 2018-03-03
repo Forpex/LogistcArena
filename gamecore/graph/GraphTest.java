@@ -17,25 +17,25 @@ class GraphTest {
 	
 
 	@Test
-	void test() {
+	void simpleTwoNodesAndLink() {
 		Graph g = new Graph(2,0);
 		int length = 5;
 		g.addEdge(g.nodes.get(0), g.nodes.get(1), length);
 		int distance = 0;
 		distance = g.nodes.get(0).distance(g.nodes.get(0), false);
-		assertEquals(distance,0);
+		assertEquals(0,distance);
 		System.err.println(distance);
 		
 		distance = g.nodes.get(1).distance(g.nodes.get(1), false);
-		assertEquals(distance,0);
+		assertEquals(0,distance);
 		System.err.println(distance);
 		
 		distance = g.nodes.get(0).distance(g.nodes.get(1), false);
-		assertEquals(distance,length);
+		assertEquals(length,distance);
 		System.err.println(distance);
 		
 		distance = g.nodes.get(1).distance(g.nodes.get(0), false);
-		assertEquals(distance,length);
+		assertEquals(length,distance);
 		System.err.println(distance);
 
 	}

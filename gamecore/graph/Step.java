@@ -14,71 +14,28 @@ import gfx.Displayable;
 public class Step implements Position, Displayable {
 	
 	Edge mother;
-	private Position next;
-	private Position previous;
+	
 	/**
 	 * its the step with distance zero thats next is in the other direction.
 	 * This is a crude but working method to let avatars move in two directions.
-	 */
-	private Position bidirectionalPartner = null;
-	
-	/**
 	 * @return the bidirectionalPartner
 	 */
-	public Position getBidirectionPartner() {
-		return bidirectionalPartner;
+	public Position getBidirectionalPartner() {
+		return mother.getBidirectionalPartner(this);
 	}
 
-	/**
-	 * @param bidirectionalPartner the bidirectionalPartner to set
-	 */
-	public void setBidirectionalPartner(Position newBidirectionalPartner) {
-		this.bidirectionalPartner = newBidirectionalPartner;
-	}
 
 	public Boolean isBidirectional() {
-		return bidirectionalPartner != null;
+		return mother.isBidirectional;
 	}
 	
-	Step(Edge mother, Position next, Position previous) {
+	Step(Edge mother) {
 		super();
 		this.mother = mother;
-		this.next = next;
-		this.previous = previous;
-	}
-	
-	Step(Edge mother, Position next, Position previous, Position bidirectionalPartner) {
-		super();
-		this.mother = mother;
-		this.next = next;
-		this.previous = previous;
-		this.bidirectionalPartner = bidirectionalPartner;
 	}
 
 	public String toStringWithPointers() {
-		return "Step="+this+" at Edge="+this.mother+" l="+this.mother.length+" n="+this.next+" p="+this.previous;
-	}
-	
-
-	/**
-	 * @return the previous
-	 */
-	Position previous() {
-		return previous;
-	}
-
-	/**
-	 * @param previous the previous to set
-	 */
-	void setPrevious(Position previous) {
-		this.previous = previous;
-	}
-
-	/**
-	 * @param next the next to set
-	 */
-	void setNext(Position next) {
-		this.next = next;
+		return "Step="+this+" at Edge="+this.mother+" l="+this.mother.size();
 	}
 
 	/* (non-Javadoc)
@@ -86,9 +43,7 @@ public class Step implements Position, Displayable {
 	 */
 	@Override
 	public int distance(Position p, Boolean justIntel) {
-		ArrayList<Position> alreadyvisited = new ArrayList<Position>(0);
-		alreadyvisited.add(this);
-		return distanceMessureRekursion(p, alreadyvisited);
+		return distanceMessureRekursion(p, new ArrayList<Position>(0));
 	}
 
 	/* (non-Javadoc)
@@ -96,8 +51,11 @@ public class Step implements Position, Displayable {
 	 */
 	@Override
 	public Position next() {
-		return next;
-		
+		return mother.getnext(this);
+	}
+	
+	private Position previous() {
+		return mother.getprevious(this);
 	}
 
 	/* (non-Javadoc)
@@ -105,7 +63,7 @@ public class Step implements Position, Displayable {
 	 */
 	@Override
 	public Position next(int chosenPathID) {
-		return next;
+		return next();
 	}
 
 	/* (non-Javadoc)
@@ -118,8 +76,8 @@ public class Step implements Position, Displayable {
 
 	@Override
 	public Position turn() {
-		if (bidirectionalPartner != null) {
-			return bidirectionalPartner;
+		if (isBidirectional() != null) {
+			return getBidirectionalPartner();
 		} else {
 			System.err.println("Step:"+ this +" cannot Turn around here!");
 			return this;
@@ -129,23 +87,29 @@ public class Step implements Position, Displayable {
 	@Override
 	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
 		if (this != p) {
-			if (alreadyvisited.contains(p)) {
-				return Integer.MAX_VALUE;
+			if (alreadyvisited.contains(this)) {
+				return Integer.MIN_VALUE;
 			} else {
 				alreadyvisited.add(this);
-				return Math.min(
-							Math.min(
-									distanceMessureRekursion(this.previous(), alreadyvisited)+1
-									,
-									distanceMessureRekursion(this.next(), alreadyvisited)+1
-									)
-							,
-							distanceMessureRekursion(this.turn(), alreadyvisited)+0
-							);
+				int[] options = new int[3];
+				options[0] = this.previous().distanceMessureRekursion(p, alreadyvisited) + 1;
+				options[1] = this.next().distanceMessureRekursion(p, alreadyvisited) + 1;
+				options[2] = this.turn().distanceMessureRekursion(p, alreadyvisited) + 0;
+
+				int min = Integer.MAX_VALUE;
+				for (int i = 0; i < options.length; i++) {
+					if (options[i] < 0) {
+						options[i] = Integer.MAX_VALUE;
+					}
+					min = Math.min(min, options[i]);
+				}
+				return min;
 			}
 		} else {
 			return 0;
 		}
 	}
+
+	
 
 }
