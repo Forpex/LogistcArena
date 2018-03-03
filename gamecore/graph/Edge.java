@@ -144,4 +144,24 @@ public class Edge implements Displayable{
 		}
 		return null;
 	}
+
+	public boolean contains(Position p) {
+		if (stepsforward.contains(p)
+			|| stepsbackward.contains(p)) {
+			return true;			
+		}
+		return false;
+	}
+
+	public Node getExitEnteringFrom(Node node) {
+			if (node == this.start) {
+					return end;
+			} else
+			if (node == this.end
+					&& isBidirectional) {
+					return start;
+			} else
+			System.err.println("Edge:"+this+" cannot enter from Node:"+node+" !!!");
+			return start;
+	}
 }

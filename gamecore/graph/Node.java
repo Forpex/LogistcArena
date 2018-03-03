@@ -114,7 +114,14 @@ public class Node implements Position ,Displayable {
 				int min = Integer.MAX_VALUE;
 				int[] options = new int[edges.size()];
 				for (int i = 0; i < edges.size(); i++) {
-					options[i] = this.edges.get(i).getFirstStepEnteringFrom(this).distanceMessureRekursion(p, alreadyvisited)+1;
+					Edge e = edges.get(i);
+					if (e.contains(p)) {
+						options[i] = e.getFirstStepEnteringFrom(this).distanceMessureRekursion(p,
+								alreadyvisited) + 1;
+					}else {
+						options[i] = e.getExitEnteringFrom(this).distanceMessureRekursion(p,
+								alreadyvisited) + e.size();
+					}
 					//-----
 					if (options[i] < 0) {
 						options[i] = Integer.MAX_VALUE;
