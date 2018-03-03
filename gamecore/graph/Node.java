@@ -14,12 +14,18 @@ import gfx.Displayable;
  */
 public class Node implements Position ,Displayable {
 
+	Graph graph;
 	ArrayList<Edge> edges = new ArrayList<Edge>(0);
 	ArrayList<Edge> edgesIncoming = new ArrayList<Edge>(0);
 	ArrayList<Edge> edgesOutgoing = new ArrayList<Edge>(0);
 	Boolean hasItem = false;
 	
 	
+	Node(Graph graph) {
+		super();
+		this.graph = graph;
+	}
+
 	void addEdge(Edge e, Boolean outgoing, Boolean incoming){
 		edges.add(e);
 		if (incoming) {
@@ -33,9 +39,15 @@ public class Node implements Position ,Displayable {
 	/* (non-Javadoc)
 	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public int distance(Position p, Boolean justIntel) {
-		return distanceMessureRekursion(p, new ArrayList<Position>(0));
+		if (justIntel) {
+			return distanceMessureRekursion(p, (ArrayList<Position>) graph.nodes.clone());
+		} else {
+			return distanceMessureRekursion(p, new ArrayList<Position>(0));
+		}
+		
 	}
 
 	/* (non-Javadoc)
@@ -72,7 +84,8 @@ public class Node implements Position ,Displayable {
 
 	@Override
 	public Position next(int chosenPathID) {
-		if (chosenPathID < 0) {
+		if (chosenPathID < 0
+				|| edges.size()<=0) {
 			return next();
 		}
 		return next(edges.get(chosenPathID % edges.size()));	

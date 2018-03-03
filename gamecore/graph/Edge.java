@@ -11,6 +11,7 @@ public class Edge implements Displayable{
 	
 	
 	//basic Graph architecture
+	Graph graph;
 	Node start;
 	Node end;
 	
@@ -30,16 +31,17 @@ public class Edge implements Displayable{
 		return Math.max(stepsforward.size(), stepsbackward.size())+1;
 	}
 	
-	public Edge(Node start, Node end) {
-		this(start, end, 1);
+	public Edge(Graph graph,Node start, Node end) {
+		this(graph,start, end, 1);
 	}
-	public Edge(Node start, Node end, int length) {
-		this(start,end,length,true,0);
+	public Edge(Graph graph,Node start, Node end, int length) {
+		this(graph, start, end, length, true, 0);
 	}
-	public Edge(Node start, Node end, int length, Boolean isBidirectional) {
-		this(start,end,length,isBidirectional,0);
+	public Edge(Graph graph,Node start, Node end, int length, Boolean isBidirectional) {
+		this(graph, start, end, length, isBidirectional, 0);
 	}
-	public Edge(Node start, Node end, int length, Boolean isBidirectional, int cost) {
+	public Edge(Graph graph,Node start, Node end, int length, Boolean isBidirectional, int cost) {
+		this.graph = graph;
 		this.start = start;
 		start.addEdge(this, true, isBidirectional);
 		this.end = end;
@@ -54,9 +56,9 @@ public class Edge implements Displayable{
 	
 	private void generateSteps(int length, Boolean isBidirectional2) {
 		for (int i = 1; i < length; i++) {
-			stepsforward.add(new Step(this));
+			stepsforward.add(new Step(graph, this));
 			if (isBidirectional2) {
-				stepsbackward.add(new Step(this));
+				stepsbackward.add(new Step(graph, this));
 			}
 		}		
 	}

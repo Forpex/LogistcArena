@@ -13,6 +13,7 @@ import gfx.Displayable;
  */
 public class Step implements Position, Displayable {
 	
+	Graph graph;
 	Edge mother;
 	
 	/**
@@ -29,8 +30,9 @@ public class Step implements Position, Displayable {
 		return mother.isBidirectional;
 	}
 	
-	Step(Edge mother) {
+	Step(Graph graph, Edge mother) {
 		super();
+		this.graph = graph;
 		this.mother = mother;
 	}
 
@@ -41,9 +43,14 @@ public class Step implements Position, Displayable {
 	/* (non-Javadoc)
 	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public int distance(Position p, Boolean justIntel) {
-		return distanceMessureRekursion(p, new ArrayList<Position>(0));
+		if (justIntel) {
+			return distanceMessureRekursion(p, (ArrayList<Position>) graph.nodes.clone());
+		} else {
+			return distanceMessureRekursion(p, new ArrayList<Position>(0));
+		}
 	}
 
 	/* (non-Javadoc)

@@ -34,7 +34,7 @@ public class Graph {
 	}
 	
 	public void addEdge(Node node1, Node node2, int length) {
-		edges.add(new Edge(node1, node2, length));
+		edges.add(new Edge(this, node1, node2, length));
 	}
 
 	private ArrayList<Item> generateRandomItems() {
@@ -45,13 +45,16 @@ public class Graph {
 
 	private ArrayList<Edge> generateEdgesSimple(ArrayList<Node> nodes, double p) {
 		ArrayList<Edge> r = new ArrayList<Edge>(0);
-		for (Node node : nodes) {
-			for (Node node2 : nodes) {
-				if (node != node2
+		
+		for (int i = 0; i < nodes.size(); i++) {
+			Node node1 = nodes.get(i);
+			for (int j = i+1; j < nodes.size(); j++) {
+				Node node2 = nodes.get(j);
+				if (node1 != node2
 						&& Math.random() <= p  //randomly leave connections out.... could be problematic TODO
 						) {
 					int simpleLength = Settings.EDGE_SIMPLE_STANDART_LENGTH;
-					r.add(new Edge(node, node2, simpleLength));
+					r.add(new Edge(this, node1, node2, simpleLength));
 				}
 			}
 		}
@@ -61,7 +64,7 @@ public class Graph {
 	private ArrayList<Node> generateNodes(int V) {
 		ArrayList<Node> r = new ArrayList<Node>(V);
 		for (int i = 0; i < V; i++) {
-			r.add(new Node());
+			r.add(new Node(this));
 		}
 		return r;
 	}
