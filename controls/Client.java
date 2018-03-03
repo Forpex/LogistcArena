@@ -18,7 +18,7 @@ public abstract class Client extends Thread{
 
 	Intel lastIntelGotten;
 	
-	Position destination;
+	private Position destination;
 
 	public Client(int id) {
 		super();
@@ -39,6 +39,14 @@ public abstract class Client extends Thread{
 		if (Settings.isDebugOutputEnabled) {
 			System.out.println("Client:" + getID() + " started!");
 		}
+	}
+
+	public Position getDestination() {
+		return destination;
+	}
+
+	public void setDestination(Position destination) {
+		this.destination = destination;
 	}
 	
 	

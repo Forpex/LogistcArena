@@ -29,8 +29,8 @@ public class HamsterBot extends Bot {
 	 */
 	@Override
 	void decide() {
-		if (destination == null 
-				|| super.lastIntelGotten.self.getPosition() == destination) {
+		if (getDestination() == null 
+				|| super.lastIntelGotten.self.getPosition() == getDestination()) {
 			int min = Integer.MAX_VALUE;
 			if (lastIntelGotten.visibleItems.size() != 0)  {
 				for (Item item : lastIntelGotten.visibleItems) {
@@ -38,12 +38,12 @@ public class HamsterBot extends Bot {
 							-item.getPosition().distance(lastIntelGotten.self.getPosition(), true);
 					if (waitTimeOnArrival < min ) {
 						min = waitTimeOnArrival;
-						destination = item.getPosition();
+						setDestination(item.getPosition());
 					}
 				}
 			}
 			if (min >= TOO_MUCH_WAITING){
-				destination = lastIntelGotten.graph.getAllPositions().get((int) Math.random() * lastIntelGotten.graph.getAllPositions().size());
+				setDestination(lastIntelGotten.graph.getAllPositions().get((int) Math.random() * lastIntelGotten.graph.getAllPositions().size()));
 			} 
 		} 
 	}

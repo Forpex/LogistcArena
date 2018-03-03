@@ -136,7 +136,9 @@ public class Avatar implements Displayable{
 	}
 
 	private void iteratePosition() {
-		//TODO
+		if (this.getClient().getDestination() != null) {
+			this.position = this.position.next(this.getClient().getDestination());
+		}
 	}
 
 	public int getPossibleKiller() {

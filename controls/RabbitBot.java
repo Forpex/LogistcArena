@@ -17,9 +17,9 @@ public class RabbitBot extends Bot {
 	}
 
 	synchronized void decide() {
-		if (destination == null 
-				|| super.lastIntelGotten.self.getPosition() == destination) {
-			destination = lastIntelGotten.graph.getAllPositions().get((int) Math.random() * lastIntelGotten.graph.getAllPositions().size());
+		if (getDestination() == null 
+				|| super.lastIntelGotten.self.getPosition() == getDestination()) {
+			setDestination(lastIntelGotten.graph.getAllPositions().get((int) Math.random() * lastIntelGotten.graph.getAllPositions().size()));
 		} 
 	}
 }
