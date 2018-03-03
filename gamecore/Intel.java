@@ -36,7 +36,7 @@ public class Intel {
 	}
 
 	public int getNumPathChoices() {
-		return self.getPosition().getNumPathChoices();
+		return self.getPosition().getNumOutgoingEdges();
 	}
 	
 }

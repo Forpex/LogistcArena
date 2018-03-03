@@ -81,7 +81,7 @@ public class Node implements Position ,Displayable {
 	}
 
 	@Override
-	public int getNumPathChoices() {
+	public int getNumOutgoingEdges() {
 		
 		return edgesOutgoing.size();
 	}

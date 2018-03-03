@@ -109,7 +109,7 @@ public class Step implements Position, Displayable {
 	 * @see gamecore.graph.Position#getNumPathChoices()
 	 */
 	@Override
-	public int getNumPathChoices() {
+	public int getNumOutgoingEdges() {
 		return 0;
 	}
 

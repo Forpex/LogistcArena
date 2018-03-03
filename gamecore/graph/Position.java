@@ -14,7 +14,7 @@ public interface Position {
 	public Position next();
 	public Position next(int chosenEdgeID);
 	//public Position next(Position towardsDestination);
-	public int getNumPathChoices();
+	public int getNumOutgoingEdges();
 	public Position turn();
 	
 }
