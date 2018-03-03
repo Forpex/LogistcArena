@@ -13,10 +13,7 @@ public interface Position {
 
 	public int distance(Position p, Boolean beyondNextNodes);
 	public Position next();
-	public Position next(int chosenEdgeID);
 	public Position next(Position towardsDestination);
-	public int getNumOutgoingEdges();
 	public Position turn();
-	
 	int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited);
 }

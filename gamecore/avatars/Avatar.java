@@ -21,8 +21,22 @@ public class Avatar implements Displayable{
 
 	//properties
 	private int health = Settings.START_HEALTH;
-	int armor = Settings.START_ARMOR;
-	ArrayList<Weapon> weapons;;
+	private int armor = Settings.START_ARMOR;
+	/**
+	 * @return the armor
+	 */
+	public int getArmor() {
+		return armor;
+	}
+
+	/**
+	 * @param armor the armor to set
+	 */
+	public void setArmor(int armor) {
+		this.armor = armor;
+	}
+
+	ArrayList<Weapon> weapons;
 	private Client client;
 
 	private int possibleKiller;
@@ -62,15 +76,6 @@ public class Avatar implements Displayable{
 		
 		if (getHealth()<=0) {
 			possibleKiller = sourceID;
-			if( Settings.isDebugOutputEnabled) {
-				System.out.print("Avatar of Client #" + client.getID());
-				if (sourceID >= 0) {
-					System.out.println(" gotKilled by Avatar of Client #" + sourceID);
-				} else {
-					System.out.println(" just died!");
-				}
-			}	
-			
 		}
 	}
 
@@ -131,12 +136,7 @@ public class Avatar implements Displayable{
 	}
 
 	private void iteratePosition() {
-		if (!getClient().isStaying()) {
-			if (getClient().wantsToTurn()) {
-				setPosition(getPosition().turn());
-			}
-			setPosition(getPosition().next(getClient().getChosenPath()));
-		}
+		//TODO
 	}
 
 	public int getPossibleKiller() {

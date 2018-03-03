@@ -82,21 +82,7 @@ public class Node implements Position ,Displayable {
 		}
 	}
 
-	@Override
-	public Position next(int chosenPathID) {
-		if (chosenPathID < 0
-				|| edges.size()<=0) {
-			return next();
-		}
-		return next(edges.get(chosenPathID % edges.size()));	
-		
-	}
-
-	@Override
-	public int getNumOutgoingEdges() {
-		
-		return edgesOutgoing.size();
-	}
+	
 
 	@Override
 	public Position turn() {

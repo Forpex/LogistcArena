@@ -13,8 +13,8 @@ import gamecore.Intel;
  */
 public class ConsoleClient extends Client {
 
-	public ConsoleClient(String name, int id) {
-		super(name, id);
+	public ConsoleClient(int id) {
+		super(id);
 	}
 
 	@Override

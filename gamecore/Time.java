@@ -11,9 +11,9 @@ import gfx.Displayable;
  */
 public class Time implements Displayable{
 
-	private long seconds;
+	private int seconds;
 	
-	public Time(long seconds) {
+	public Time(int seconds) {
 		this.seconds = seconds;
 	}
 	
@@ -51,7 +51,7 @@ public class Time implements Displayable{
 		return new Time(getSeconds());
 	}
 
-	public long getSeconds() {
+	public int getSeconds() {
 		return seconds;
 	}
 

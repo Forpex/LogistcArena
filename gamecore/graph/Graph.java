@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import gamecore.Settings;
 import gamecore.graph.items.Item;
 import gamecore.graph.items.ItemMegaHealth;
+import gamecore.graph.items.ItemRedArmor;
 
 /**
  * @author Andreas Stock
@@ -15,7 +16,7 @@ import gamecore.graph.items.ItemMegaHealth;
  */
 public class Graph {
 	ArrayList<Node> nodes;
-	ArrayList<Edge> edges;
+	ArrayList<Edge> edges = new ArrayList<Edge>(0);
 	private ArrayList<Item> items;
 	
 	//TODO constructor that builds a default test graph
@@ -28,8 +29,8 @@ public class Graph {
 	 * @param p possibility of each connection.
 	 */
 	public Graph(int V, double p) {
-		this.nodes = generateNodes(Math.max (V, Item.TOTAL_NUMBER_OF_ITEM_TYPES));
-		this.edges = generateEdgesSimple(nodes,p);		
+		this.nodes = generateNodes(Math.max (V, Settings.TOTAL_NUMBER_OF_ITEM_TYPES));
+		this.edges = generateEdgesSimple(nodes,p);
 		this.items = generateRandomItems();
 	}
 	
@@ -40,6 +41,7 @@ public class Graph {
 	private ArrayList<Item> generateRandomItems() {
 		ArrayList<Item> r = new ArrayList<Item>(0);
 		r.add(new ItemMegaHealth(reserveRandomItemSpawnPoint()));
+		r.add(new ItemRedArmor(reserveRandomItemSpawnPoint()));
 		return r;
 	}
 
@@ -74,7 +76,7 @@ public class Graph {
 	}
 
 	private Node getRandomNode() {
-		return nodes.get((int)Math.random()*nodes.size());
+		return nodes.get((int)(Math.random()*nodes.size()));
 	}
 
 	/**

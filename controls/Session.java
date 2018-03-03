@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import gamecore.Game;
 import gamecore.Score;
+import gamecore.Settings;
 import gamecore.graph.Graph;
-import gamecore.graph.items.Item;
 
 /**
  * Contains multiple Clients
@@ -45,9 +45,10 @@ public class Session {
 	 * Starts a Session with Bots only
 	 * @param i
 	 */
-	public Session(int numberOfBots) {
-		for (int i = 0; i < numberOfBots; i++) {
-			clients.add(new RandomBot(i));
+	public Session(String s) {
+		if (s == "botduel") {
+			clients.add(new RabbitBot(0));
+			clients.add(new HamsterBot(1));
 		}
 	}
 
@@ -59,7 +60,7 @@ public class Session {
 	public void runSimpleTestGames(int numgames) {
 		Score totalScore = new Score(this.size());
 		for (int i = 0; i < numgames; i++) {
-			Graph graph = new Graph(Item.TOTAL_NUMBER_OF_ITEM_TYPES+2, Math.random());
+			Graph graph = new Graph(Settings.TOTAL_NUMBER_OF_ITEM_TYPES, 1);
 			Game g = new Game(this, graph);
 			g.start();
 			g.join();

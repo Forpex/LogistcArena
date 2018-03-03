@@ -66,21 +66,7 @@ public class Step implements Position, Displayable {
 		return mother.getprevious(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see graph.Position#next(graph.Edge)
-	 */
-	@Override
-	public Position next(int chosenPathID) {
-		return next();
-	}
 
-	/* (non-Javadoc)
-	 * @see gamecore.graph.Position#getNumPathChoices()
-	 */
-	@Override
-	public int getNumOutgoingEdges() {
-		return 0;
-	}
 
 	@Override
 	public Position turn() {
@@ -123,13 +109,16 @@ public class Step implements Position, Displayable {
 
 	@Override
 	public Position next(Position towardsDestination) {
-		if (this.next().distance(towardsDestination, true) <= this.turn().next().distance(towardsDestination, true)) {
-			this.next();
-		} else {
-			this.turn().next();
-		}
+		Position r = towardsDestination;
+		int distance = this.distance(towardsDestination, true);
 		
-		return null;
+		if (this.next().distance(towardsDestination, true) < distance) {
+			r = this.next();
+		} 
+		if (this.turn().next().distance(towardsDestination, true) < distance) {
+			r = this.turn().next();
+		}
+		return r;
 	}
 
 	

@@ -22,10 +22,16 @@ public abstract class Item implements Displayable {
 	Time timeRespawnCycle;
 	Time timeLeftToRespawn;
 	
+	/**
+	 * attentione: only for bots to cheat hahaha
+	 * @return the timeLeftToRespawn
+	 */
+	public int getTimeLeftToRespawn() {
+		return timeLeftToRespawn.getSeconds();
+	}
+
 	Position position; 									//==some node.
 		
-	public static int TOTAL_NUMBER_OF_ITEM_TYPES = 1;						//Item.values().length;
-	
 	public Item( Position p, int secondsForRespawnCycle) {
 		this.position = p;
 		this.timeRespawnCycle = new Time(secondsForRespawnCycle);

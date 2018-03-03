@@ -13,6 +13,9 @@ public class Settings {
 	public static final int ARMOR_BLEED_ABOVE = 100;
 	public static final int HEALTH_BLEED_ABOVE = 100;
 
+	//ITEMS
+	public static int TOTAL_NUMBER_OF_ITEM_TYPES = 2;						//Item.values().length;
+	
 	//WEAPONS
 	public static final int PISTOL_DPS = 10;
 	public static final int PISTOL_RANGE = 6;
@@ -31,8 +34,9 @@ public class Settings {
 	public static final int EDGE_SIMPLE_STANDART_LENGTH = 8;
 	
 	
-	double timescale = 4;
+	double timescale = 1000;
 	public Boolean IS_DISPLAYED_TIME_INCREMENTING = true;
-	public final Time gamelength = new Time(60);
+	public final Time gamelength = new Time(60*5);
+
 	
 }

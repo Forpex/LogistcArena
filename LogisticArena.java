@@ -16,11 +16,8 @@ public class LogisticArena {
 		System.out.println("-------------------\nWelcome to LogisticArena\n-------------------");
 		//stub
 		Settings.isDebugOutputEnabled = true;
-		Session s = new Session(2);
-		s.runSimpleTestGames(1);
+		Session s = new Session("botduel");
+		s.runSimpleTestGames(10);
 		s.end();
 	}
-	
-	
-
 }

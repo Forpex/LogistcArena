@@ -117,6 +117,14 @@ public class Game{
 				//check for kills
 				if (!a.isAlive()) {
 					score.increment(a.getPossibleKiller());
+					if( Settings.isDebugOutputEnabled) {
+						System.out.print("Avatar of Client #" + a.getClient().getID());
+						if (a.getPossibleKiller() >= 0) {
+							System.out.println(" gotKilled by Avatar of Client #" + a.getPossibleKiller());
+						} else {
+							System.out.println(" just died!");
+						}
+					}
 					//respawn
 					respawn(a);
 				}

@@ -15,10 +15,10 @@ import gamecore.graph.items.Item;
  */
 public class Intel {
 	
-	Avatar self;
+	public Avatar self;
 	ArrayList<Avatar> visibleEnemyAvatars = new ArrayList<Avatar>(0);
-	Graph graph;
-	ArrayList<Item> visibleItems = new ArrayList<Item>(0);
+	public Graph graph;
+	public ArrayList<Item> visibleItems = new ArrayList<Item>(0);
 	Score currentScore;
 	Time currentTime;
 	Settings settings;
@@ -33,10 +33,6 @@ public class Intel {
 		this.currentTime = g.currentTime.clone();
 		this.settings = g.settings;
 		this.isGameOver = g.isGameOver;
-	}
-
-	public int getNumOutgoingEdges() {
-		return self.getPosition().getNumOutgoingEdges();
 	}
 	
 }

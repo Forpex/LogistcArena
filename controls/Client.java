@@ -5,43 +5,23 @@ package controls;
 
 import gamecore.Intel;
 import gamecore.Settings;
+import gamecore.graph.Position;
 
 /**
  * @author Andreas Stock
  *
- * Controls: Keyboard, RandomBot, etc.
+ * Controls: Keyboard, RabbitBot, etc.
  */
 public abstract class Client extends Thread{
 
 	int id;
-	String name;
-	Intel lastIntelGotten;
-	/**
-	 * If Path==-1, stay.
-	 * On Edge, if Path==number, go the way of that index.
-	 */
-	int chosenPath = 0;
-	
-	private static final int STAYING = -1;
-	private static final int TURNAROUND = -2;
-	
-	public Boolean isStaying() {
-		return chosenPath==STAYING;
-	}
-	public Boolean wantsToTurn() {
-		return chosenPath==TURNAROUND;
-	}
-	
-	/**
-	 * @return the chosenPath
-	 */
-	public int getChosenPath() {
-		return chosenPath;
-	}
 
-	public Client(String name, int id) {
+	Intel lastIntelGotten;
+	
+	Position destination;
+
+	public Client(int id) {
 		super();
-		this.name = name;
 		this.id = id;
 	}
 	
