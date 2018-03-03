@@ -1,6 +1,7 @@
 
 import controls.Session;
 import gamecore.Game;
+import gamecore.Score;
 import gamecore.Settings;
 import gamecore.graph.Graph;
 import gamecore.graph.items.Item;
@@ -19,16 +20,11 @@ public class LogisticArena {
 		System.out.println("-------------------\nWelcome to LogisticArena\n-------------------");
 		//stub
 		Settings.isDebugOutputEnabled = true;
-		Game game = createSimpleTestGame();
-		game.start();
+		Session s = new Session(2);
+		s.runSimpleTestGames(3);
+		s.end();
 	}
 	
-	static Game createSimpleTestGame() {
-		Session s = new Session(2);
-		Graph g = new Graph(Item.TOTAL_NUMBER_OF_ITEM_TYPES+2, 0.75);
-		Game r = new Game(s, g);
-		
-		return r;
-	}
+	
 
 }

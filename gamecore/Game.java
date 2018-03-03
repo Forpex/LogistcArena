@@ -16,12 +16,19 @@ import gamecore.graph.items.Item;
  * @author Andreas Stock
  *
  */
-public class Game extends Thread{
+public class Game{
 	Settings settings;
 	ArrayList<Client> clients;	
 	ArrayList<Avatar> avatars;	
 	Graph graph;	
-	Score currentScore;	
+	Score score;	
+	/**
+	 * @return the score
+	 */
+	public Score getScore() {
+		return score;
+	}
+
 	Time currentTime;	
 	Boolean isGameOver = false;
 	GameStateIterator iterator;
@@ -32,9 +39,12 @@ public class Game extends Thread{
 		this.graph = g;
 		this.clients = s.getClients();
 		this.avatars = generateAvatars(this.clients,g);
-		this.currentScore = new Score(avatars.size());
+		this.score = new Score(avatars.size());
 		this.currentTime = new Time(0);
 		this.iterator = new GameStateIterator(this);
+		
+		if (Settings.isDebugOutputEnabled) 
+			System.out.println("\n\n\n"+"New Game Started --> " + score + "\n----------------");
 	}
 
 	private static ArrayList<Avatar> generateAvatars(ArrayList<Client> clients, Graph g) {
@@ -58,27 +68,55 @@ public class Game extends Thread{
 		return r;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Thread#run()
+	/** 
+	 * this is no thread anymore
 	 */
-	@Override
+	public void start() {
+		run();
+	}
+	
+	/**
+	 * this is no thread anymore
+	 */
 	public void run() {
-		for (Client c : clients) {
-			c.start();
-		}
-		
 		iterator.start();
+		try {
+			iterator.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * this is no thread anymore
+	 */
+	public void join() {
 	}
 
 	synchronized void iterateGamestate() {
+		//set gameover if time out
+		if (currentTime.equals(settings.gamelength)) {
+			isGameOver = true;
+		}
+		
+		
 		if (!isGameOver) {
 			for (int i = 0; i < avatars.size(); i++) {
 				Avatar a = avatars.get(i);
-				System.out.println(a);
+				if (Settings.isDebugOutputEnabled) {
+					System.out.println(a);
+					double averageDistance = 0;
+					for (Avatar b : avatars) {
+						if (a != b) {
+							averageDistance += a.distanceTo(b);
+						}
+					}
+					System.out.println("SumDist: "+averageDistance);
+				}
 				a.iterate(this);
 				//check for kills
 				if (!a.isAlive()) {
-					currentScore.increment(a.getPossibleKiller());
+					score.increment(a.getPossibleKiller());
 					//respawn
 					respawn(a);
 				}
@@ -89,21 +127,33 @@ public class Game extends Thread{
 			// round finished: move time!
 			currentTime.increment();
 			//post status to console
-			System.out.println(currentTime.toString(this) + " --> " + currentScore);
+			if (Settings.isDebugOutputEnabled) 
+				System.out.println(currentTime.toString(this) + " --> " + score);
 		}
 		
-		//set gameover if time out
-		if (currentTime.equals(settings.gamelength)) {
-			isGameOver = true;
-			System.out.println("----------------\nGameOver --> " + currentScore);
-		}
 		
 		//post intel to clients
 		for (Avatar a : avatars) {
 			a.getClient().post(new Intel(this,a));
 		}
 		
+		if (isGameOver) {
+			handleGameOver();
+		}
 		
+	}
+
+	public void handleGameOver() {
+		isGameOver = true;
+		for (Client client : clients) {
+			try {
+				client.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		if (Settings.isDebugOutputEnabled) 
+			System.out.println("----------------\nGameOver --> " + score+ "\n\n\n");
 	}
 
 	public void respawn(Avatar a) {
@@ -123,6 +173,8 @@ public class Game extends Thread{
 		}
 		return r;
 	}
+
+	
 	
 	
 	

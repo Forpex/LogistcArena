@@ -94,23 +94,19 @@ public class Node implements Position ,Displayable {
 
 	@Override
 	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
-		if (this != p) {
-			if (alreadyvisited.contains(p)) {
-				return Integer.MAX_VALUE;
+		if (!alreadyvisited.contains(p)) {
+			if (this != p) {
+				return 0;
 			} else {
 				alreadyvisited.add(this);
-				int r = Math.min(
-							distanceMessureRekursion(this.next(), alreadyvisited)+1
-							,
-							distanceMessureRekursion(this.turn(), alreadyvisited)+0
-							);
+				int r = Integer.MAX_VALUE;
 				for (Edge edge : edges) {
 					r = Math.min(r, distanceMessureRekursion(this.next(edge), alreadyvisited));
 				}
 				return r;
 			}
 		} else {
-			return 0;
+			return Integer.MAX_VALUE;
 		}
 	}
 

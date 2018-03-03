@@ -13,7 +13,7 @@ public class Score implements Displayable{
 
 	int[]  values;
 	
-	Score(int size) {
+	public Score(int size) {
 
 		values = new int[size];
 	}
@@ -53,6 +53,17 @@ public class Score implements Displayable{
 			r.values[i] = values[i];
 		}
 		return r;
+	}
+
+	public void add(Score score) {
+		if (score.values.length != this.values.length) {
+			System.err.println("Scores of different sizes cannot be added!");
+			return;
+		}
+		for (int i = 0; i < values.length; i++) {
+			this.values[i] += score.values[i];
+		}
+		
 	}
 	
 	

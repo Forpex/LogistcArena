@@ -29,13 +29,13 @@ public class Intel {
 		visibleEnemyAvatars = g.getVisibleAvatars(self);
 		this.graph = g.graph;
 		this.visibleItems = g.graph.getItemsInSight(self.getPosition());
-		this.currentScore = g.currentScore.clone();
+		this.currentScore = g.score.clone();
 		this.currentTime = g.currentTime.clone();
 		this.settings = g.settings;
 		this.isGameOver = g.isGameOver;
 	}
 
-	public int getNumPathChoices() {
+	public int getNumOutgoingEdges() {
 		return self.getPosition().getNumOutgoingEdges();
 	}
 	

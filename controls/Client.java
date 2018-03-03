@@ -4,6 +4,7 @@
 package controls;
 
 import gamecore.Intel;
+import gamecore.Settings;
 
 /**
  * @author Andreas Stock
@@ -16,7 +17,7 @@ public abstract class Client extends Thread{
 	String name;
 	Intel lastIntelGotten;
 	/**
-	 * If Path==0, stay.
+	 * If Path==-1, stay.
 	 * On Edge, if Path==number, go the way of that index.
 	 */
 	int chosenPath;
@@ -55,7 +56,9 @@ public abstract class Client extends Thread{
 	 */
 	@Override
 	public void run() {
-		System.out.println("Client:"+getID()+" started!");
+		if (Settings.isDebugOutputEnabled) {
+			System.out.println("Client:" + getID() + " started!");
+		}
 	}
 	
 	
