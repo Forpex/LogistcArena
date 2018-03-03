@@ -26,7 +26,7 @@ public class RandomBot extends Client {
 		if (super.lastIntelGotten == null) {
 			super.chosenPath = 0;
 		} else {
-			super.chosenPath = (int) Math.random() * super.lastIntelGotten.getNumOutgoingEdges() - 1;
+			super.chosenPath = (int) Math.random() * super.lastIntelGotten.getNumOutgoingEdges();
 		}
 	}
 }

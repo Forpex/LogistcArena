@@ -50,8 +50,8 @@ public class Graph {
 				if (node != node2
 						&& Math.random() <= p  //randomly leave connections out.... could be problematic TODO
 						) {
-					int randomLength = (int) (Math.random() * 8)+1;
-					r.add(new Edge(node, node2, randomLength));
+					int simpleLength = Settings.EDGE_SIMPLE_STANDART_LENGTH;
+					r.add(new Edge(node, node2, simpleLength));
 				}
 			}
 		}

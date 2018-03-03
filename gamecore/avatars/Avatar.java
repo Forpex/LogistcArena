@@ -114,7 +114,7 @@ public class Avatar implements Displayable{
 		for (Avatar a : targets) {
 			int distance = this.position.distance(a.getPosition(), false);
 			int i = 0;
-			while (i < weapons.size() && !weapons.get(i).canShoot(distance)){
+			while (i < weapons.size()-1 && !weapons.get(i).canShoot(distance)){
 				i++;
 			}
 			weapons.get(i).damageAvatar(a, this);
@@ -135,7 +135,7 @@ public class Avatar implements Displayable{
 			if (getClient().wantsToTurn()) {
 				setPosition(getPosition().turn());
 			}
-			setPosition(getPosition().next());
+			setPosition(getPosition().next(getClient().getChosenPath()));
 		}
 	}
 
@@ -148,7 +148,7 @@ public class Avatar implements Displayable{
 	 */
 	@Override
 	public String toString() {
-		String r = "Avatar#"+this.getClient().getID()+"" +" --> Life="+this.health+" Armor="+this.armor;
+		String r = "Avatar#"+this.getClient().getID()+"" +" --> Pos="+this.position+ " Life="+this.health+" Armor="+this.armor;
 		for (Weapon weapon : weapons) {
 			r += " "+weapon;
 		}

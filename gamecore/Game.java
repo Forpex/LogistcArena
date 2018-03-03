@@ -103,16 +103,16 @@ public class Game{
 		if (!isGameOver) {
 			for (int i = 0; i < avatars.size(); i++) {
 				Avatar a = avatars.get(i);
-				if (Settings.isDebugOutputEnabled) {
+				/*if ( Settings.isDebugOutputEnabled) {
 					System.out.println(a);
-					double averageDistance = 0;
+					double distanceSum = 0;
 					for (Avatar b : avatars) {
 						if (a != b) {
-							averageDistance += a.distanceTo(b);
+							distanceSum += a.distanceTo(b);
 						}
 					}
-					System.out.println("SumDist: "+averageDistance);
-				}
+					System.out.println("SumDist: " + distanceSum);
+				}*/
 				a.iterate(this);
 				//check for kills
 				if (!a.isAlive()) {
@@ -127,8 +127,8 @@ public class Game{
 			// round finished: move time!
 			currentTime.increment();
 			//post status to console
-			if (Settings.isDebugOutputEnabled) 
-				System.out.println(currentTime.toString(this) + " --> " + score);
+			/*if (Settings.isDebugOutputEnabled) 
+				System.out.println(currentTime.toString(this) + " --> " + score);*/
 		}
 		
 		

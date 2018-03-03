@@ -5,12 +5,15 @@ public class Settings {
 	
 	public static Boolean isDebugOutputEnabled = false;
 	
+	//AVATAR
 	public static final int MAX_HEALTH = 200;
 	public static final int MAX_ARMOR = 200;
 	public static final int START_HEALTH = 125;
 	public static final int START_ARMOR = 0;
+	public static final int ARMOR_BLEED_ABOVE = 100;
+	public static final int HEALTH_BLEED_ABOVE = 100;
 
-
+	//WEAPONS
 	public static final int PISTOL_DPS = 10;
 	public static final int PISTOL_RANGE = 6;
 	public static final int RAILGUN_DPS = 24;
@@ -20,11 +23,12 @@ public class Settings {
 	public static final int SHOTGUN_DPS = 80;
 	public static final int SHOTGUN_RANGE = 1;
 
+	
+	//Intel and Sight
 	public static final int INTEL_DISTANCE = 10;
 
-	public static final int ARMOR_BLEED_ABOVE = 100;
-
-	public static final int HEALTH_BLEED_ABOVE = 100;
+	//Graph Generation
+	public static final int EDGE_SIMPLE_STANDART_LENGTH = 8;
 	
 	
 	double timescale = 4;

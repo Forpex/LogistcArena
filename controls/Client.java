@@ -20,7 +20,7 @@ public abstract class Client extends Thread{
 	 * If Path==-1, stay.
 	 * On Edge, if Path==number, go the way of that index.
 	 */
-	int chosenPath;
+	int chosenPath = 0;
 	
 	private static final int STAYING = -1;
 	private static final int TURNAROUND = -2;
