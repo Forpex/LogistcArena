@@ -41,8 +41,8 @@ public class Node implements Position ,Displayable {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int distance(Position p, Boolean justIntel) {
-		if (justIntel) {
+	public int distance(Position p, Boolean beyondNextNodes) {
+		if (beyondNextNodes) {
 			return distanceMessureRekursion(p, (ArrayList<Position>) graph.nodes.clone());
 		} else {
 			return distanceMessureRekursion(p, new ArrayList<Position>(0));
@@ -133,6 +133,23 @@ public class Node implements Position ,Displayable {
 		} else {
 			return 0;
 		}
+	}
+
+	@Override
+	public Position next(Position towardsDestination) {
+		Position r = towardsDestination;
+		int distance = this.distance(towardsDestination, true);
+		for (Edge edge : edgesOutgoing) {
+			if (edge.contains(towardsDestination)) {
+				return next(edge);
+			} else {
+				Position fstep = edge.getFirstStepEnteringFrom(this);
+				if (distance > fstep.distance(towardsDestination, true)) {
+					r = fstep;
+				}
+			}
+		}
+		return r;
 	}
 
 

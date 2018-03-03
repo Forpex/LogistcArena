@@ -5,6 +5,7 @@ package gamecore.graph;
 
 import java.util.ArrayList;
 
+import gamecore.Settings;
 import gfx.Displayable;
 
 /**
@@ -45,8 +46,8 @@ public class Step implements Position, Displayable {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int distance(Position p, Boolean justIntel) {
-		if (justIntel) {
+	public int distance(Position p, Boolean beyondNextNodes) {
+		if (beyondNextNodes) {
 			return distanceMessureRekursion(p, (ArrayList<Position>) graph.nodes.clone());
 		} else {
 			return distanceMessureRekursion(p, new ArrayList<Position>(0));
@@ -83,10 +84,12 @@ public class Step implements Position, Displayable {
 
 	@Override
 	public Position turn() {
-		if (isBidirectional() != null) {
+		if (isBidirectional()) {
 			return getBidirectionalPartner();
 		} else {
-			System.err.println("Step:"+ this +" cannot Turn around here!");
+			if (Settings.isDebugOutputEnabled) {
+				System.err.println("Step:" + this + " cannot Turn around here!");
+			}
 			return this;
 		}
 	}
@@ -115,6 +118,18 @@ public class Step implements Position, Displayable {
 		} else {
 			return 0;
 		}
+	}
+
+
+	@Override
+	public Position next(Position towardsDestination) {
+		if (this.next().distance(towardsDestination, true) <= this.turn().next().distance(towardsDestination, true)) {
+			this.next();
+		} else {
+			this.turn().next();
+		}
+		
+		return null;
 	}
 
 	

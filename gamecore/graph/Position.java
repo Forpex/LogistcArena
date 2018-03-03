@@ -11,10 +11,10 @@ import java.util.ArrayList;
  */
 public interface Position {
 
-	public int distance(Position p, Boolean justIntel);
+	public int distance(Position p, Boolean beyondNextNodes);
 	public Position next();
 	public Position next(int chosenEdgeID);
-	//public Position next(Position towardsDestination);
+	public Position next(Position towardsDestination);
 	public int getNumOutgoingEdges();
 	public Position turn();
 	
