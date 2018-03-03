@@ -103,5 +103,21 @@ public class Graph {
 		}
 		return r;
 	}
+	
+	public ArrayList<Position> getAllPositions(){
+		ArrayList<Position> r = new ArrayList<Position>(0);
+		for (Node node : nodes) {
+			r.add(node);
+		}
+		for (Edge edge : edges) {
+			for (Position p : edge.stepsforward) {
+				r.add(p);
+			}
+			for (Position p : edge.stepsbackward) {
+				r.add(p);
+			}
+		}
+		return r;
+	}
 
 }

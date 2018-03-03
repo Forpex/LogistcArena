@@ -42,6 +42,7 @@ public class Edge implements Displayable{
 	}
 	public Edge(Graph graph,Node start, Node end, int length, Boolean isBidirectional, int cost) {
 		this.graph = graph;
+		graph.edges.add(this);
 		this.start = start;
 		start.addEdge(this, true, isBidirectional);
 		this.end = end;
