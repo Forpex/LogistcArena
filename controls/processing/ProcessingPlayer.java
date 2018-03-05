@@ -7,6 +7,7 @@ import controls.Player;
 import gamecore.Intel;
 
 /**
+ * doesnt do anything yet, but will be the processing based graphical user interface. 
  * @author Andreas Stock
  *
  */
