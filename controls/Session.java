@@ -18,25 +18,25 @@ import gamecore.graph.Graph;
  *
  */
 public class Session {
-	ArrayList<Client> clients = new ArrayList<Client>(0);
+	ArrayList<Player> clients = new ArrayList<Player>(0);
 
 	/**
 	 * @return the clients
 	 */
-	public ArrayList<Client> getClients() {
+	public ArrayList<Player> getClients() {
 		return clients;
 	}
 
-	public Session(ArrayList<Client> clients) {
+	public Session(ArrayList<Player> clients) {
 		super();
 		this.clients = clients;
-		for (Client c : clients) {
+		for (Player c : clients) {
 			c.start();
 		}
 	}
 
 	public void end() {
-		for (Client c : clients) {
+		for (Player c : clients) {
 			c.interrupt();
 		}
 	}

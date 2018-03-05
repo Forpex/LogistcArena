@@ -5,7 +5,7 @@ package gamecore.avatars;
 
 import java.util.ArrayList;
 
-import controls.Client;
+import controls.Player;
 import gamecore.Game;
 import gamecore.Settings;
 import gamecore.graph.Position;
@@ -36,7 +36,7 @@ public class Avatar{
 	}
 
 	ArrayList<Weapon> weapons;
-	private Client client;
+	private Player client;
 
 	private int possibleKiller;
 	
@@ -47,12 +47,12 @@ public class Avatar{
 	/**
 	 * @return the client
 	 */
-	public Client getClient() {
+	public Player getClient() {
 		return client;
 	}
 
 	
-	public Avatar(Client client, Position startingPointOnGraph) {
+	public Avatar(Player client, Position startingPointOnGraph) {
 		this.client = client;
 		this.position = startingPointOnGraph;
 		this.weapons = Weapon.generateNewWeapons();

@@ -12,7 +12,7 @@ import gamecore.graph.Position;
  *
  * Controls: Keyboard, RabbitBot, etc.
  */
-public abstract class Client extends Thread{
+public abstract class Player extends Thread{
 
 	int id;
 
@@ -20,7 +20,7 @@ public abstract class Client extends Thread{
 	
 	private Position destination;
 
-	public Client(int id) {
+	public Player(int id) {
 		super();
 		this.id = id;
 	}
@@ -37,7 +37,7 @@ public abstract class Client extends Thread{
 	@Override
 	public void run() {
 		if (Settings.isDebugOutputEnabled) {
-			System.out.println("Client:" + getID() + " started!");
+			System.out.println("Player:" + getID() + " started!");
 		}
 	}
 

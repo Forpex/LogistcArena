@@ -5,7 +5,7 @@ package gamecore;
 
 import java.util.ArrayList;
 
-import controls.Client;
+import controls.Player;
 import controls.Session;
 import gamecore.avatars.Avatar;
 import gamecore.graph.Graph;
@@ -18,7 +18,7 @@ import gamecore.graph.items.Item;
  */
 public class Game extends Thread{
 	Settings settings;
-	ArrayList<Client> clients;	
+	ArrayList<Player> clients;	
 	ArrayList<Avatar> avatars;	
 	Graph graph;	
 	Score score;	
@@ -45,10 +45,10 @@ public class Game extends Thread{
 			System.out.println("\n\n\n"+"New Game Started --> " + score + "\n----------------");
 	}
 
-	private static ArrayList<Avatar> generateAvatars(ArrayList<Client> clients, Graph g) {
+	private static ArrayList<Avatar> generateAvatars(ArrayList<Player> clients, Graph g) {
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
 		ArrayList<Position> alreadySpawnedAtPositions = new ArrayList<Position>(0);
-		for (Client client : clients) {
+		for (Player client : clients) {
 			Position playerSpawnPoint = g.getASpawnPoint(alreadySpawnedAtPositions, Settings.MINIMAL_SPAWN_DISTANCE);
 			alreadySpawnedAtPositions.add(playerSpawnPoint);
 			r.add(new Avatar(client, playerSpawnPoint));
@@ -108,9 +108,9 @@ public class Game extends Thread{
 				if (!a.isAlive()) {
 					score.increment(a.getPossibleKiller());
 					if( Settings.isDebugOutputEnabled) {
-						System.out.print("Avatar of Client #" + a.getClient().getID());
+						System.out.print("Avatar of Player #" + a.getClient().getID());
 						if (a.getPossibleKiller() >= 0) {
-							System.out.println(" gotKilled by Avatar of Client #" + a.getPossibleKiller());
+							System.out.println(" gotKilled by Avatar of Player #" + a.getPossibleKiller());
 						} else {
 							System.out.println(" just died!");
 						}
@@ -143,7 +143,7 @@ public class Game extends Thread{
 
 	public void handleGameOver() {
 		isGameOver = true;
-		for (Client client : clients) {
+		for (Player client : clients) {
 			try {
 				client.join();
 			} catch (InterruptedException e) {

@@ -11,7 +11,7 @@ import gamecore.Intel;
  * @author Andreas Stock
  *
  */
-public abstract class Bot extends Client {
+public abstract class Bot extends Player {
 
 	public Bot(int id) {
 		super(id);
