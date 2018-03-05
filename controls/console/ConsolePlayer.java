@@ -8,7 +8,8 @@ import gamecore.Intel;
 import gamecore.graph.Graph;
 
 /**
- * This is just simply to Test. Inputs will be done with console and debugging outputs.
+ * This is just simply to Test. Inputs will be done with console along with debugging outputs.
+ * display method will be a grid of char[][]. and user imput will be keys.
  * 
  * @author Andreas Stock
  *
