@@ -9,13 +9,12 @@ import controls.Client;
 import gamecore.Game;
 import gamecore.Settings;
 import gamecore.graph.Position;
-import gfx.Displayable;
 
 /**
  * @author Andreas Stock
  *
  */
-public class Avatar implements Displayable{
+public class Avatar{
 
 	Position position;
 

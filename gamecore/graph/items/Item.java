@@ -9,7 +9,6 @@ import gamecore.Settings;
 import gamecore.Time;
 import gamecore.avatars.Avatar;
 import gamecore.graph.Position;
-import gfx.Displayable;
 
 
 /**
@@ -17,7 +16,7 @@ import gfx.Displayable;
  * @author Andreas Stock
  *
  */
-public abstract class Item implements Displayable {
+public abstract class Item {
 
 	Time timeRespawnCycle;
 	Time timeLeftToRespawn;

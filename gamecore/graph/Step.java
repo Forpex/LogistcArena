@@ -6,13 +6,12 @@ package gamecore.graph;
 import java.util.ArrayList;
 
 import gamecore.Settings;
-import gfx.Displayable;
 
 /**
  * @author Andreas Stock
  *
  */
-public class Step implements Position, Displayable {
+public class Step implements Position {
 	
 	Graph graph;
 	Edge mother;

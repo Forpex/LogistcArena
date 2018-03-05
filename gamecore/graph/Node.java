@@ -5,14 +5,13 @@ package gamecore.graph;
 
 import java.util.ArrayList;
 
-import gfx.Displayable;
 
 
 /**
  * @author Andreas Stock
  *
  */
-public class Node implements Position ,Displayable {
+public class Node implements Position {
 
 	Graph graph;
 	ArrayList<Edge> edges = new ArrayList<Edge>(0);

@@ -3,13 +3,12 @@
  */
 package gamecore;
 
-import gfx.Displayable;
 
 /**
  * @author Andreas Stock
  *
  */
-public class Score implements Displayable{
+public class Score {
 
 	int[]  values;
 	

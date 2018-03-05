@@ -3,11 +3,10 @@ package gamecore.graph;
 import java.util.ArrayList;
 
 import gamecore.Settings;
-import gfx.Displayable;
 
 
 
-public class Edge implements Displayable{
+public class Edge{
 	
 	
 	//basic Graph architecture
