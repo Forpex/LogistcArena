@@ -5,6 +5,8 @@ package controls;
 
 import java.util.ArrayList;
 
+import controls.bots.HamsterBot;
+import controls.bots.RabbitBot;
 import gamecore.Game;
 import gamecore.Score;
 import gamecore.Settings;

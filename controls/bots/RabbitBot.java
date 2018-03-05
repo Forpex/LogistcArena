@@ -1,7 +1,7 @@
 /**
  * 
  */
-package controls;
+package controls.bots;
 
 import gamecore.graph.Graph;
 

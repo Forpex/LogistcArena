@@ -1,8 +1,9 @@
 /**
  * 
  */
-package controls;
+package controls.bots;
 
+import controls.Player;
 import gamecore.Intel;
 
 /**
