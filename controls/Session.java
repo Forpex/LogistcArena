@@ -73,7 +73,11 @@ public class Session {
 			Graph graph = new Graph(Settings.TOTAL_NUMBER_OF_ITEM_TYPES+3, 0.5);
 			Game g = new Game(this, graph);
 			g.start();
-			g.join();
+			try {
+				g.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			totalScore.add(g.getScore());
 		}
 		System.out.println("TotalScore of "+numgames+" games is " +totalScore);
