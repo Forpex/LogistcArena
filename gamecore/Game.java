@@ -31,7 +31,6 @@ public class Game extends Thread{
 
 	Time currentTime;	
 	Boolean isGameOver = false;
-	GameStateIterator iterator;
 	
 	public Game(Session s, Graph g) {
 		super();
@@ -41,7 +40,6 @@ public class Game extends Thread{
 		this.avatars = generateAvatars(this.clients,g);
 		this.score = new Score(avatars.size());
 		this.currentTime = new Time(0);
-		this.iterator = new GameStateIterator(this);
 		
 		if (Settings.isDebugOutputEnabled) 
 			System.out.println("\n\n\n"+"New Game Started --> " + score + "\n----------------");
