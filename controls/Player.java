@@ -16,7 +16,7 @@ public abstract class Player extends Thread{
 
 	int id;
 
-	Intel lastIntelGotten;
+	protected Intel intel;
 	
 	private Position destination;
 

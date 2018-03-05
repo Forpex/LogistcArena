@@ -19,7 +19,7 @@ public abstract class Bot extends Player {
 	}
 	
 	public synchronized final void post(Intel intel) {
-		super.lastIntelGotten = intel;
+		super.intel = intel;
 		decide();
 	}
 

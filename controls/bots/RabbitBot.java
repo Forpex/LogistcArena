@@ -21,9 +21,9 @@ public class RabbitBot extends Bot {
 	}
 
 	synchronized void decide() {
-		if (lastIntelGotten != null) {
+		if (intel != null) {
 			if (this.getDestination() == null ) {
-				setDestination(lastIntelGotten.graph.getASpawnPoint(Graph.extractAvatarPositions(lastIntelGotten.visibleEnemyAvatars), RUNAWAY_DISTANCE));
+				setDestination(intel.graph.getASpawnPoint(Graph.extractAvatarPositions(intel.visibleEnemyAvatars), RUNAWAY_DISTANCE));
 			}
 		} 
 	}

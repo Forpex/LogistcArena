@@ -31,12 +31,12 @@ public class HamsterBot extends Bot {
 	 */
 	@Override
 	void decide() {
-		if (lastIntelGotten != null ) {
+		if (intel != null ) {
 			int min = Integer.MAX_VALUE;
-			if (lastIntelGotten.visibleItems.size() != 0)  {
-				for (Item item : lastIntelGotten.visibleItems) {
+			if (intel.visibleItems.size() != 0)  {
+				for (Item item : intel.visibleItems) {
 					int waitTimeOnArrival = item.getTimeLeftToRespawn()
-							-item.getPosition().distance(lastIntelGotten.self.getPosition(), true);
+							-item.getPosition().distance(intel.self.getPosition(), true);
 					if (waitTimeOnArrival < min ) {
 						min = waitTimeOnArrival;
 						setDestination(item.getPosition());
@@ -44,7 +44,7 @@ public class HamsterBot extends Bot {
 				}
 			}
 			if (min >= TOO_MUCH_WAITING){
-				setDestination(lastIntelGotten.graph.getASpawnPoint(Graph.extractAvatarPositions(lastIntelGotten.visibleEnemyAvatars), RUNAWAY_DISTANCE));
+				setDestination(intel.graph.getASpawnPoint(Graph.extractAvatarPositions(intel.visibleEnemyAvatars), RUNAWAY_DISTANCE));
 			} 
 		} 
 	}
