@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import gamecore.Settings;
+import gamecore.avatars.Avatar;
 import gamecore.graph.items.Item;
 import gamecore.graph.items.ItemMegaHealth;
 import gamecore.graph.items.ItemRedArmor;
@@ -72,14 +73,22 @@ public class Graph {
 		return r;
 	}
 
-	public Position getPlayerSpawnPoint(ArrayList<Position> enemies) {
+	public static ArrayList<Position> extractAvatarPositions(ArrayList<Avatar> avatars) {
+		ArrayList<Position> avatarPositions = new ArrayList<Position>(0);
+		for (Avatar enemy : avatars) {
+			avatarPositions.add(enemy.getPosition());
+		}
+		return avatarPositions;
+	}
+	
+	public Position getASpawnPoint(ArrayList<Position> enemies, int minDistance) {
 		ArrayList<Position> positions = new ArrayList<Position>(0);
 		for (Position p : this.getNodes()){
 			if (enemies.size()==0) {
 				positions.add(p);
 			} else 
 				for (Position e : enemies)  {
-					if (p.distance(e, true) >= Settings.MINIMAL_SPAWN_DISTANCE) {
+					if (p.distance(e, true) >= minDistance) {
 						positions.add(p);
 					}
 			}

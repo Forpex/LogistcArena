@@ -16,7 +16,7 @@ import gamecore.graph.items.Item;
  * @author Andreas Stock
  *
  */
-public class Game{
+public class Game extends Thread{
 	Settings settings;
 	ArrayList<Client> clients;	
 	ArrayList<Avatar> avatars;	
@@ -51,7 +51,7 @@ public class Game{
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
 		ArrayList<Position> alreadySpawnedAtPositions = new ArrayList<Position>(0);
 		for (Client client : clients) {
-			Position playerSpawnPoint = g.getPlayerSpawnPoint(alreadySpawnedAtPositions);
+			Position playerSpawnPoint = g.getASpawnPoint(alreadySpawnedAtPositions, Settings.MINIMAL_SPAWN_DISTANCE);
 			alreadySpawnedAtPositions.add(playerSpawnPoint);
 			r.add(new Avatar(client, playerSpawnPoint));
 		}
@@ -70,30 +70,19 @@ public class Game{
 		}
 		return r;
 	}
-
-	/** 
-	 * this is no thread anymore
-	 */
-	public void start() {
-		run();
-	}
 	
 	/**
 	 * this is no thread anymore
 	 */
 	public void run() {
-		iterator.start();
-		try {
-			iterator.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		while (!isGameOver) {
+			iterateGamestate();
+			try {
+				sleep((long) (1000 / settings.timescale));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-	}
-	
-	/**
-	 * this is no thread anymore
-	 */
-	public void join() {
 	}
 
 	synchronized void iterateGamestate() {
@@ -171,13 +160,12 @@ public class Game{
 		int index = avatars.indexOf(a);
 		avatars.remove(a);
 		
-		ArrayList<Position> avatarPositions = new ArrayList<Position>(0);
-		for (Avatar enemy : avatars) {
-			avatarPositions.add(enemy.getPosition());
-		}
-		Position playerSpawnPoint = this.graph.getPlayerSpawnPoint(avatarPositions);
+		ArrayList<Position> avatarPositions = Graph.extractAvatarPositions(avatars);
+		Position playerSpawnPoint = this.graph.getASpawnPoint(avatarPositions, Settings.MINIMAL_SPAWN_DISTANCE);
 		avatars.add(index, new Avatar(a.getClient(), playerSpawnPoint));
 	}
+
+	
 
 	public ArrayList<Avatar> getVisibleAvatars(Avatar self) {
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);

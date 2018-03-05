@@ -16,7 +16,7 @@ import gamecore.graph.items.Item;
 public class Intel {
 	
 	public Avatar self;
-	ArrayList<Avatar> visibleEnemyAvatars = new ArrayList<Avatar>(0);
+	public ArrayList<Avatar> visibleEnemyAvatars = new ArrayList<Avatar>(0);
 	public Graph graph;
 	public ArrayList<Item> visibleItems = new ArrayList<Item>(0);
 	Score currentScore;

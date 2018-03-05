@@ -3,6 +3,7 @@
  */
 package controls;
 
+import gamecore.graph.Graph;
 import gamecore.graph.items.Item;
 
 /**
@@ -15,7 +16,8 @@ import gamecore.graph.items.Item;
  */
 public class HamsterBot extends Bot {
 
-	private static final int TOO_MUCH_WAITING = 10;
+	private static final int TOO_MUCH_WAITING = 3;
+	private static final int RUNAWAY_DISTANCE = 8;
 
 	/**
 	 * @param id
@@ -42,7 +44,7 @@ public class HamsterBot extends Bot {
 				}
 			}
 			if (min >= TOO_MUCH_WAITING){
-				setDestination(lastIntelGotten.graph.getAllPositions().get((int) Math.random() * lastIntelGotten.graph.getAllPositions().size()));
+				setDestination(lastIntelGotten.graph.getASpawnPoint(Graph.extractAvatarPositions(lastIntelGotten.visibleEnemyAvatars), RUNAWAY_DISTANCE));
 			} 
 		} 
 	}
