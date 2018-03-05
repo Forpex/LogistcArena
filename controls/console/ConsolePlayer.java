@@ -1,8 +1,9 @@
 /**
  * 
  */
-package controls;
+package controls.console;
 
+import controls.Player;
 import gamecore.Intel;
 import gamecore.graph.Graph;
 
