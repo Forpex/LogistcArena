@@ -49,7 +49,19 @@ public class Weapon {
 	 */
 	@Override
 	public String toString() {
-		return "(a="+ammo+", r="+range+", dps="+dps+") "+getName();
+		String r = "";
+		if (!name.toLowerCase().equals("pistol")) {
+			r += ammo;
+		}
+		while (r.length() < 2) {
+			r+= " ";
+		}
+		r+=" "+ getName();
+		while (r.length() < 13) {
+			r+= " ";
+		}
+		r+=" (Stats: r="+range+", dps="+dps+")";
+		return r;
 	}
 
 

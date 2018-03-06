@@ -68,6 +68,7 @@ public class ConsolePlayer extends Player {
 		 
 		 //end cycle
 		 if (choice < 0) {
+			 choice = 0;
 			exit = true;
 		}
 			
@@ -78,7 +79,7 @@ public class ConsolePlayer extends Player {
 		setDestination(nodes.get(choice));
 		
 			// repeat
-		}while(!exit);
+		}while(!exit && !intel.isGameOver);
 		
 	}
 
@@ -100,7 +101,10 @@ public class ConsolePlayer extends Player {
 			applyToGrid(a,grid, "Bot");
 		}
 		
-		String s = "";
+		String s = "\n\n\n";
+			s += "------------------------\n";
+			s += "Welcome to LogisticArena\n";
+			s += "------------------------\n";
 		
 		s+="Time: "+intel.currentTime+ "\n";
 		
@@ -136,6 +140,11 @@ public class ConsolePlayer extends Player {
 				break;
 			case 7:
 				line += intel.self.getWeaponByName("pistol").toString();
+				break;
+			
+				//SCORE	
+			case 9:
+				line += "Score: "+intel.currentScore;
 				break;
 				
 			default:
@@ -186,7 +195,7 @@ public class ConsolePlayer extends Player {
 				}
 			}
 		}
-		return new Point2D(n0.relativePosition, distance0, n1.relativePosition, distance1);
+		return new Point2D(n0.relativePosition, (double)distance0, n1.relativePosition, (double)distance1);
 	}
 
 	public String[][] generateGrid(Graph g) {

@@ -14,15 +14,15 @@ public class Settings {
 	public static final int HEALTH_BLEED_ABOVE = 100;
 
 	//ITEMS
-	public static int TOTAL_NUMBER_OF_ITEM_TYPES = 2;						//Item.values().length;
+	public static int TOTAL_NUMBER_OF_ITEM_TYPES = 6;						//Item.values().length;
 	
 	//WEAPONS
 	public static final int PISTOL_DPS = 10;
 	public static final int PISTOL_RANGE = 6;
 	public static final int RAILGUN_DPS = 24;
-	public static final int RAILGUN_RANGE = 20;
+	public static final int RAILGUN_RANGE = 8;
 	public static final int LIGHTNING_DPS = 42;
-	public static final int LIGHTNING_RANGE = 4;
+	public static final int LIGHTNING_RANGE = 3;
 	public static final int SHOTGUN_DPS = 80;
 	public static final int SHOTGUN_RANGE = 1;
 
@@ -35,7 +35,7 @@ public class Settings {
 	public static final int MINIMAL_SPAWN_DISTANCE = 4;
 	
 	
-	double timescale = 1;
+	double timescale = 100;
 	public Boolean IS_DISPLAYED_TIME_INCREMENTING = true;
 	public final Time gamelength = new Time(60*5);
 

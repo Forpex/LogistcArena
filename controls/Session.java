@@ -64,7 +64,7 @@ public class Session {
 		}
 			break;
 			
-		case "consolesingle":
+		case "consoleduel":
 			clients.add(new ConsolePlayer(0));
 			clients.add(new HamsterBot(1));
 			break;

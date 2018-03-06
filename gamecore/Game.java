@@ -42,7 +42,7 @@ public class Game extends Thread{
 		this.currentTime = new Time(0);
 		
 		if (Settings.isDebugOutputEnabled) 
-			System.out.println("\n\n\n"+"New Game Started --> " + score + "\n----------------");
+			System.out.println("\n"+"New Game Started --> " + score + "\n----------------");
 	}
 
 	private static ArrayList<Avatar> generateAvatars(ArrayList<Player> clients, Graph g) {
@@ -81,6 +81,7 @@ public class Game extends Thread{
 				e.printStackTrace();
 			}
 		}
+		this.interrupt();
 	}
 
 	synchronized void iterateGamestate() {
@@ -93,16 +94,7 @@ public class Game extends Thread{
 		if (!isGameOver) {
 			for (int i = 0; i < avatars.size(); i++) {
 				Avatar a = avatars.get(i);
-				/*if ( Settings.isDebugOutputEnabled) {
-					System.out.println(a);
-					double distanceSum = 0;
-					for (Avatar b : avatars) {
-						if (a != b) {
-							distanceSum += a.distanceTo(b);
-						}
-					}
-					System.out.println("SumDist: " + distanceSum);
-				}*/
+				
 				a.iterate(this);
 				//check for kills
 				if (!a.isAlive()) {
@@ -124,11 +116,7 @@ public class Game extends Thread{
 			} 
 			// round finished: move time!
 			currentTime.increment();
-			//post status to console
-			/*if (Settings.isDebugOutputEnabled) 
-				System.out.println(currentTime.toString(this) + " --> " + score);*/
 		}
-		
 		
 		//post intel to clients
 		for (Avatar a : avatars) {
@@ -144,11 +132,7 @@ public class Game extends Thread{
 	public void handleGameOver() {
 		isGameOver = true;
 		for (Player client : clients) {
-			try {
-				client.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+				client.interrupt();
 		}
 		if (Settings.isDebugOutputEnabled) 
 			System.out.println("----------------\nGameOver --> " + score+ "\n\n\n");

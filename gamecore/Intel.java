@@ -19,7 +19,7 @@ public class Intel {
 	public ArrayList<Avatar> visibleEnemyAvatars = new ArrayList<Avatar>(0);
 	public Graph graph;
 	public ArrayList<Item> visibleItems = new ArrayList<Item>(0);
-	Score currentScore;
+	public Score currentScore;
 	public Time currentTime;
 	Settings settings;
 	public boolean isGameOver;

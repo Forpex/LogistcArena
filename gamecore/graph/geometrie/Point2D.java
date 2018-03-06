@@ -22,18 +22,18 @@ public class Point2D {
 		this.y = y;
 	}
 
-	public Point2D(Point2D relativePosition1, Integer distance1, Point2D relativePosition2, Integer distance2) {
-		if (distance1 == 0) {
+	public Point2D(Point2D relativePosition1, double d1, Point2D relativePosition2, double d2) {
+		if (d1 == 0) {
 			this.x = relativePosition1.x;
 			this.y = relativePosition1.y;
 		} else {
-			if (distance2 == 0) {
+			if (d2 == 0) {
 				this.x = relativePosition2.x;
 				this.y = relativePosition2.y;
 			} else {
-				double skalar = distance1/(distance2+distance1);
-				this.x = relativePosition1.x + (-relativePosition2.x + relativePosition1.x) * skalar;
-				this.y = relativePosition1.y + (-relativePosition2.y + relativePosition1.y) * skalar;
+				double skalar = 1/(d2+d1);
+				this.x = (relativePosition2.x*d1 + relativePosition1.x*d2) * skalar;
+				this.y = (relativePosition2.y*d1 + relativePosition1.y*d2) * skalar;
 			}
 		}
 	}
