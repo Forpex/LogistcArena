@@ -35,7 +35,7 @@ public class Settings {
 	public static final int MINIMAL_SPAWN_DISTANCE = 4;
 	
 	
-	double timescale = 100;
+	double timescale = 1;
 	public Boolean IS_DISPLAYED_TIME_INCREMENTING = true;
 	public final Time gamelength = new Time(60*5);
 
