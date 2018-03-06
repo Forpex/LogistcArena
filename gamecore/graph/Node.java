@@ -52,7 +52,9 @@ public class Node implements Position {
 	@Override
 	public int distance(Position p, Boolean beyondNextNodes) {
 		if (beyondNextNodes) {
-			return distanceMessureRekursion(p, (ArrayList<Position>) graph.getNodes().clone());
+			ArrayList<Position> otherNodes = ((ArrayList<Position>) graph.getNodes().clone());
+			otherNodes.remove(otherNodes.indexOf(this));
+			return distanceMessureRekursion(p, otherNodes);
 		} else {
 			return distanceMessureRekursion(p, new ArrayList<Position>(0));
 		}
@@ -132,17 +134,21 @@ public class Node implements Position {
 
 	@Override
 	public Position next(Position towardsDestination) {
-		Position r = towardsDestination;
-		int distance = this.distance(towardsDestination, true);
-		for (Edge edge : edgesOutgoing) {
-			if (edge.contains(towardsDestination)) {
-				return next(edge);
-			} else {
-				Position fstep = edge.getFirstStepEnteringFrom(this);
-				if (distance > fstep.distance(towardsDestination, true)) {
-					r = fstep;
+		Position r = this;
+		if (this != towardsDestination) {
+			int minimumdistance = this.distance(towardsDestination, true);
+			for (Edge edge : edgesOutgoing) {
+				//if the destination is on the edge, then go towards there.
+				if (edge.contains(towardsDestination)) {
+					return next(edge);
+				} else {
+					//if destination is not on that edge, look if you can find a step that leads closer to destination.
+					Position fstep = edge.getFirstStepEnteringFrom(this);
+					if (fstep.distance(towardsDestination, true) < minimumdistance) {
+						r = fstep;
+					}
 				}
-			}
+			} 
 		}
 		return r;
 	}

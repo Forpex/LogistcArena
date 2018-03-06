@@ -32,7 +32,7 @@ public class Settings {
 
 	//Graph Generation
 	public static final int EDGE_SIMPLE_STANDART_LENGTH = 8;
-	public static final int MINIMAL_SPAWN_DISTANCE = 10;
+	public static final int MINIMAL_SPAWN_DISTANCE = 4;
 	
 	
 	double timescale = 1;

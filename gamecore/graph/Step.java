@@ -46,7 +46,7 @@ public class Step implements Position {
 	@SuppressWarnings("unchecked")
 	@Override
 	public int distance(Position p, Boolean beyondNextNodes) {
-		if (beyondNextNodes) {
+		if (!beyondNextNodes) {
 			return distanceMessureRekursion(p, (ArrayList<Position>) graph.getNodes().clone());
 		} else {
 			return distanceMessureRekursion(p, new ArrayList<Position>(0));
@@ -80,16 +80,16 @@ public class Step implements Position {
 	}
 
 	@Override
-	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
-		if (this != p) {
+	public int distanceMessureRekursion(Position destination, ArrayList<Position> alreadyvisited) {
+		if (this != destination) {
 			if (alreadyvisited.contains(this)) {
 				return Integer.MIN_VALUE;
 			} else {
 				alreadyvisited.add(this);
 				int[] options = new int[3];
-				options[0] = this.previous().distanceMessureRekursion(p, alreadyvisited) + 1;
-				options[1] = this.next().distanceMessureRekursion(p, alreadyvisited) + 1;
-				options[2] = this.turn().distanceMessureRekursion(p, alreadyvisited) + 0;
+				options[0] = this.previous().distanceMessureRekursion(destination, alreadyvisited) + 1;
+				options[1] = this.next().distanceMessureRekursion(destination, alreadyvisited) + 1;
+				options[2] = this.turn().distanceMessureRekursion(destination, alreadyvisited) + 0;
 
 				int min = Integer.MAX_VALUE;
 				for (int i = 0; i < options.length; i++) {

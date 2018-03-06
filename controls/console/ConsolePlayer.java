@@ -113,7 +113,7 @@ public class ConsolePlayer extends Player {
 			s += line +"\n";
 		}
 		if (Settings.isDebugOutputEnabled) {
-			s+= "p="+intel.self.getPosition();
+			s+= "p="+intel.self.getPosition()+"\n";
 		}
 		System.out.print(s);
 	}
