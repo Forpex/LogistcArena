@@ -19,12 +19,12 @@ public class Settings {
 	//WEAPONS
 	public static final int PISTOL_DPS = 10;
 	public static final int PISTOL_RANGE = 6;
-	public static final int RAILGUN_DPS = 24;
+	public static final int RAILGUN_DPS = 20;
 	public static final int RAILGUN_RANGE = 8;
-	public static final int LIGHTNING_DPS = 42;
-	public static final int LIGHTNING_RANGE = 3;
+	public static final int LIGHTNING_DPS = 40;
+	public static final int LIGHTNING_RANGE = 4;
 	public static final int SHOTGUN_DPS = 80;
-	public static final int SHOTGUN_RANGE = 1;
+	public static final int SHOTGUN_RANGE = 2;
 
 	
 	//Intel and Sight

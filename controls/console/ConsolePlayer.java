@@ -25,7 +25,7 @@ import gamecore.graph.items.Item;
  */
 public class ConsolePlayer extends Player {
 
-	private static final int gridsizeY = 10;
+	private static final int gridsizeY = 16;
 	private static final int gridsizeX = gridsizeY;
 	private Scanner keyboard;
 
@@ -101,12 +101,12 @@ public class ConsolePlayer extends Player {
 			applyToGrid(a,grid, "Bot");
 		}
 		
-		String s = "\n\n\n";
+		String s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 			s += "------------------------\n";
 			s += "Welcome to LogisticArena\n";
 			s += "------------------------\n";
 		
-		s+="Time: "+intel.currentTime+ "\n";
+		
 		
 		for (int i = 0; i < grid.length; i++) {
 			String line = " ";
@@ -119,7 +119,7 @@ public class ConsolePlayer extends Player {
 			line += "| ";
 			switch (i) {
 			case 0:
-				line += "-----------";
+				line +="Time: "+intel.currentTime;
 				break;
 			case 1:
 				line += "Health: "+ intel.self.getHealth();
@@ -216,7 +216,7 @@ public class ConsolePlayer extends Player {
 			for (Item item : g.getItems()) {
 				if (item.getPosition() == n
 						&& item.isPickupable()) {
-					symbol += String.valueOf(abreviation(item)); 
+					symbol += String.valueOf(abbreviation(item)); 
 				}
 			}
 			while (symbol.length() < 2) {
@@ -233,7 +233,7 @@ public class ConsolePlayer extends Player {
 		return (int) (relpos.x * (double)(gridsizeX-1));
 	}
 
-	private String abreviation(Object o) {
+	private String abbreviation(Object o) {
 		String r = " ";
 		String c = o.getClass().getSimpleName();
 		switch (c) {
@@ -243,6 +243,11 @@ public class ConsolePlayer extends Player {
 		case "ItemRedArmor":
 			r = "A";
 			break;	
+		case "ItemYellowArmor":
+			r = "a";
+			break;
+			
+			
 		default:
 			break;
 		}

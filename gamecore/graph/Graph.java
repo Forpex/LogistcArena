@@ -11,6 +11,7 @@ import gamecore.graph.geometrie.Point2D;
 import gamecore.graph.items.Item;
 import gamecore.graph.items.ItemMegaHealth;
 import gamecore.graph.items.ItemRedArmor;
+import gamecore.graph.items.ItemYellowArmor;
 
 /**
  * @author Andreas Stock
@@ -60,6 +61,7 @@ public class Graph {
 		ArrayList<Item> r = new ArrayList<Item>(0);
 		r.add(new ItemMegaHealth(reserveRandomItemSpawnPoint()));
 		r.add(new ItemRedArmor(reserveRandomItemSpawnPoint()));
+		r.add(new ItemYellowArmor(reserveRandomItemSpawnPoint()));
 		return r;
 	}
 
