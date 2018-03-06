@@ -29,7 +29,7 @@ public class Time {
 	 */
 	@Override
 	public String toString() {
-			return (getSeconds() / 60) + ":" + (getSeconds() % 60);
+			return String.format("%1$02d : %2$02d", (getSeconds() / 60), (getSeconds() % 60));
 	}
 	
 	public String toString(Game game) {

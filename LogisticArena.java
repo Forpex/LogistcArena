@@ -21,7 +21,7 @@ public class LogisticArena {
 				Settings.isDebugOutputEnabled = true ;
 		}
 		System.out.println("\n------------------------");
-		Session s = new Session("botduel");
+		Session s = new Session("consolesingle");
 		s.runSimpleTestGames(1);
 		s.end();
 	}

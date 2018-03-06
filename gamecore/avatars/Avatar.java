@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import controls.Player;
 import gamecore.Game;
 import gamecore.Settings;
-import gamecore.graph.Location;
+import gamecore.graph.Position;
 
 /**
  * @author Andreas Stock
@@ -16,7 +16,7 @@ import gamecore.graph.Location;
  */
 public class Avatar{
 
-	Location position;
+	Position position;
 
 	//properties
 	private int health = Settings.START_HEALTH;
@@ -52,7 +52,7 @@ public class Avatar{
 	}
 
 	
-	public Avatar(Player client, Location startingPointOnGraph) {
+	public Avatar(Player client, Position startingPointOnGraph) {
 		this.client = client;
 		this.position = startingPointOnGraph;
 		this.weapons = Weapon.generateNewWeapons();
@@ -62,7 +62,7 @@ public class Avatar{
 	 * @param damageAmount
 	 * @param sourceID id of client controling the avatar. if id == -1 its the world, killing it!
 	 */
-	public void getDamaged(int damageAmount, int sourceID) {
+	public void receiveDamage(int damageAmount, int sourceID) {
 		//int damageToBeDone = damageAmount;
 		int armorDamage = damageAmount / 3 * 2;
 		armor -= armorDamage; //apply 2/3 of damage to armor
@@ -71,11 +71,7 @@ public class Avatar{
 			setHealth(getHealth() + armor); //carry over damage from armor to heath if armor is not sufficient.
 			armor = 0;
 		}
-		
-		
-		if (getHealth()<=0) {
-			possibleKiller = sourceID;
-		}
+		possibleKiller = sourceID;
 	}
 
 	public int distanceTo(Avatar receiver) {
@@ -86,14 +82,14 @@ public class Avatar{
 	/**
 	 * @return the position
 	 */
-	public Location getPosition() {
+	public Position getPosition() {
 		return position;
 	}
 
 	/**
 	 * @param position the position to set
 	 */
-	public void setPosition(Location position) {
+	public void setPosition(Position position) {
 		this.position = position;
 	}
 
@@ -156,10 +152,18 @@ public class Avatar{
 		return r;
 	}
 	
+	/**
+	 * something is not working right here
+	 * TODO
+	 * @param name
+	 * @return
+	 */
 	public Weapon getWeaponByName(String name) {
 		Weapon r = null;
 		for (Weapon weapon : weapons) {
-			if (weapon.getName() == name.toUpperCase()) {
+			String weaponname = weapon.getName().toUpperCase();
+			String nameupperCase = name.toUpperCase();
+			if (weaponname.equals(nameupperCase)) {
 				return weapon;
 			}
 		}

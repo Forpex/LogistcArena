@@ -20,7 +20,7 @@ public class Intel {
 	public Graph graph;
 	public ArrayList<Item> visibleItems = new ArrayList<Item>(0);
 	Score currentScore;
-	Time currentTime;
+	public Time currentTime;
 	Settings settings;
 	public boolean isGameOver;
 	

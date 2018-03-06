@@ -11,7 +11,7 @@ import gamecore.Settings;
  * @author Andreas Stock
  *
  */
-public class Step implements Location {
+public class Step implements Position {
 	
 	Graph graph;
 	Edge mother;
@@ -21,7 +21,7 @@ public class Step implements Location {
 	 * This is a crude but working method to let avatars move in two directions.
 	 * @return the bidirectionalPartner
 	 */
-	public Location getBidirectionalPartner() {
+	public Position getBidirectionalPartner() {
 		return mother.getBidirectionalPartner(this);
 	}
 
@@ -41,34 +41,34 @@ public class Step implements Location {
 	}
 
 	/* (non-Javadoc)
-	 * @see graph.Location#distance(graph.Avatar, java.lang.Boolean)
+	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int distance(Location p, Boolean beyondNextNodes) {
+	public int distance(Position p, Boolean beyondNextNodes) {
 		if (beyondNextNodes) {
-			return distanceMessureRekursion(p, (ArrayList<Location>) graph.getNodes().clone());
+			return distanceMessureRekursion(p, (ArrayList<Position>) graph.getNodes().clone());
 		} else {
-			return distanceMessureRekursion(p, new ArrayList<Location>(0));
+			return distanceMessureRekursion(p, new ArrayList<Position>(0));
 		}
 	}
 
 	/* (non-Javadoc)
-	 * @see graph.Location#next()
+	 * @see graph.Position#next()
 	 */
 	@Override
-	public Location next() {
+	public Position next() {
 		return mother.getnext(this);
 	}
 	
-	private Location previous() {
+	private Position previous() {
 		return mother.getprevious(this);
 	}
 
 
 
 	@Override
-	public Location turn() {
+	public Position turn() {
 		if (isBidirectional()) {
 			return getBidirectionalPartner();
 		} else {
@@ -80,7 +80,7 @@ public class Step implements Location {
 	}
 
 	@Override
-	public int distanceMessureRekursion(Location p, ArrayList<Location> alreadyvisited) {
+	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
 		if (this != p) {
 			if (alreadyvisited.contains(this)) {
 				return Integer.MIN_VALUE;
@@ -107,8 +107,8 @@ public class Step implements Location {
 
 
 	@Override
-	public Location next(Location towardsDestination) {
-		Location r = towardsDestination;
+	public Position next(Position towardsDestination) {
+		Position r = towardsDestination;
 		int distance = this.distance(towardsDestination, true);
 		
 		if (this.next().distance(towardsDestination, true) < distance) {

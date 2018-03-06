@@ -5,7 +5,7 @@ package controls;
 
 import gamecore.Intel;
 import gamecore.Settings;
-import gamecore.graph.Location;
+import gamecore.graph.Position;
 
 /**
  * @author Andreas Stock
@@ -18,7 +18,7 @@ public abstract class Player extends Thread{
 
 	protected Intel intel;
 	
-	private Location destination;
+	private Position destination;
 
 	public Player(int id) {
 		super();
@@ -41,11 +41,11 @@ public abstract class Player extends Thread{
 		}
 	}
 
-	public Location getDestination() {
+	public Position getDestination() {
 		return destination;
 	}
 
-	public void setDestination(Location destination) {
+	public void setDestination(Position destination) {
 		this.destination = destination;
 	}
 	

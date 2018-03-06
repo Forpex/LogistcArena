@@ -8,7 +8,7 @@ import gamecore.Game;
 import gamecore.Settings;
 import gamecore.Time;
 import gamecore.avatars.Avatar;
-import gamecore.graph.Location;
+import gamecore.graph.Position;
 
 
 /**
@@ -29,9 +29,9 @@ public abstract class Item {
 		return timeLeftToRespawn.getSeconds();
 	}
 
-	Location position; 									//==some node.
+	Position position; 									//==some node.
 		
-	public Item( Location p, int secondsForRespawnCycle) {
+	public Item( Position p, int secondsForRespawnCycle) {
 		this.position = p;
 		this.timeRespawnCycle = new Time(secondsForRespawnCycle);
 		this.timeLeftToRespawn = new Time(0); 			/*item is available from the start */
@@ -75,7 +75,7 @@ public abstract class Item {
 	
 	public abstract void applyBonusTo(Avatar a);
 
-	public Location getPosition() {
+	public Position getPosition() {
 		return position;
 	}
 	

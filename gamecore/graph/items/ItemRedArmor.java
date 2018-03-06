@@ -5,7 +5,7 @@ package gamecore.graph.items;
 
 import gamecore.Settings;
 import gamecore.avatars.Avatar;
-import gamecore.graph.Location;
+import gamecore.graph.Position;
 
 /**
  * @author Andreas Stock
@@ -17,7 +17,7 @@ public class ItemRedArmor extends Item {
 	 * @param p
 	 * @param secondsForRespawnCycle
 	 */
-	public ItemRedArmor(Location p) {
+	public ItemRedArmor(Position p) {
 		super(p, 25);
 	}
 

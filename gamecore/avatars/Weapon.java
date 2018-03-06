@@ -8,7 +8,7 @@ public class Weapon {
 	
 	/* I had this as an enum first, but these entities are only static and therefore ammo was shared :(
 	 * SHOTGUN (Settings.SHOTGUN_DPS , Settings.SHOTGUN_RANGE, 0),
-	LIGHTNINGGUN (Settings.LIGHTNINGGUN_DPS , Settings.LIGHTNINGGUN_RANGE, 0),
+	LIGHTNINGGUN (Settings.LIGHTNING_DPS , Settings.LIGHTNING_RANGE, 0),
 	RAILGUN (Settings.RAILGUN_DPS , Settings.RAILGUN_RANGE, 0),
 	PISTOL (Settings.PISTOL_DPS , Settings.PISTOL_RANGE, -1 );*/
 	
@@ -28,7 +28,7 @@ public class Weapon {
 	void damageAvatar(Avatar receiver, Avatar dealer) {
 		if (canShoot(dealer.distanceTo(receiver))) {
 			if(ammo > 0)  ammo-- ;
-			receiver.getDamaged(dps, dealer.getClient().getID());
+			receiver.receiveDamage(dps, dealer.getClient().getID());
 		}
 	}
 	
@@ -49,16 +49,16 @@ public class Weapon {
 	 */
 	@Override
 	public String toString() {
-		return getName()+"(a="+ammo+", r="+range+", dps="+dps+")";
+		return "(a="+ammo+", r="+range+", dps="+dps+") "+getName();
 	}
 
 
 	public static ArrayList<Weapon> generateNewWeapons() {
 		ArrayList<Weapon> r = new ArrayList<Weapon>(0);
-		r.add(new Weapon("SHOTGUN",Settings.SHOTGUN_DPS , Settings.SHOTGUN_RANGE, 0));
-		r.add(new Weapon("LIGHTNINGGUN" ,Settings.LIGHTNINGGUN_DPS , Settings.LIGHTNINGGUN_RANGE, 0));
-		r.add(new Weapon("RAILGUN", Settings.RAILGUN_DPS , Settings.RAILGUN_RANGE, 0));
-		r.add(new Weapon("PISTOL", Settings.PISTOL_DPS , Settings.PISTOL_RANGE, -1 ));
+		r.add(new Weapon("Shotgun",Settings.SHOTGUN_DPS , Settings.SHOTGUN_RANGE, 0));
+		r.add(new Weapon("Lightning" ,Settings.LIGHTNING_DPS , Settings.LIGHTNING_RANGE, 0));
+		r.add(new Weapon("Railgun", Settings.RAILGUN_DPS , Settings.RAILGUN_RANGE, 0));
+		r.add(new Weapon("Pistol", Settings.PISTOL_DPS , Settings.PISTOL_RANGE, -1 ));
 		return r;
 	}
 

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import controls.bots.HamsterBot;
 import controls.bots.RabbitBot;
+import controls.console.ConsolePlayer;
 import gamecore.Game;
 import gamecore.Score;
 import gamecore.Settings;
@@ -48,19 +49,28 @@ public class Session {
 	 * @param i
 	 */
 	public Session(String s) {
-		if (s.toLowerCase() == "botduel") {
+		switch (s.toLowerCase()) {
+		case "botduel":
 			clients.add(new HamsterBot(0));
 			clients.add(new RabbitBot(1));
-		}
-		if (s.toLowerCase() == "botffa") {
+			break;	
+		case "botffa":
 			for (int i = 0; i < 8; i++) {
-				
 				if (Math.random() < 0.5) {
 					clients.add(new HamsterBot(i));
 				} else {
 					clients.add(new RabbitBot(i));
-				}
 			}
+		}
+			break;
+			
+		case "consolesingle":
+			clients.add(new ConsolePlayer(0));
+			clients.add(new HamsterBot(1));
+			break;
+			
+		default:
+			break;
 		}
 	}
 

@@ -14,9 +14,9 @@ import gamecore.graph.geometrie.Point2D;
  * @author Andreas Stock
  *
  */
-public class Node implements Location {
+public class Node implements Position {
 	
-	Point2D relativePosition = new Point2D(0,0);
+	public Point2D relativePosition = new Point2D(0,0);
 
 	Graph graph;
 	ArrayList<Edge> edges = new ArrayList<Edge>(0);
@@ -46,31 +46,31 @@ public class Node implements Location {
 	}
 	
 	/* (non-Javadoc)
-	 * @see graph.Location#distance(graph.Avatar, java.lang.Boolean)
+	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int distance(Location p, Boolean beyondNextNodes) {
+	public int distance(Position p, Boolean beyondNextNodes) {
 		if (beyondNextNodes) {
-			return distanceMessureRekursion(p, (ArrayList<Location>) graph.getNodes().clone());
+			return distanceMessureRekursion(p, (ArrayList<Position>) graph.getNodes().clone());
 		} else {
-			return distanceMessureRekursion(p, new ArrayList<Location>(0));
+			return distanceMessureRekursion(p, new ArrayList<Position>(0));
 		}
 		
 	}
 
 	/* (non-Javadoc)
-	 * @see graph.Location#next()
+	 * @see graph.Position#next()
 	 */
 	@Override
-	public Location next() {
+	public Position next() {
 		return this;
 	}
 
 	/* (non-Javadoc)
-	 * @see graph.Location#next(graph.Edge)
+	 * @see graph.Position#next(graph.Edge)
 	 */
-	public Location next(Edge e) {
+	public Position next(Edge e) {
 		if (edgesOutgoing.contains(e)
 				&& edgesOutgoing.size() != 0) {
 			if (this == e.start
@@ -94,12 +94,12 @@ public class Node implements Location {
 	
 
 	@Override
-	public Location turn() {
+	public Position turn() {
 		return this;
 	}
 
 	@Override
-	public int distanceMessureRekursion(Location p, ArrayList<Location> alreadyvisited) {
+	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
 		if (this != p) {
 			if  (alreadyvisited.contains(this)){
 				return Integer.MIN_VALUE;
@@ -131,14 +131,14 @@ public class Node implements Location {
 	}
 
 	@Override
-	public Location next(Location towardsDestination) {
-		Location r = towardsDestination;
+	public Position next(Position towardsDestination) {
+		Position r = towardsDestination;
 		int distance = this.distance(towardsDestination, true);
 		for (Edge edge : edgesOutgoing) {
 			if (edge.contains(towardsDestination)) {
 				return next(edge);
 			} else {
-				Location fstep = edge.getFirstStepEnteringFrom(this);
+				Position fstep = edge.getFirstStepEnteringFrom(this);
 				if (distance > fstep.distance(towardsDestination, true)) {
 					r = fstep;
 				}

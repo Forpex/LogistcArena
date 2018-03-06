@@ -66,7 +66,7 @@ public class Edge{
 		return "Edge="+this+" start="+this.start+" end="+this.end+" l="+this.size();
 	}
 	
-	Location getFirstStepEnteringFrom(Node node) {
+	Position getFirstStepEnteringFrom(Node node) {
 		if (node == this.start) {
 			if (stepsforward.size()==0)
 				return end;
@@ -85,7 +85,7 @@ public class Edge{
 	}
 	
 	
-	public Location getBidirectionalPartner(Step s) {
+	public Position getBidirectionalPartner(Step s) {
 		if(stepsforward.size()!=stepsbackward.size()) {
 			if (Settings.isDebugOutputEnabled) {
 				System.err.println("Edge is not bidirectional" + toStringWithPointers());
@@ -104,7 +104,7 @@ public class Edge{
 		return null;
 	}
 	
-	public Location getnext(Step s) {
+	public Position getnext(Step s) {
 		int i = stepsforward.indexOf(s);
 		if(i != -1) {
 			if (i >= stepsforward.size()-1) {
@@ -124,7 +124,7 @@ public class Edge{
 		}
 		return null;
 	}
-	public Location getprevious(Step s) {
+	public Position getprevious(Step s) {
 		int i = stepsforward.indexOf(s);
 		if(i != -1) {
 			if (i == 0) {
@@ -145,7 +145,7 @@ public class Edge{
 		return null;
 	}
 
-	public boolean contains(Location p) {
+	public boolean contains(Position p) {
 		if (stepsforward.contains(p)
 			|| stepsbackward.contains(p)) {
 			return true;			

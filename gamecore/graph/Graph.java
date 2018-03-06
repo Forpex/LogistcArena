@@ -17,7 +17,7 @@ import gamecore.graph.items.ItemRedArmor;
  *
  */
 public class Graph {
-	private static final double defaultRadius = 1;
+	private static final double defaultRadius = 0.5;
 	private ArrayList<Node> nodes;
 	ArrayList<Edge> edges = new ArrayList<Edge>(0);
 	private ArrayList<Item> items;
@@ -47,7 +47,7 @@ public class Graph {
 		double currentAngle = 0;
 		for (Node node : nodes) {
 			node.relativePosition = new Point2D(center.x + Math.cos(currentAngle) * radius, center.y + Math.sin(currentAngle) * radius);
-			currentAngle += angleIncrements;
+			currentAngle -= angleIncrements;
 		}
 		
 	}
@@ -89,21 +89,21 @@ public class Graph {
 		return r;
 	}
 
-	public static ArrayList<Location> extractAvatarPositions(ArrayList<Avatar> avatars) {
-		ArrayList<Location> avatarPositions = new ArrayList<Location>(0);
+	public static ArrayList<Position> extractAvatarPositions(ArrayList<Avatar> avatars) {
+		ArrayList<Position> avatarPositions = new ArrayList<Position>(0);
 		for (Avatar enemy : avatars) {
 			avatarPositions.add(enemy.getPosition());
 		}
 		return avatarPositions;
 	}
 	
-	public Location getASpawnPoint(ArrayList<Location> enemies, int minDistance) {
-		ArrayList<Location> positions = new ArrayList<Location>(0);
-		for (Location p : this.getNodes()){
+	public Position getASpawnPoint(ArrayList<Position> enemies, int minDistance) {
+		ArrayList<Position> positions = new ArrayList<Position>(0);
+		for (Position p : this.getNodes()){
 			if (enemies.size()==0) {
 				positions.add(p);
 			} else 
-				for (Location e : enemies)  {
+				for (Position e : enemies)  {
 					if (p.distance(e, true) >= minDistance) {
 						positions.add(p);
 					}
@@ -126,7 +126,7 @@ public class Graph {
 	 * Makes problems, if (items < nodes) //TODO
 	 * @return
 	 */
-	public Location reserveRandomItemSpawnPoint() {
+	public Position reserveRandomItemSpawnPoint() {
 		Node r;
 		do {
 			r = getRandomNode();
@@ -139,7 +139,7 @@ public class Graph {
 		return items;
 	}
 
-	public ArrayList<Item> getItemsInSight(Location p) {
+	public ArrayList<Item> getItemsInSight(Position p) {
 		ArrayList<Item> r = new ArrayList<Item>(0);
 		for (Item i : items) {
 			if(i.getPosition().distance(p, true) <= Settings.INTEL_DISTANCE) {
@@ -149,16 +149,16 @@ public class Graph {
 		return r;
 	}
 	
-	public ArrayList<Location> getAllPositions(){
-		ArrayList<Location> r = new ArrayList<Location>(0);
+	public ArrayList<Position> getAllPositions(){
+		ArrayList<Position> r = new ArrayList<Position>(0);
 		for (Node node : getNodes()) {
 			r.add(node);
 		}
 		for (Edge edge : edges) {
-			for (Location p : edge.stepsforward) {
+			for (Position p : edge.stepsforward) {
 				r.add(p);
 			}
-			/*for (Location p : edge.stepsbackward) {
+			/*for (Position p : edge.stepsbackward) {
 				r.add(p);
 			}*/
 		}
