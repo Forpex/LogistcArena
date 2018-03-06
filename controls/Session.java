@@ -82,7 +82,7 @@ public class Session {
 	public void runSimpleTestGames(int numgames) {
 		Score totalScore = new Score(this.size());
 		for (int i = 0; i < numgames; i++) {
-			Graph graph = new Graph(Settings.TOTAL_NUMBER_OF_ITEM_TYPES+3, 0.5);
+			Graph graph = new Graph(Settings.TOTAL_NUMBER_OF_ITEM_TYPES, 0.5);
 			Game g = new Game(this, graph);
 			g.start();
 			try {

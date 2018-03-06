@@ -5,9 +5,12 @@ package controls.console;
 
 import controls.Player;
 import gamecore.Intel;
+import gamecore.Settings;
 import gamecore.avatars.Avatar;
 import gamecore.graph.Graph;
 import gamecore.graph.Node;
+import gamecore.graph.Position;
+import gamecore.graph.geometrie.Point2D;
 import gamecore.graph.items.Item;
 
 /**
@@ -19,8 +22,8 @@ import gamecore.graph.items.Item;
  */
 public class ConsolePlayer extends Player {
 
-	private static final int consolesizeY = 10;
-	private static final int consolesizeX = consolesizeY;
+	private static final int gridsizeY = 10;
+	private static final int gridsizeX = gridsizeY;
 
 
 	public ConsolePlayer(int id) {
@@ -31,8 +34,8 @@ public class ConsolePlayer extends Player {
 	public void post(Intel intel) {
 		this.intel = intel;
 		System.out.println("IntelGotten: "+intel.toString());
-		System.out.println("Time: "+intel.currentTime);
 		draw();
+		super.setDestination(intel.graph.getASpawnPoint(Graph.extractAvatarPositions(intel.visibleEnemyAvatars), 3));
 	}
 
 	/* (non-Javadoc)
@@ -56,39 +59,49 @@ public class ConsolePlayer extends Player {
 
 	
 	public void draw() {
-		char[][] grid = generateGrid(intel.graph);
+		String[][] grid = generateGrid(intel.graph);
 		applyToGrid(intel.graph, grid);
-		applyToGrid(intel.self, grid);
+		applyToGrid(intel.self, grid, "X");
+		for (Avatar a : intel.visibleEnemyAvatars) {
+			applyToGrid(a,grid, "O");
+		}
 		
 		String s = "";
+		
+		s+="Time: "+intel.currentTime+ "\n";
+		
 		for (int i = 0; i < grid.length; i++) {
+			String line = " ";
 			for (int j = 0; j < grid[i].length; j++) {
-				s += " "+grid[i][j];
+				line += grid[i][j];
 			}
-			s += " | ";
+			while (line.length() < gridsizeX*3) {
+				line += " ";
+			}
+			line += "| ";
 			switch (i) {
 			case 0:
-				s += "-----------";
+				line += "-----------";
 				break;
 			case 1:
-				s += "Health: "+ intel.self.getHealth();
+				line += "Health: "+ intel.self.getHealth();
 				break;	
 			case 2:
-				s += "Armor: "+ intel.self.getArmor();
+				line += "Armor: "+ intel.self.getArmor();
 				break;
 				
 			//WEAPONS
 			case 4:
-				s += intel.self.getWeaponByName("shotgun").toString();
+				line += intel.self.getWeaponByName("shotgun").toString();
 				break;
 			case 5:
-				s += intel.self.getWeaponByName("lightning").toString();
+				line += intel.self.getWeaponByName("lightning").toString();
 				break;
 			case 6:
-				s += intel.self.getWeaponByName("railgun").toString();
+				line += intel.self.getWeaponByName("railgun").toString();
 				break;
 			case 7:
-				s += intel.self.getWeaponByName("pistol").toString();
+				line += intel.self.getWeaponByName("pistol").toString();
 				break;
 				
 			default:
@@ -96,49 +109,93 @@ public class ConsolePlayer extends Player {
 			}
 			
 
-			System.out.println(s);
-			s = "";
+			
+			s += line +"\n";
 		}
+		if (Settings.isDebugOutputEnabled) {
+			s+= "p="+intel.self.getPosition();
+		}
+		System.out.print(s);
 	}
 
-	private void applyToGrid(Avatar self, char[][] grid) {
-		// TODO Auto-generated method stub
+	private void applyToGrid(Avatar a, String[][] grid, String symbol) {
+		Point2D relpos = getAvatarRelativePosition(a);
+		int y = relPosToIntY(relpos);
+		int x = relPosToIntX(relpos);
+		grid[y][x] = symbol + grid[y][x];
 		
 	}
 
-	public char[][] generateGrid(Graph g) {
-		char[][] grid = new char[consolesizeY][consolesizeX+1];
-		for (int i = 0; i < consolesizeY; i++) {
-			for (int j = 0; j < consolesizeX; j++) {
-				grid[i][j] = ' ';
+	public Point2D getAvatarRelativePosition(Avatar a) {
+		Position p = a.getPosition();
+		
+		Node n0 = intel.graph.getNodes().get(0);
+		Node n1 = intel.graph.getNodes().get(1);
+		int distance0 = Integer.MAX_VALUE;
+		int distance1 = Integer.MAX_VALUE;
+		
+		for (Node node : intel.graph.getNodes()) {
+			int distance = p.distance(node, true);
+			if (distance <distance0 ) {
+				n1 = n0;
+				distance1 = distance0;
+				n0 = node;
+				distance0 = distance;
+			} else {
+				if (distance < distance1) {
+					n1 = node;
+					distance1 = distance;
+				}
+			}
+		}
+		return new Point2D(n0.relativePosition, distance0, n1.relativePosition, distance1);
+	}
+
+	public String[][] generateGrid(Graph g) {
+		String[][] grid = new String[gridsizeY][gridsizeX];
+		for (int i = 0; i < gridsizeY; i++) {
+			for (int j = 0; j < gridsizeX; j++) {
+				grid[i][j] = "  ";
 			}
 		}
 		return grid;
 	}
 
-	public void applyToGrid(Graph g, char[][] grid) {
+	public void applyToGrid(Graph g, String[][] grid) {
 		for (Node n : g.getNodes()) {
-			int y = (int) (n.relativePosition.y * (consolesizeY-1));
-			int x = (int) (n.relativePosition.x * (consolesizeX-1));
-			char symbol = String.valueOf(g.getNodes().indexOf(n)).charAt(0);
-			grid[y][x] = symbol;
+			int y = relPosToIntY(n.relativePosition);
+			int x = relPosToIntX(n.relativePosition);
+			String symbol = String.valueOf(g.getNodes().indexOf(n));
 			for (Item item : g.getItems()) {
 				if (item.getPosition() == n
 						&& item.isPickupable()) {
-					grid[y][x+1] = representableCharacter(item); 
+					symbol += String.valueOf(abreviation(item)); 
 				}
 			}
+			while (symbol.length() < 2) {
+				symbol += " ";
+			}
+			grid[y][x] = symbol;
 		}
 	}
 
-	private char representableCharacter(Object o) {
-		char r = ' ';
+	public int relPosToIntY(Point2D relpos) {
+		return (int) (relpos.y * (double)(gridsizeY-1));
+	}
+	public int relPosToIntX(Point2D relpos) {
+		return (int) (relpos.x * (double)(gridsizeX-1));
+	}
+
+	private String abreviation(Object o) {
+		String r = " ";
 		String c = o.getClass().getSimpleName();
 		switch (c) {
 		case "ItemMegaHealth":
-			r = 'M';
+			r = "M";
 			break;
-
+		case "ItemRedArmor":
+			r = "A";
+			break;	
 		default:
 			break;
 		}
