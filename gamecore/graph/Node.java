@@ -48,17 +48,9 @@ public class Node implements Position {
 	/* (non-Javadoc)
 	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public int distance(Position p, Boolean beyondNextNodes) {
-		if (beyondNextNodes) {
-			ArrayList<Position> otherNodes = ((ArrayList<Position>) graph.getNodes().clone());
-			otherNodes.remove(otherNodes.indexOf(this));
-			return distanceMessureRekursion(p, otherNodes);
-		} else {
+	public int distance(Position p) {
 			return distanceMessureRekursion(p, new ArrayList<Position>(0));
-		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -78,33 +70,22 @@ public class Node implements Position {
 			if (this == e.start
 					|| this == e.end) {
 				return e.getFirstStepEnteringFrom(this);
-			} /*else {
-				if (this == e.end
-						&& e.isBidirectional) {
-					return e.firstStepFromEnd;
-				}*/ else {
+			} else {
 					System.err.println("ERROR: this edge does not start here: " + e);
 					return this;
 				}
-			//}
 		} else {
 			System.err.println("ERROR: this edge is not connected: " + e);
 			return this;
 		}
 	}
 
-	
-
-	@Override
-	public Position turn() {
-		return this;
-	}
 
 	@Override
 	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
 		if (this != p) {
 			if  (alreadyvisited.contains(this)){
-				return Integer.MIN_VALUE;
+				return Position.ALREADY_VISITED;
 			} else {
 				alreadyvisited.add(this);
 				
@@ -119,10 +100,6 @@ public class Node implements Position {
 						options[i] = e.getExitEnteringFrom(this).distanceMessureRekursion(p,
 								alreadyvisited) + e.size();
 					}
-					//-----
-					if (options[i] < 0) {
-						options[i] = Integer.MAX_VALUE;
-					}
 					min = Math.min(min, options[i]);
 				}
 				return min;
@@ -136,7 +113,7 @@ public class Node implements Position {
 	public Position next(Position towardsDestination) {
 		Position r = this;
 		if (this != towardsDestination) {
-			int minimumdistance = this.distance(towardsDestination, true);
+			int minimumdistance = this.distance(towardsDestination);
 			for (Edge edge : edgesOutgoing) {
 				//if the destination is on the edge, then go towards there.
 				if (edge.contains(towardsDestination)) {
@@ -144,7 +121,8 @@ public class Node implements Position {
 				} else {
 					//if destination is not on that edge, look if you can find a step that leads closer to destination.
 					Position fstep = edge.getFirstStepEnteringFrom(this);
-					if (fstep.distance(towardsDestination, true) < minimumdistance) {
+					int distance = fstep.distance(towardsDestination);
+					if (distance < minimumdistance) {
 						r = fstep;
 					}
 				}

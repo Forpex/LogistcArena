@@ -5,7 +5,6 @@ package gamecore.graph;
 
 import java.util.ArrayList;
 
-import gamecore.Settings;
 
 /**
  * @author Andreas Stock
@@ -15,16 +14,6 @@ public class Step implements Position {
 	
 	Graph graph;
 	Edge mother;
-	
-	/**
-	 * its the step with distance zero thats next is in the other direction.
-	 * This is a crude but working method to let avatars move in two directions.
-	 * @return the bidirectionalPartner
-	 */
-	public Position getBidirectionalPartner() {
-		return mother.getBidirectionalPartner(this);
-	}
-
 
 	public Boolean isBidirectional() {
 		return mother.isBidirectional;
@@ -43,14 +32,12 @@ public class Step implements Position {
 	/* (non-Javadoc)
 	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public int distance(Position p, Boolean beyondNextNodes) {
-		if (!beyondNextNodes) {
-			return distanceMessureRekursion(p, (ArrayList<Position>) graph.getNodes().clone());
-		} else {
-			return distanceMessureRekursion(p, new ArrayList<Position>(0));
-		}
+	public int distance(Position p) {
+		
+			ArrayList<Position> list = new ArrayList<Position>(0);
+			return distanceMessureRekursion(p, list);
+		
 	}
 
 	/* (non-Javadoc)
@@ -65,37 +52,19 @@ public class Step implements Position {
 		return mother.getprevious(this);
 	}
 
-
-
-	@Override
-	public Position turn() {
-		if (isBidirectional()) {
-			return getBidirectionalPartner();
-		} else {
-			if (Settings.isDebugOutputEnabled) {
-				System.err.println("Step:" + this + " cannot Turn around here!");
-			}
-			return this;
-		}
-	}
-
 	@Override
 	public int distanceMessureRekursion(Position destination, ArrayList<Position> alreadyvisited) {
 		if (this != destination) {
 			if (alreadyvisited.contains(this)) {
-				return Integer.MIN_VALUE;
+				return Position.ALREADY_VISITED;
 			} else {
 				alreadyvisited.add(this);
-				int[] options = new int[3];
+				int[] options = new int[2];
 				options[0] = this.previous().distanceMessureRekursion(destination, alreadyvisited) + 1;
 				options[1] = this.next().distanceMessureRekursion(destination, alreadyvisited) + 1;
-				options[2] = this.turn().distanceMessureRekursion(destination, alreadyvisited) + 0;
 
-				int min = Integer.MAX_VALUE;
+				int min = Position.ALREADY_VISITED;
 				for (int i = 0; i < options.length; i++) {
-					if (options[i] < 0) {
-						options[i] = Integer.MAX_VALUE;
-					}
 					min = Math.min(min, options[i]);
 				}
 				return min;
@@ -108,17 +77,23 @@ public class Step implements Position {
 
 	@Override
 	public Position next(Position towardsDestination) {
-		Position r = towardsDestination;
-		int distance = this.distance(towardsDestination, true);
-		
-		if (this.next().distance(towardsDestination, true) < distance) {
+		Position r = this;
+		int distance = this.distance(towardsDestination);
+
+		int dnext = this.next().distance(towardsDestination);
+		if (dnext < distance) {
 			r = this.next();
 		} 
-		if (this.turn().next().distance(towardsDestination, true) < distance) {
-			r = this.turn().next();
+		int dprev = this.previous().distance(towardsDestination);
+		if (//mother.isBidirectional &&
+				dprev < distance) {
+			r = this.previous();
 		}
 		return r;
 	}
+
+
+	
 
 	
 

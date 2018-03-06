@@ -17,7 +17,7 @@ import gamecore.graph.items.Item;
 public class HamsterBot extends Bot {
 
 	private static final int TOO_MUCH_WAITING = 3;
-	private static final int RUNAWAY_DISTANCE = 8;
+	private static final int RUNAWAY_DISTANCE = 4;
 
 	/**
 	 * @param id
@@ -36,7 +36,7 @@ public class HamsterBot extends Bot {
 			if (intel.visibleItems.size() != 0)  {
 				for (Item item : intel.visibleItems) {
 					int waitTimeOnArrival = item.getTimeLeftToRespawn()
-							-item.getPosition().distance(intel.self.getPosition(), true);
+							-item.getPosition().distance(intel.self.getPosition());
 					if (waitTimeOnArrival < min ) {
 						min = waitTimeOnArrival;
 						setDestination(item.getPosition());

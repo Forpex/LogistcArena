@@ -59,7 +59,7 @@ public class Game extends Thread{
 	public ArrayList<Avatar> getAvatarsInPosition(Position p){
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
 		for (Avatar avatar : avatars) {
-			if (avatar.getPosition().distance(p, false) == 0)
+			if (avatar.getPosition().distance(p) == 0)
 			/*(p == avatar.getPosition()
 					|| p == avatar.getPosition().turn())*/
 			{
@@ -170,7 +170,7 @@ public class Game extends Thread{
 		for (Avatar a : avatars) {
 			if (a != self 
 					&& a.isAlive()
-					&& a.getPosition().distance(self.getPosition(), true) <= Settings.INTEL_DISTANCE) {
+					&& a.getPosition().distance(self.getPosition()) <= Settings.INTEL_DISTANCE) {
 				r.add(a);
 			}
 		}

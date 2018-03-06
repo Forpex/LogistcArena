@@ -45,7 +45,7 @@ public class Session {
 	}
 
 	/**
-	 * Starts a Session with Bots only
+	 * Starts a Session
 	 * @param i
 	 */
 	public Session(String s) {
@@ -69,8 +69,16 @@ public class Session {
 			clients.add(new HamsterBot(1));
 			break;
 			
+		case "consolesolo":
+			clients.add(new ConsolePlayer(0));
+			break;	
+			
 		default:
 			break;
+		}
+		
+		for (Player player : clients) {
+			player.start();
 		}
 	}
 

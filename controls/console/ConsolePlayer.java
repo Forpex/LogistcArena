@@ -3,6 +3,9 @@
  */
 package controls.console;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import controls.Player;
 import gamecore.Intel;
 import gamecore.Settings;
@@ -24,6 +27,7 @@ public class ConsolePlayer extends Player {
 
 	private static final int gridsizeY = 10;
 	private static final int gridsizeX = gridsizeY;
+	private Scanner keyboard;
 
 
 	public ConsolePlayer(int id) {
@@ -33,9 +37,12 @@ public class ConsolePlayer extends Player {
 	@Override
 	public void post(Intel intel) {
 		this.intel = intel;
-		System.out.println("IntelGotten: "+intel.toString());
+		if (Settings.isDebugOutputEnabled) {
+			System.out.println("IntelGotten: " + intel.toString());
+		}
 		draw();
-		super.setDestination(intel.graph.getASpawnPoint(Graph.extractAvatarPositions(intel.visibleEnemyAvatars), 3));
+		//askForInput();
+		//super.setDestination(intel.graph.getASpawnPoint(Graph.extractAvatarPositions(intel.visibleEnemyAvatars), 3));
 	}
 
 	/* (non-Javadoc)
@@ -44,26 +51,53 @@ public class ConsolePlayer extends Player {
 	@Override
 	public void run() {
 		super.run();
-		
+		do {
+			try {
+				sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} while (intel == null);
+		boolean exit = false;
 		do {
 			//draw graph in ascii art
-			// ^^ need relative node positions for this first.
+			//draw(); no, because.
 			
 			//scanner and input
+		 int choice = askForInput();
+		 
+		 //end cycle
+		 if (choice < 0) {
+			exit = true;
+		}
 			
 			//pick node that corresponds to input id
-			
-			super.setDestination(intel.graph.getASpawnPoint(Graph.extractAvatarPositions(intel.visibleEnemyAvatars), 3));
-		} while (!intel.isGameOver || super.getDestination() == null);
+
+	    ArrayList<Node> nodes = intel.graph.getNodes();
+	    choice = choice % nodes.size();
+		setDestination(nodes.get(choice));
+		
+			// repeat
+		}while(!exit);
+		
 	}
+
+	public int askForInput() {
+		keyboard = new Scanner(System.in);
+    	//System.out.println("Choose a node as destination:");
+        return  keyboard.nextInt();
+       
+	}
+	
+	
 
 	
 	public void draw() {
 		String[][] grid = generateGrid(intel.graph);
 		applyToGrid(intel.graph, grid);
-		applyToGrid(intel.self, grid, "X");
+		applyToGrid(intel.self, grid, "You");
 		for (Avatar a : intel.visibleEnemyAvatars) {
-			applyToGrid(a,grid, "O");
+			applyToGrid(a,grid, "Bot");
 		}
 		
 		String s = "";
@@ -113,8 +147,12 @@ public class ConsolePlayer extends Player {
 			s += line +"\n";
 		}
 		if (Settings.isDebugOutputEnabled) {
-			s+= "p="+intel.self.getPosition()+"\n";
+			s+= "p       = "+intel.self.getPosition()+"\n";
+			s+= "next    = "+intel.self.getPosition().next(getDestination())+"\n";
+			s+= "d       = "+getDestination()+"\n";
+			s+= "distance= "+intel.self.getPosition().distance(getDestination())+"\n";
 		}
+		s += "Choose a nodeID as destination:\n";
 		System.out.print(s);
 	}
 
@@ -135,7 +173,7 @@ public class ConsolePlayer extends Player {
 		int distance1 = Integer.MAX_VALUE;
 		
 		for (Node node : intel.graph.getNodes()) {
-			int distance = p.distance(node, true);
+			int distance = p.distance(node);
 			if (distance <distance0 ) {
 				n1 = n0;
 				distance1 = distance0;

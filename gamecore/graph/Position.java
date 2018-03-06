@@ -11,9 +11,9 @@ import java.util.ArrayList;
  */
 public interface Position {
 
-	public int distance(Position p, Boolean beyondNextNodes);
+	public static final int ALREADY_VISITED = 1000;
+	public int distance(Position p);
 	public Position next();
 	public Position next(Position towardsDestination);
-	public Position turn();
 	int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited);
 }

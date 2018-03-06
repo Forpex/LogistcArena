@@ -99,12 +99,12 @@ public class Graph {
 	
 	public Position getASpawnPoint(ArrayList<Position> enemies, int minDistance) {
 		ArrayList<Position> positions = new ArrayList<Position>(0);
-		for (Position p : this.getNodes()){
+		for (Position p : this.getAllPositions()){
 			if (enemies.size()==0) {
 				positions.add(p);
 			} else 
 				for (Position e : enemies)  {
-					if (p.distance(e, true) >= minDistance) {
+					if (p.distance(e) >= minDistance) {
 						positions.add(p);
 					}
 			}
@@ -142,7 +142,7 @@ public class Graph {
 	public ArrayList<Item> getItemsInSight(Position p) {
 		ArrayList<Item> r = new ArrayList<Item>(0);
 		for (Item i : items) {
-			if(i.getPosition().distance(p, true) <= Settings.INTEL_DISTANCE) {
+			if(i.getPosition().distance(p) <= Settings.INTEL_DISTANCE) {
 				r.add(i);
 			}
 		}

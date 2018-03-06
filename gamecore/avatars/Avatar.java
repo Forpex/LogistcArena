@@ -76,7 +76,7 @@ public class Avatar{
 
 	public int distanceTo(Avatar receiver) {
 		
-		return this.position.distance(receiver.position, false);
+		return this.position.distance(receiver.position);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class Avatar{
 	private void iterateShots(Game game) {
 		ArrayList<Avatar> targets = game.getVisibleAvatars(this);
 		for (Avatar a : targets) {
-			int distance = this.position.distance(a.getPosition(), false);
+			int distance = this.position.distance(a.getPosition());
 			int i = 0;
 			while (i < weapons.size()-1 && !weapons.get(i).canShoot(distance)){
 				i++;
