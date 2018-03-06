@@ -5,7 +5,7 @@ package gamecore.graph.items;
 
 import gamecore.Settings;
 import gamecore.avatars.Avatar;
-import gamecore.graph.Position;
+import gamecore.graph.Location;
 
 /**
  * Provides bonus of 100Health. 
@@ -15,7 +15,7 @@ import gamecore.graph.Position;
  */
 public class ItemMegaHealth extends Item {
 
-	public ItemMegaHealth(Position p) {
+	public ItemMegaHealth(Location p) {
 		super(p, 35);
 	}
 

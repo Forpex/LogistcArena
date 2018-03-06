@@ -5,13 +5,18 @@ package gamecore.graph;
 
 import java.util.ArrayList;
 
+import gamecore.graph.geometrie.Point2D;
+
+
 
 
 /**
  * @author Andreas Stock
  *
  */
-public class Node implements Position {
+public class Node implements Location {
+	
+	Point2D relativePosition = new Point2D(0,0);
 
 	Graph graph;
 	ArrayList<Edge> edges = new ArrayList<Edge>(0);
@@ -23,6 +28,11 @@ public class Node implements Position {
 	Node(Graph graph) {
 		super();
 		this.graph = graph;
+	}
+	
+	Node (Graph graph, double relX, double relY){
+		this(graph);
+		relativePosition = new Point2D(relX, relY);
 	}
 
 	void addEdge(Edge e, Boolean outgoing, Boolean incoming){
@@ -36,31 +46,31 @@ public class Node implements Position {
 	}
 	
 	/* (non-Javadoc)
-	 * @see graph.Position#distance(graph.Avatar, java.lang.Boolean)
+	 * @see graph.Location#distance(graph.Avatar, java.lang.Boolean)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public int distance(Position p, Boolean beyondNextNodes) {
+	public int distance(Location p, Boolean beyondNextNodes) {
 		if (beyondNextNodes) {
-			return distanceMessureRekursion(p, (ArrayList<Position>) graph.getNodes().clone());
+			return distanceMessureRekursion(p, (ArrayList<Location>) graph.getNodes().clone());
 		} else {
-			return distanceMessureRekursion(p, new ArrayList<Position>(0));
+			return distanceMessureRekursion(p, new ArrayList<Location>(0));
 		}
 		
 	}
 
 	/* (non-Javadoc)
-	 * @see graph.Position#next()
+	 * @see graph.Location#next()
 	 */
 	@Override
-	public Position next() {
+	public Location next() {
 		return this;
 	}
 
 	/* (non-Javadoc)
-	 * @see graph.Position#next(graph.Edge)
+	 * @see graph.Location#next(graph.Edge)
 	 */
-	public Position next(Edge e) {
+	public Location next(Edge e) {
 		if (edgesOutgoing.contains(e)
 				&& edgesOutgoing.size() != 0) {
 			if (this == e.start
@@ -84,12 +94,12 @@ public class Node implements Position {
 	
 
 	@Override
-	public Position turn() {
+	public Location turn() {
 		return this;
 	}
 
 	@Override
-	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
+	public int distanceMessureRekursion(Location p, ArrayList<Location> alreadyvisited) {
 		if (this != p) {
 			if  (alreadyvisited.contains(this)){
 				return Integer.MIN_VALUE;
@@ -121,14 +131,14 @@ public class Node implements Position {
 	}
 
 	@Override
-	public Position next(Position towardsDestination) {
-		Position r = towardsDestination;
+	public Location next(Location towardsDestination) {
+		Location r = towardsDestination;
 		int distance = this.distance(towardsDestination, true);
 		for (Edge edge : edgesOutgoing) {
 			if (edge.contains(towardsDestination)) {
 				return next(edge);
 			} else {
-				Position fstep = edge.getFirstStepEnteringFrom(this);
+				Location fstep = edge.getFirstStepEnteringFrom(this);
 				if (distance > fstep.distance(towardsDestination, true)) {
 					r = fstep;
 				}

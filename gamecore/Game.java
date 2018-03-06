@@ -9,7 +9,7 @@ import controls.Player;
 import controls.Session;
 import gamecore.avatars.Avatar;
 import gamecore.graph.Graph;
-import gamecore.graph.Position;
+import gamecore.graph.Location;
 import gamecore.graph.items.Item;
 
 /**
@@ -47,16 +47,16 @@ public class Game extends Thread{
 
 	private static ArrayList<Avatar> generateAvatars(ArrayList<Player> clients, Graph g) {
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
-		ArrayList<Position> alreadySpawnedAtPositions = new ArrayList<Position>(0);
+		ArrayList<Location> alreadySpawnedAtPositions = new ArrayList<Location>(0);
 		for (Player client : clients) {
-			Position playerSpawnPoint = g.getASpawnPoint(alreadySpawnedAtPositions, Settings.MINIMAL_SPAWN_DISTANCE);
+			Location playerSpawnPoint = g.getASpawnPoint(alreadySpawnedAtPositions, Settings.MINIMAL_SPAWN_DISTANCE);
 			alreadySpawnedAtPositions.add(playerSpawnPoint);
 			r.add(new Avatar(client, playerSpawnPoint));
 		}
 		return r;
 	}
 
-	public ArrayList<Avatar> getAvatarsInPosition(Position p){
+	public ArrayList<Avatar> getAvatarsInPosition(Location p){
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
 		for (Avatar avatar : avatars) {
 			if (avatar.getPosition().distance(p, false) == 0)
@@ -158,8 +158,8 @@ public class Game extends Thread{
 		int index = avatars.indexOf(a);
 		avatars.remove(a);
 		
-		ArrayList<Position> avatarPositions = Graph.extractAvatarPositions(avatars);
-		Position playerSpawnPoint = this.graph.getASpawnPoint(avatarPositions, Settings.MINIMAL_SPAWN_DISTANCE);
+		ArrayList<Location> avatarPositions = Graph.extractAvatarPositions(avatars);
+		Location playerSpawnPoint = this.graph.getASpawnPoint(avatarPositions, Settings.MINIMAL_SPAWN_DISTANCE);
 		avatars.add(index, new Avatar(a.getClient(), playerSpawnPoint));
 	}
 

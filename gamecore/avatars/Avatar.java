@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import controls.Player;
 import gamecore.Game;
 import gamecore.Settings;
-import gamecore.graph.Position;
+import gamecore.graph.Location;
 
 /**
  * @author Andreas Stock
@@ -16,7 +16,7 @@ import gamecore.graph.Position;
  */
 public class Avatar{
 
-	Position position;
+	Location position;
 
 	//properties
 	private int health = Settings.START_HEALTH;
@@ -52,7 +52,7 @@ public class Avatar{
 	}
 
 	
-	public Avatar(Player client, Position startingPointOnGraph) {
+	public Avatar(Player client, Location startingPointOnGraph) {
 		this.client = client;
 		this.position = startingPointOnGraph;
 		this.weapons = Weapon.generateNewWeapons();
@@ -86,14 +86,14 @@ public class Avatar{
 	/**
 	 * @return the position
 	 */
-	public Position getPosition() {
+	public Location getPosition() {
 		return position;
 	}
 
 	/**
 	 * @param position the position to set
 	 */
-	public void setPosition(Position position) {
+	public void setPosition(Location position) {
 		this.position = position;
 	}
 
