@@ -3,7 +3,13 @@
  */
 package gamecore.graph;
 
+import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import gamecore.Settings;
 import gamecore.avatars.Avatar;
@@ -16,12 +22,51 @@ import gamecore.graph.items.*;
  */
 public class Graph {
 	private static final double defaultRadius = 0.5;
-	private ArrayList<Node> nodes;
+	private ArrayList<Node> nodes = new ArrayList<Node>(0);
 	ArrayList<Edge> edges = new ArrayList<Edge>(0);
-	private ArrayList<Item> items;
+	private ArrayList<Item> items = new ArrayList<Item>(0);
 	
-	//TODO constructor that builds a default test graph
-	//TODO constructor that reads from *.lag
+	
+	/**
+	 * constructor that reads from *.lag and builds that as a graph.
+	 * using the format description:
+	 * N x y
+	 * E n1id n2id length type
+	 * Itemtype NodeID
+	 * @param filenameInMaps
+	 */
+	public Graph(String filenameInMaps) {
+		Path path = FileSystems.getDefault().getPath("maps", filenameInMaps);
+		ArrayList<String> lines = new ArrayList<String>(0);
+		try {
+			Files.lines(path).forEach(lines::add);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for (String s : lines) {
+			String[] lineargs = s.split(" ");
+			if (lineargs.length != 0) {
+				switch (lineargs[0]) {
+				case "N":
+					nodes.add(new Node(this, 
+							Double.valueOf(lineargs[1]), 
+							Double.valueOf(lineargs[2])));
+					break;
+
+				case "E":
+					edges.add(new Edge(this, 
+							Integer.valueOf(lineargs[1]), 
+							Integer.valueOf(lineargs[2]),
+							Integer.valueOf(lineargs[3])));
+					break;
+
+				default:
+					break;
+				}
+			}
+		}
+	}
+	
 	
 	/**
 	 * Generates one Node per Item plus one empty Node somewhere

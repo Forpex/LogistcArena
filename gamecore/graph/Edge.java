@@ -53,6 +53,11 @@ public class Edge{
 		}
 	}
 	
+	public Edge(Graph graph, int node1id, int node2id, int length) {
+		this(graph, graph.getNodes().get(node1id), 
+				graph.getNodes().get(node2id) , length);
+	}
+
 	private void generateSteps(int length) {
 		for (int i = 1; i < length; i++) {
 			stepsforward.add(new Step(graph, this));
