@@ -83,6 +83,12 @@ public class Weapon {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+	public void addAmmo(int amount) {
+		this.ammo = Math.max(Math.min(amount+this.ammo, Settings.MAX_AMMO),0);
+		
+	}
 	
 	
 	

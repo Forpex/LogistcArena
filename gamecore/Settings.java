@@ -15,8 +15,12 @@ public class Settings {
 
 	//ITEMS
 	public static int TOTAL_NUMBER_OF_ITEM_TYPES = 6;						//Item.values().length;
+
+	public static final int WEAPON_RESPAWN_TIMER = 10;
 	
 	//WEAPONS
+	public static final int MAX_AMMO = 10;
+	
 	public static final int PISTOL_DPS = 10;
 	public static final int PISTOL_RANGE = 6;
 	public static final int RAILGUN_DPS = 20;
@@ -26,6 +30,8 @@ public class Settings {
 	public static final int SHOTGUN_DPS = 80;
 	public static final int SHOTGUN_RANGE = 2;
 
+	public static final int AMMO_AMOUNT = 5;
+
 	
 	//Intel and Sight
 	public static final int INTEL_DISTANCE = 10;
@@ -33,6 +39,8 @@ public class Settings {
 	//Graph Generation
 	public static final int EDGE_SIMPLE_STANDART_LENGTH = 8;
 	public static final int MINIMAL_SPAWN_DISTANCE = 4;
+
+
 	
 	
 	double timescale = 1;

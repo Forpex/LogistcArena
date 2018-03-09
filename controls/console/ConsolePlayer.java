@@ -238,13 +238,23 @@ public class ConsolePlayer extends Player {
 		String c = o.getClass().getSimpleName();
 		switch (c) {
 		case "ItemMegaHealth":
-			r = "M";
+			r = "Mh";
 			break;
 		case "ItemRedArmor":
-			r = "A";
+			r = "Ra";
 			break;	
 		case "ItemYellowArmor":
-			r = "a";
+			r = "Ya";
+			break;
+			
+		case "AmmoShotgun":
+			r = "Sg";
+			break;	
+		case "AmmoLightning":
+			r = "Lg";
+			break;	
+		case "AmmoRailgun":
+			r = "Rg";
 			break;
 			
 			

@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import gamecore.Settings;
 import gamecore.avatars.Avatar;
 import gamecore.graph.geometrie.Point2D;
-import gamecore.graph.items.Item;
-import gamecore.graph.items.ItemMegaHealth;
-import gamecore.graph.items.ItemRedArmor;
-import gamecore.graph.items.ItemYellowArmor;
+import gamecore.graph.items.*;
 
 /**
  * @author Andreas Stock
@@ -62,6 +59,9 @@ public class Graph {
 		r.add(new ItemMegaHealth(reserveRandomItemSpawnPoint()));
 		r.add(new ItemRedArmor(reserveRandomItemSpawnPoint()));
 		r.add(new ItemYellowArmor(reserveRandomItemSpawnPoint()));
+		r.add(new AmmoShotgun(reserveRandomItemSpawnPoint()));
+		r.add(new AmmoLightning(reserveRandomItemSpawnPoint()));
+		r.add(new AmmoRailgun(reserveRandomItemSpawnPoint()));
 		return r;
 	}
 
