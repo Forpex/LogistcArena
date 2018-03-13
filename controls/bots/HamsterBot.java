@@ -35,17 +35,18 @@ public class HamsterBot extends Bot {
 			int min = Integer.MAX_VALUE;
 			if (intel.visibleItems.size() != 0)  {
 				for (Item item : intel.visibleItems) {
-					int waitTimeOnArrival = item.getTimeLeftToRespawn()
-							-item.getPosition().distance(intel.self.getPosition());
-					if (waitTimeOnArrival < min ) {
-						min = waitTimeOnArrival;
-						setDestination(item.getPosition());
+					if (item.isPickupable()) {
+						int distance = item.getPosition().distance(intel.self.getPosition());
+						if (distance < min) {
+							min = distance;
+							setDestination(item.getPosition());
+						} 
 					}
 				}
 			}
-			/*if (min >= TOO_MUCH_WAITING){
+			if (intel.self.getPosition() == getDestination()){
 				setDestination(intel.graph.getASpawnPoint(Graph.extractAvatarPositions(intel.visibleEnemyAvatars), RUNAWAY_DISTANCE));
-			} */
+			}
 		} 
 	}
 
