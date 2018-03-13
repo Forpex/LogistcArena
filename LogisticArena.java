@@ -22,7 +22,8 @@ public class LogisticArena {
 		}
 		System.out.println("\n------------------------");
 		Session s = new Session("consoleduel");
-		s.runSimpleTestGames(1);
+		s.runGameOnMap("q3dm1");
+		//s.runSimpleTestGames(1);
 		s.end();
 	}
 }

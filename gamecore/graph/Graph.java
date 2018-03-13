@@ -4,12 +4,10 @@
 package gamecore.graph;
 
 import java.io.IOException;
-import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 import gamecore.Settings;
 import gamecore.avatars.Avatar;
@@ -21,6 +19,9 @@ import gamecore.graph.items.*;
  *
  */
 public class Graph {
+	/**
+	 * for generation of coordinates in default graph.
+	 */
 	private static final double defaultRadius = 0.5;
 	private ArrayList<Node> nodes = new ArrayList<Node>(0);
 	ArrayList<Edge> edges = new ArrayList<Edge>(0);
@@ -36,7 +37,7 @@ public class Graph {
 	 * @param filenameInMaps
 	 */
 	public Graph(String filenameInMaps) {
-		Path path = FileSystems.getDefault().getPath("maps", filenameInMaps);
+		Path path = FileSystems.getDefault().getPath("maps", filenameInMaps+".lag");
 		ArrayList<String> lines = new ArrayList<String>(0);
 		try {
 			Files.lines(path).forEach(lines::add);
@@ -59,15 +60,57 @@ public class Graph {
 							Integer.valueOf(lineargs[2]),
 							Integer.valueOf(lineargs[3])));
 					break;
+					
+				case "RA":
+					items.add(new ItemRedArmor(nodes.get(Integer.valueOf(lineargs[1]))));
+					break;	
+				case "MH":
+					items.add(new ItemMegaHealth(nodes.get(Integer.valueOf(lineargs[1]))));
+					break;	
+				case "YA":
+					items.add(new ItemYellowArmor(nodes.get(Integer.valueOf(lineargs[1]))));
+					break;	
+				case "SG":
+					items.add(new AmmoShotgun(nodes.get(Integer.valueOf(lineargs[1]))));
+					break;	
+				case "LG":
+					items.add(new AmmoLightning(nodes.get(Integer.valueOf(lineargs[1]))));
+					break;	
+				case "RG":
+					items.add(new AmmoRailgun(nodes.get(Integer.valueOf(lineargs[1]))));
+					break;	
+				
 
 				default:
 					break;
 				}
 			}
 		}
+		normalizeCoordinates();
 	}
 	
 	
+	private void normalizeCoordinates() {
+		//get maximum
+		double max = 0;
+		for (Node node : nodes) {
+			double nodemax = Math.max(node.relativePosition.x, node.relativePosition.y);
+			if (nodemax > max) {
+				max = nodemax;
+			}
+		}
+		//get normalization factor
+		double norm = 1 / max;
+		
+		for (Node node : nodes) {
+			//write normalized
+			node.relativePosition.x *= norm;
+			node.relativePosition.y *= norm;
+		}
+		
+	}
+
+
 	/**
 	 * Generates one Node per Item plus one empty Node somewhere
 	 * Then connects them randomly, but all will be connected. No double Connections.

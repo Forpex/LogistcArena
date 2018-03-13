@@ -103,6 +103,17 @@ public class Session {
 		System.out.println("TotalScore of "+numgames+" games is " +totalScore);
 		
 	}
+
+	public void runGameOnMap(String mapname) {
+		Graph graph = new Graph(mapname);
+		Game g = new Game(this, graph);
+		g.start();
+		try {
+			g.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }
