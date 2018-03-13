@@ -81,6 +81,7 @@ public class Node implements Position {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public int distanceMessureRekursion(Position p, ArrayList<Position> alreadyvisited) {
 		if (this != p) {
@@ -95,10 +96,10 @@ public class Node implements Position {
 					Edge e = edges.get(i);
 					if (e.contains(p)) {
 						options[i] = e.getFirstStepEnteringFrom(this).distanceMessureRekursion(p,
-								alreadyvisited) + 1;
+								(ArrayList<Position>) alreadyvisited.clone()) + 1;
 					}else {
 						options[i] = e.getExitEnteringFrom(this).distanceMessureRekursion(p,
-								alreadyvisited) + e.size();
+								(ArrayList<Position>) alreadyvisited.clone()) + e.size();
 					}
 					min = Math.min(min, options[i]);
 				}

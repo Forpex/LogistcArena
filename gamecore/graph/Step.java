@@ -52,6 +52,7 @@ public class Step implements Position {
 		return mother.getprevious(this);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public int distanceMessureRekursion(Position destination, ArrayList<Position> alreadyvisited) {
 		if (this != destination) {
@@ -60,8 +61,8 @@ public class Step implements Position {
 			} else {
 				alreadyvisited.add(this);
 				int[] options = new int[2];
-				options[0] = this.previous().distanceMessureRekursion(destination, alreadyvisited) + 1;
-				options[1] = this.next().distanceMessureRekursion(destination, alreadyvisited) + 1;
+				options[0] = this.previous().distanceMessureRekursion(destination, (ArrayList<Position>) alreadyvisited.clone()) + 1;
+				options[1] = this.next().distanceMessureRekursion(destination, (ArrayList<Position>) alreadyvisited.clone()) + 1;
 
 				int min = Position.ALREADY_VISITED;
 				for (int i = 0; i < options.length; i++) {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import controls.Player;
 import gamecore.Game;
 import gamecore.Settings;
+import gamecore.Time;
 import gamecore.graph.Position;
 
 /**
@@ -21,6 +22,9 @@ public class Avatar{
 	//properties
 	private int health = Settings.START_HEALTH;
 	private int armor = Settings.START_ARMOR;
+	
+	public Time respawntimer = null;
+	
 	/**
 	 * @return the armor
 	 */
@@ -41,7 +45,7 @@ public class Avatar{
 	private int possibleKiller;
 	
 	public Boolean isAlive() {
-		return health >= 0;
+		return health > 0;
 	}
 
 	/**
@@ -71,6 +75,7 @@ public class Avatar{
 			setHealth(getHealth() + armor); //carry over damage from armor to heath if armor is not sufficient.
 			armor = 0;
 		}
+		setHealth(Math.max(getHealth(), 0));
 		possibleKiller = sourceID;
 	}
 

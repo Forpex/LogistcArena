@@ -12,11 +12,13 @@ public class Settings {
 	public static final int START_ARMOR = 0;
 	public static final int ARMOR_BLEED_ABOVE = 100;
 	public static final int HEALTH_BLEED_ABOVE = 100;
+	
+	public static final int FRAG_RESPAWN_TIME = 10;
 
 	//ITEMS
 	public static int TOTAL_NUMBER_OF_ITEM_TYPES = 6;						//Item.values().length;
 
-	public static final int WEAPON_RESPAWN_TIMER = 10;
+	public static final int WEAPON_RESPAWN_TIMER = 25;
 	
 	//WEAPONS
 	public static final int MAX_AMMO = 10;
@@ -30,7 +32,7 @@ public class Settings {
 	public static final int SHOTGUN_DPS = 80;
 	public static final int SHOTGUN_RANGE = 2;
 
-	public static final int AMMO_AMOUNT = 5;
+	public static final int AMMO_AMOUNT = 10;
 
 	
 	//Intel and Sight
@@ -39,6 +41,8 @@ public class Settings {
 	//Graph Generation
 	public static final int EDGE_SIMPLE_STANDART_LENGTH = 8;
 	public static final int MINIMAL_SPAWN_DISTANCE = 4;
+
+	
 
 
 	

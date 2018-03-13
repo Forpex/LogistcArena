@@ -63,6 +63,11 @@ public class Time {
 		seconds--;
 	}
 
+	public boolean isTimeUp() {
+		
+		return (seconds <= 0);
+	}
+
 	
 	
 

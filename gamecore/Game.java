@@ -98,17 +98,25 @@ public class Game extends Thread{
 				a.iterate(this);
 				//check for kills
 				if (!a.isAlive()) {
-					score.increment(a.getPossibleKiller());
-					if( Settings.isDebugOutputEnabled) {
-						System.out.print("Avatar of Player #" + a.getClient().getID());
-						if (a.getPossibleKiller() >= 0) {
-							System.out.println(" gotKilled by Avatar of Player #" + a.getPossibleKiller());
-						} else {
-							System.out.println(" just died!");
+					//initial
+					if (a.respawntimer == null) {
+						a.respawntimer = new Time(Settings.FRAG_RESPAWN_TIME);
+						score.increment(a.getPossibleKiller());
+						if( Settings.isDebugOutputEnabled) {
+							System.out.print("Avatar of Player #" + a.getClient().getID());
+							if (a.getPossibleKiller() >= 0) {
+								System.out.println(" gotKilled by Avatar of Player #" + a.getPossibleKiller());
+							} else {
+								System.out.println(" just died!");
+							}
 						}
 					}
-					//respawn
-					respawn(a);
+					//iteration
+					a.respawntimer.decrement();
+					if (a.respawntimer.isTimeUp()) {
+						respawn(a);
+						a.respawntimer = null;
+					}
 				}
 			}
 			for (Item i : graph.getItems()) {
@@ -153,7 +161,6 @@ public class Game extends Thread{
 		ArrayList<Avatar> r = new ArrayList<Avatar>(0);
 		for (Avatar a : avatars) {
 			if (a != self 
-					&& a.isAlive()
 					&& a.getPosition().distance(self.getPosition()) <= Settings.INTEL_DISTANCE) {
 				r.add(a);
 			}

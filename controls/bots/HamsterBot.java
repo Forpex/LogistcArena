@@ -43,9 +43,9 @@ public class HamsterBot extends Bot {
 					}
 				}
 			}
-			if (min >= TOO_MUCH_WAITING){
+			/*if (min >= TOO_MUCH_WAITING){
 				setDestination(intel.graph.getASpawnPoint(Graph.extractAvatarPositions(intel.visibleEnemyAvatars), RUNAWAY_DISTANCE));
-			} 
+			} */
 		} 
 	}
 

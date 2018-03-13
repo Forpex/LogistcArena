@@ -59,7 +59,7 @@ public class ConsolePlayer extends Player {
 			}
 		} while (intel == null);
 		boolean exit = false;
-		do {
+		while(!(exit || intel.isGameOver)) {
 			//draw graph in ascii art
 			//draw(); no, because.
 			
@@ -79,7 +79,7 @@ public class ConsolePlayer extends Player {
 		setDestination(nodes.get(choice));
 		
 			// repeat
-		}while(!exit && !intel.isGameOver);
+		}
 		
 	}
 
@@ -96,9 +96,11 @@ public class ConsolePlayer extends Player {
 	public void draw() {
 		String[][] grid = generateGrid(intel.graph);
 		applyToGrid(intel.graph, grid);
-		applyToGrid(intel.self, grid, "You");
+		applyToGrid(intel.self, grid, 
+				(!intel.self.isAlive())?"xyx":"You");
 		for (Avatar a : intel.visibleEnemyAvatars) {
-			applyToGrid(a,grid, "Bot");
+			applyToGrid(a,grid, 
+					(!a.isAlive())?"xxx":"Bot");
 		}
 		
 		String s = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
