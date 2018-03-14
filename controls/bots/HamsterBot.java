@@ -16,7 +16,6 @@ import gamecore.graph.items.Item;
  */
 public class HamsterBot extends Bot {
 
-	private static final int TOO_MUCH_WAITING = 3;
 	private static final int RUNAWAY_DISTANCE = 4;
 
 	/**

@@ -7,6 +7,10 @@ import java.awt.* ;
 import java.awt.event.ActionEvent ;
 import java.awt.event.ActionListener ;
 
+/**
+ * @author rasago
+ *
+ */
 class Gui implements ActionListener {
   JFrame frame ;
   JPanel [] panel ; //p0, p1, p2, p3, p4, p5, p6, p7, p8, p9 ;
